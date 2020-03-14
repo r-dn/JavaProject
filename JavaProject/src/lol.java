@@ -1,6 +1,3 @@
-// 14/3/20
-
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.*;
@@ -8,14 +5,9 @@ import java.awt.event.*;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class TestInterface extends JPanel implements ActionListener {
-	Wheel wheel;
-	Timer updateTimer = new Timer(200, this);
-	
-	public TestInterface() {
-		wheel = new Wheel(300, 300, 100, 6, 5, new Color(0, 0, 0));
-		updateTimer.start();
-	}
+public class lol extends JPanel implements ActionListener{
+	Wheel wheel = new Wheel(300, 300, 100, 2, 0, new Color(0, 0, 0));
+	Timer updateTimer = new Timer(20, this);
 	
 	public static void main(String[] args) {
 		JFrame f = new JFrame();
@@ -27,21 +19,20 @@ public class TestInterface extends JPanel implements ActionListener {
         JPanel hoofdpaneel = wp;
         f.add(hoofdpaneel);
         f.setVisible(true);
-        
 	}
 
 	@Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
+        g.drawLine(200, 0, 300, 400);
         wheel.draw(g);
     }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == updateTimer) {
-			wheel.update(200);
-			repaint();
+			wheel.update(20);
+			//repaint();
 		}
 		
 	}
