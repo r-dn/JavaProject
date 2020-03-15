@@ -63,7 +63,8 @@ public class Bike {
 		double steeringy = saddley + d3*Math.sin(phi);
 		
 		g2D.setColor(frameColor);
-		g2D.setStroke(new BasicStroke(8.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		int strokeWidth = (int) front.radius/30;
+		g2D.setStroke(new BasicStroke(4*strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		g2D.drawLine((int) back.x, (int) back.y, (int) pedalx, (int) pedaly);
 		g2D.drawLine((int) pedalx, (int) pedaly, (int) saddlex, (int) saddley);
 		g2D.drawLine((int) saddlex, (int) saddley, (int) back.x, (int) back.y);

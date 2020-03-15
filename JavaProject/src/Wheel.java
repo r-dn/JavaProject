@@ -42,10 +42,11 @@ public class Wheel {
 	
 	public void draw(Graphics g) {
 		Graphics2D g2D = (Graphics2D) g;
+		int strokeWidth = (int) radius/30;
 		
 		// spokes
 		double[][] spokePositions = spokePositions();
-		g2D.setStroke(new BasicStroke(2));
+		g2D.setStroke(new BasicStroke(strokeWidth));
 		g2D.setColor(spokeColor);
 		for (double[] coordinate : spokePositions) {
 			g.drawLine((int) Math.round(x), (int) Math.round(y), (int) Math.round(coordinate[0]), (int) Math.round(coordinate[1]));
@@ -53,7 +54,7 @@ public class Wheel {
 		
 		// tyre
 		g2D.setColor(tyreColor);
-		g2D.setStroke(new BasicStroke(10));
+		g2D.setStroke(new BasicStroke(5*strokeWidth));
 		g2D.drawOval((int) Math.round(x-radius), (int) Math.round(y-radius), (int) Math.round(2*radius), (int) Math.round(2*radius));
 	}
 	

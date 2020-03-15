@@ -2,7 +2,11 @@
 
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -11,7 +15,7 @@ import javax.swing.*;
 public class TestInterface extends JPanel implements ActionListener {
 	Wheel wheel1, wheel2;
 	Bike bike;
-	DefaultBike defbike = new DefaultBike(200, 200, 200, 0.05*Math.PI, 1);
+	DefaultBike defbike = new DefaultBike(200, 500, 400, 0.05*Math.PI, 1);
 	Timer updateTimer = new Timer(20, this);
 	
 	public TestInterface() {
@@ -24,8 +28,11 @@ public class TestInterface extends JPanel implements ActionListener {
 	}
 	
 	public static void main(String[] args) {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        System.out.println(screenSize);
+		
 		JFrame f = new JFrame();
-        f.setSize(750,750);
+        f.setSize(screenSize.width,screenSize.height);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setTitle("Wheel");
         f.setLocation(100, 100); //standaard in de hoek van het scherm
@@ -39,8 +46,14 @@ public class TestInterface extends JPanel implements ActionListener {
 	@Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        defbike.draw(g);
-        bike.draw(g);
+        
+        Graphics2D g2D = (Graphics2D) g;
+        
+        g2D.setRenderingHint(
+                RenderingHints.KEY_ANTIALIASING, 
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        defbike.draw(g2D);
+        //bike.draw(g);
         //bike.rotateAroundFront(1);
         //bike.draw(g);
     }
