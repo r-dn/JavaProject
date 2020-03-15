@@ -10,10 +10,10 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class TestInterface extends JPanel implements ActionListener {
 	Wheel wheel;
-	Timer updateTimer = new Timer(200, this);
+	Timer updateTimer = new Timer(20, this);
 	
 	public TestInterface() {
-		wheel = new Wheel(300, 300, 100, 6, 5, new Color(0, 0, 0));
+		wheel = new Wheel(300, 300, 100, 17, 1, new Color(0, 0, 0));
 		updateTimer.start();
 	}
 	
@@ -40,7 +40,7 @@ public class TestInterface extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == updateTimer) {
-			wheel.update(200);
+			wheel.update(20);
 			repaint();
 		}
 		

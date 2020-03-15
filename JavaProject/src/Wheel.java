@@ -27,6 +27,7 @@ public class Wheel {
 		this.x = x;
 		this.y = y;
 		this.radius = radius;
+		this.spokes = spokes;		// <---- hier zat het f probleeem
 		this.angularVelocity = angularVelocity;
 		this.color = color;
 		
@@ -37,9 +38,10 @@ public class Wheel {
 	public void draw(Graphics g) {
 		g.setColor(color);
 		g.drawOval((int) Math.round(x-radius), (int) Math.round(y-radius), (int) Math.round(2*radius), (int) Math.round(2*radius));
-		System.out.println(phase);
 		double[][] spokePositions = spokePositions();
+		System.out.println(spokePositions[0][0]);
 		for (double[] coordinate : spokePositions) {
+			System.out.println(coordinate);
 			int x2 = (int) Math.round(coordinate[0]);
 			int y2 = (int) Math.round(coordinate[1]);
 			g.drawLine((int) Math.round(x), (int) Math.round(y), x2, y2);
