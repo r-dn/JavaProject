@@ -50,13 +50,13 @@ public class Bike {
 		double d0 = size();
 		double phi = tilt();
 		
-		double d1 = (d0/2 + back.radius)/2;
+		double d1 = (1.25* back.radius);
 		double pedalx = back.x + d1*Math.cos(phi);
 		double pedaly = back.y + d1*Math.sin(phi);
 		
 		double d2 = d0/2;
-		double saddlex = pedalx + d2*Math.sin(phi-0.4);
-		double saddley = pedaly - d2*Math.cos(phi-0.4);
+		double saddlex = pedalx + d2*Math.sin(phi-0.3);
+		double saddley = pedaly - d2*Math.cos(phi-0.3);
 		
 		double d3 = (d0-d1);
 		double steeringx = saddlex + d3*Math.cos(phi);

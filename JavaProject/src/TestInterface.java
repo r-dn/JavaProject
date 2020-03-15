@@ -11,6 +11,7 @@ import javax.swing.*;
 public class TestInterface extends JPanel implements ActionListener {
 	Wheel wheel1, wheel2;
 	Bike bike;
+	DefaultBike defbike = new DefaultBike(200, 200, 200, 0.05*Math.PI, 1);
 	Timer updateTimer = new Timer(20, this);
 	
 	public TestInterface() {
@@ -38,7 +39,7 @@ public class TestInterface extends JPanel implements ActionListener {
 	@Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
+        defbike.draw(g);
         bike.draw(g);
         //bike.rotateAroundFront(1);
         //bike.draw(g);
@@ -47,8 +48,9 @@ public class TestInterface extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == updateTimer) {
-			//bike.rotateAroundFront(0.01);
+			//bike.rotateAroundBack(0.01);
 			bike.update(20);
+			defbike.update(20);
 			repaint();
 			
 		}
