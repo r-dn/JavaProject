@@ -28,8 +28,8 @@ public class Bike {
 		double rho = size();
 		double phi = tilt();
 		
-		back.x -= -rho*2*Math.sin(phi+angle/2)*Math.sin(angle/2);
-		back.y -= rho*2*Math.cos(phi+angle/2)*Math.sin(angle/2);
+		back.x -= -rho*2*Math.sin(phi-angle/2)*Math.sin(angle/2);
+		back.y -= rho*2*Math.cos(phi-angle/2)*Math.sin(angle/2);
 		
 	}
 	
@@ -37,8 +37,8 @@ public class Bike {
 		double rho = size();
 		double phi = tilt();
 		
-		front.x -= -rho*2*Math.sin(phi+angle/2)*Math.sin(angle/2);
-		front.y -= rho*2*Math.cos(phi+angle/2)*Math.sin(angle/2);
+		front.x -= -rho*2*Math.sin(phi-angle/2)*Math.sin(angle/2);
+		front.y -= rho*2*Math.cos(phi-angle/2)*Math.sin(angle/2);
 		
 	}
 	

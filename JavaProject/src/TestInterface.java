@@ -8,21 +8,21 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.*;
-
 import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class TestInterface extends JPanel implements ActionListener {
 	Wheel wheel1, wheel2;
 	Bike bike;
-	DefaultBike defbike = new DefaultBike(200, 500, 400, 0.05*Math.PI, 1);
+	Landscape landsc;
+	DefaultBike defbike = new DefaultBike(200, 500, 200, 0*Math.PI, 20);
 	Timer updateTimer = new Timer(20, this);
 	
 	public TestInterface() {
 		wheel1 = new Wheel(200, 500, 80, 12, 2, new Color(20, 150, 0));
 		wheel2 = new Wheel(450, 500, 80, 12, 2, new Color(240, 150, 0));
 		bike = new Bike(wheel2, wheel1, new Color(64, 64, 64));
-		
+		landsc = new Landscape(defbike, 1440);
 		
 		updateTimer.start();
 	}
@@ -52,7 +52,11 @@ public class TestInterface extends JPanel implements ActionListener {
         g2D.setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING, 
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        defbike.draw(g2D);
+                
+                
+        landsc.draw(g2D);
+        //LineSegment.random(0, 400, 300, 200).draw(g2D);
+        //defbike.draw(g2D);
         //bike.draw(g);
         //bike.rotateAroundFront(1);
         //bike.draw(g);
@@ -61,9 +65,10 @@ public class TestInterface extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == updateTimer) {
-			//bike.rotateAroundBack(0.01);
+			bike.rotateAroundBack(0.1);
 			bike.update(20);
-			defbike.update(20);
+			//defbike.update(20);
+			landsc.update(20);
 			repaint();
 			
 		}
