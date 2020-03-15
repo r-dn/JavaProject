@@ -9,11 +9,16 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class TestInterface extends JPanel implements ActionListener {
-	Wheel wheel;
+	Wheel wheel1, wheel2;
+	Bike bike;
 	Timer updateTimer = new Timer(20, this);
 	
 	public TestInterface() {
-		wheel = new Wheel(300, 300, 100, 17, 1, new Color(0, 0, 0));
+		wheel1 = new Wheel(200, 500, 80, 12, 2, new Color(20, 150, 0));
+		wheel2 = new Wheel(450, 500, 80, 12, 2, new Color(240, 150, 0));
+		bike = new Bike(wheel2, wheel1, new Color(64, 64, 64));
+		
+		
 		updateTimer.start();
 	}
 	
@@ -34,14 +39,18 @@ public class TestInterface extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        wheel.draw(g);
+        bike.draw(g);
+        //bike.rotateAroundFront(1);
+        //bike.draw(g);
     }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == updateTimer) {
-			wheel.update(20);
+			//bike.rotateAroundFront(0.01);
+			bike.update(20);
 			repaint();
+			
 		}
 		
 	}
