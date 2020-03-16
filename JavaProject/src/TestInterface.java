@@ -15,7 +15,7 @@ public class TestInterface extends JPanel implements ActionListener {
 	Wheel wheel1, wheel2;
 	Bike bike;
 	Landscape landsc;
-	DefaultBike defbike = new DefaultBike(200, 500, 200, 0*Math.PI, 20);
+	DefaultBike defbike = new DefaultBike(200, 400, 200, 0*Math.PI, 2);
 	Timer updateTimer = new Timer(20, this);
 	
 	public TestInterface() {

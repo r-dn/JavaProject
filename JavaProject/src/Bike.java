@@ -6,15 +6,27 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+/* De fiets
+ * 
+ * Dit object bestaat gewoon uit twee wielen en een framekleur
+ * De vorm en grootte van het frame wordt bepaald door de grootte van en de afstand tussen de wielen
+ */
 public class Bike {
-	public Wheel front, back;
-	public Color frameColor;
+	public Wheel front, back; // het voor- en achterwiel
+	public Color frameColor; 
 	
-	public double size() {	// de grootte van de fiets (eig het frame) is de afstand tussen de wielen
+	// De grootte van de fiets (eig het frame) is de afstand tussen de wielen
+	public double size() {
 		return Math.sqrt((front.x - back.x)*(front.x - back.x) + (front.y - back.y)*(front.y - back.y));
 	}
 	
-	public double tilt() { // in rad, tilt > 0 als het voorwiel hoger staat dan het achterwiel
+	/* tilt() geeft aan hoe schuin de fiets staat
+	 * Het is de hoek tussen de horizontale en de as van het voor- naar het achterwiel
+	 * in rad, tilt > 0 als het voorwiel hoger staat dan het achterwiel
+	 * (er wordt van uitgegaan dat het voorwiel rechts van het achterwiel staat)
+	 */
+	public double tilt() {
+		// We gebruiken de functie atan2 omdat atan (boogtangens) niet deftig werkt
 		return Math.atan2((front.y-back.y),(front.x-back.x));
 	}
 	
@@ -24,43 +36,51 @@ public class Bike {
 		this.frameColor = color;
 	}
 	
+	
 	public void rotateAroundFront(double angle) {
 		double rho = size();
-		double phi = tilt();
+		double tilt = tilt();
 		
-		back.x -= -rho*2*Math.sin(phi-angle/2)*Math.sin(angle/2);
-		back.y -= rho*2*Math.cos(phi-angle/2)*Math.sin(angle/2);
+		/* Het voorwiel blijft staan, dus het achterwiel moet draaien
+		 * zie formules van simpson
+		 */
+		back.x -= -rho*2*Math.sin(tilt-angle/2)*Math.sin(angle/2);
+		back.y -= rho*2*Math.cos(tilt-angle/2)*Math.sin(angle/2);
 		
 	}
 	
 	public void rotateAroundBack(double angle) {
 		double rho = size();
-		double phi = tilt();
+		double tilt = tilt();
 		
-		front.x -= -rho*2*Math.sin(phi-angle/2)*Math.sin(angle/2);
-		front.y -= rho*2*Math.cos(phi-angle/2)*Math.sin(angle/2);
+		// idem
+		front.x -= -rho*2*Math.sin(tilt-angle/2)*Math.sin(angle/2);
+		front.y -= rho*2*Math.cos(tilt-angle/2)*Math.sin(angle/2);
 		
 	}
 	
 	public void draw(Graphics g) {
 		Graphics2D g2D = (Graphics2D) g;
+		
+		// wielen
 		front.draw(g);
 		back.draw(g);
 		
+		// frame
 		double d0 = size();
-		double phi = tilt();
+		double tilt = tilt();
 		
 		double d1 = (1.25* back.radius);
-		double pedalx = back.x + d1*Math.cos(phi);
-		double pedaly = back.y + d1*Math.sin(phi);
+		double pedalx = back.x + d1*Math.cos(tilt);
+		double pedaly = back.y + d1*Math.sin(tilt);
 		
 		double d2 = d0/2;
-		double saddlex = pedalx + d2*Math.sin(phi-0.3);
-		double saddley = pedaly - d2*Math.cos(phi-0.3);
+		double saddlex = pedalx + d2*Math.sin(tilt-0.3);
+		double saddley = pedaly - d2*Math.cos(tilt-0.3);
 		
 		double d3 = (d0-d1);
-		double steeringx = saddlex + d3*Math.cos(phi);
-		double steeringy = saddley + d3*Math.sin(phi);
+		double steeringx = saddlex + d3*Math.cos(tilt);
+		double steeringy = saddley + d3*Math.sin(tilt);
 		
 		g2D.setColor(frameColor);
 		int strokeWidth = (int) front.radius/30;
@@ -73,6 +93,7 @@ public class Bike {
 		g2D.drawLine((int) front.x, (int) front.y, (int) steeringx, (int) steeringy);
 	}
 	
+	// Om de fiets te updaten, moeten we gewoon beide wielen updaten
 	public void update(int period) {
 		front.update(period);
 		back.update(period);
