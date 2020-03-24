@@ -32,9 +32,29 @@ public class LineSegment {
 		
 	}
 	
+	public static LineSegment randomTilt(LineSegment previous, double length, double maxDeltaTilt, double maxTilt) {
+		Random rng = new Random();
+		double deltaTilt = rng.nextDouble()*maxDeltaTilt*2-maxDeltaTilt;
+		double totalTilt = previous.tilt() + deltaTilt;
+		
+		if (totalTilt >= maxTilt) {
+			totalTilt = previous.tilt() - deltaTilt;
+		} else if (totalTilt <= -maxTilt) {
+			totalTilt = previous.tilt() - deltaTilt;
+		} 
+		
+		LineSegment ret = new LineSegment(previous.x2, previous.y2, previous.x2 + length, previous.y2 + length*Math.sin(totalTilt));
+		return ret;
+		
+	}
+	
 	// de helling van het segment
 	public double slope() {
 		return (y2-y1)/(x2-x1);
+	}
+	
+	public double tilt() {
+		return Math.atan2(y2-y1, x2-x1);
 	}
 	
 	// Om de hoogte op een zeker x-coordinaat te bepalen

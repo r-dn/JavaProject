@@ -15,7 +15,7 @@ public class TestInterface extends JPanel implements ActionListener {
 	Wheel wheel1, wheel2;
 	Bike bike;
 	Landscape landsc;
-	DefaultBike defbike = new DefaultBike(200, 400, 200, 0*Math.PI, 2);
+	DefaultBike defbike = new DefaultBike(200, 400, 200, 5);
 	Timer updateTimer = new Timer(20, this);
 	
 	public TestInterface() {
@@ -23,7 +23,7 @@ public class TestInterface extends JPanel implements ActionListener {
 		wheel2 = new Wheel(450, 500, 80, 12, 2, new Color(240, 150, 0));
 		bike = new Bike(wheel2, wheel1, new Color(64, 64, 64));
 		landsc = new Landscape(defbike, 1440);
-		
+		landsc.setSpeed(500);
 		updateTimer.start();
 	}
 	
@@ -49,10 +49,8 @@ public class TestInterface extends JPanel implements ActionListener {
         
         Graphics2D g2D = (Graphics2D) g;
         
-        g2D.setRenderingHint(
-                RenderingHints.KEY_ANTIALIASING, 
-                RenderingHints.VALUE_ANTIALIAS_ON);
-                
+        g2D.setRenderingHint( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        System.out.println(landsc.speed);
                 
         landsc.draw(g2D);
         //LineSegment.random(0, 400, 300, 200).draw(g2D);

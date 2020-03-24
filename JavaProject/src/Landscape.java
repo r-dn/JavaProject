@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyListener;
 
 // 15/3/20
 
@@ -7,8 +8,12 @@ import java.awt.Graphics2D;
  * Op dit moment bestaat het landschap uit niet maar dan en fiets en de weg (enkele random lijnsegmenten aan elkaar)
  */
 public class Landscape {
-	private static final int LOAD = 6;						// hoeveel lijnsegmenten er geladen moeten worden
-	private static final int LIMIT = 200;					// hoeveel elk lijnsegment max mag stijgen of dalen
+	private static final int LOAD = 25;						// hoeveel lijnsegmenten er geladen moeten worden
+	private static final double LIMIT = 0.05;					// hoeveel elk lijnsegment max mag stijgen of dalen
+	private static final double maxTilt = Math.PI/4;
+	private static final int increment = 200;
+	private static final int maxSpeed = 1600;
+	
 	public LineSegment[] lines = new LineSegment[LOAD];		// de lijnsegmenten
 	public Bike bike;										// de fiets
 	public int current, current2; 							// pointers, geven aan welk(e) lijnsegment(en) van 'lines' momenteel onder de fiets zijn
@@ -19,24 +24,31 @@ public class Landscape {
 		this.bike = bike;
 		
 		// Dit lijkt me een goede lengte
-		length = frameWidth/4;
+		length = frameWidth/20;
 		
 		// De lijnsegmenten genereren
 		// Het eerste segment is horizontaal
 		lines[0] = new LineSegment(0, bike.back.y+bike.back.radius, length, bike.back.y+bike.back.radius);
 		for (int i = 1; i < LOAD; i++) {
-			lines[i] = LineSegment.random(lines[i-1].x2, lines[i-1].y2, length, LIMIT);
+			lines[i] = LineSegment.randomTilt(lines[i-1], length, LIMIT, maxTilt);
 		}
 		
-		// In het begin is sowieso het eerste segment onder de fiets
-		current = 0;
-		current2 = 0;
+		// In het begin is sowieso het eerste segment onder de fiets <--- niet waar
+		current = (int) Math.round(bike.back.x/length);
+		current2 = current;
 		
 		// De snelheid van het landschap kan gehaald worden uit rotatiesnelheid van de wielen
 		speed = bike.back.angularVelocity*bike.back.radius*Math.PI;
 	}
 	
+	public void setSpeed(double speed) {
+		bike.back.angularVelocity = speed/bike.back.radius/Math.PI;
+		bike.front.angularVelocity = speed/bike.front.radius/Math.PI;
+		this.speed = speed;
+	}
+	
 	public void update(int period) {
+	//	speed = bike.back.angularVelocity*bike.back.radius*Math.PI;
 		
 		// deltax en deltay geven aan met welke hoeveelheid we de lijnsegmenten moeten verplaatsen
 		// deltax is afhankelijk van de snelheid (speed)
@@ -62,10 +74,9 @@ public class Landscape {
 		}
 		
 		// Als een lijnsegment zich niet meer op het scherm bevindt, kunnen we het verwijderen en een nieuw segment voorbereiden
-		if (lines[Math.floorMod(current-1,LOAD)].x2 < -5) {
-			double newx1 = lines[Math.floorMod(current-2,LOAD)].x2;
-			double newy1 = lines[Math.floorMod(current-2,LOAD)].y2;
-			lines[Math.floorMod(current-1,LOAD)] = LineSegment.random(newx1, newy1, length, LIMIT);
+		
+		if (lines[Math.floorMod(current-5,LOAD)].x2 < 0) {
+			lines[Math.floorMod(current-5,LOAD)] = LineSegment.randomTilt(lines[Math.floorMod(current-6,LOAD)], length, LIMIT, maxTilt);
 		}
 		
 		// fiets updaten
@@ -74,6 +85,18 @@ public class Landscape {
 		double angle = Math.asin(((newbikefronty - bike.front.y-bike.front.radius)/bike.size()));
 		bike.rotateAroundBack(-angle);
 		bike.update(period);
+	}
+	
+	public void increaseSpeed() {
+		if (speed <= maxSpeed-increment) {
+			setSpeed(speed + increment);
+		}
+	}
+	
+	public void decreaseSpeed() {
+		if (speed >= increment) {
+			setSpeed(speed - increment);
+		}
 	}
 	
 	public void draw(Graphics2D g2D) {
