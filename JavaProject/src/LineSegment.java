@@ -70,5 +70,11 @@ public class LineSegment {
 		g2D.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2));
 	}
 	
+	public void drawWithBackground(Graphics2D g2D) {
+		
+		
+		draw(g2D);
+	}
+	
 	
 }
