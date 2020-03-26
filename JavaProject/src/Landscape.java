@@ -8,13 +8,13 @@ import java.awt.event.KeyListener;
  * Op dit moment bestaat het landschap uit niet maar dan en fiets en de weg (enkele random lijnsegmenten aan elkaar)
  */
 public class Landscape {
-	private static final int LOAD = 25;						// hoeveel lijnsegmenten er geladen moeten worden
-	private static final double LIMIT = 0.05;					// hoeveel elk lijnsegment max mag stijgen of dalen
+	private static final int load = 25;						// hoeveel lijnsegmenten er geladen moeten worden
+	private static final double limit = 0.05;					// hoeveel elk lijnsegment max mag stijgen of dalen
 	private static final double maxTilt = Math.PI/4;
 	private static final int increment = 200;
 	private static final int maxSpeed = 1600;
 	
-	public LineSegment[] lines = new LineSegment[LOAD];		// de lijnsegmenten
+	public LineSegment[] lines = new LineSegment[load];		// de lijnsegmenten
 	public Bike bike;										// de fiets
 	public int current, current2; 							// pointers, geven aan welk(e) lijnsegment(en) van 'lines' momenteel onder de fiets zijn
 	public int length; 										// de lengte van elk segment
@@ -29,8 +29,8 @@ public class Landscape {
 		// De lijnsegmenten genereren
 		// Het eerste segment is horizontaal
 		lines[0] = new LineSegment(0, bike.back.y+bike.back.radius, length, bike.back.y+bike.back.radius);
-		for (int i = 1; i < LOAD; i++) {
-			lines[i] = LineSegment.randomTilt(lines[i-1], length, LIMIT, maxTilt);
+		for (int i = 1; i < load; i++) {
+			lines[i] = LineSegment.randomTilt(lines[i-1], length, limit, maxTilt);
 		}
 		
 		// In het begin is sowieso het eerste segment onder de fiets <--- niet waar
@@ -66,17 +66,17 @@ public class Landscape {
 		// Als lines[current] zich niet meer onder het achterwiel bevindt, moeten we de pointer verplaatsen
 		// We gebruiken Math.floorMod() omdat de %-operator niet goed werkt met negatieve getallen
 		if (lines[current].x2 < bike.back.x) {
-			current = Math.floorMod(current + 1, LOAD);
+			current = Math.floorMod(current + 1, load);
 		}
 		// idem, maar met het voorwiel
 		if (lines[current].x2 < bike.front.x) {
-			current2 = Math.floorMod(current + 1,LOAD);
+			current2 = Math.floorMod(current + 1,load);
 		}
 		
 		// Als een lijnsegment zich niet meer op het scherm bevindt, kunnen we het verwijderen en een nieuw segment voorbereiden
 		
-		if (lines[Math.floorMod(current-5,LOAD)].x2 < 0) {
-			lines[Math.floorMod(current-5,LOAD)] = LineSegment.randomTilt(lines[Math.floorMod(current-6,LOAD)], length, LIMIT, maxTilt);
+		if (lines[Math.floorMod(current-5,load)].x2 < 0) {
+			lines[Math.floorMod(current-5,load)] = LineSegment.randomTilt(lines[Math.floorMod(current-6,load)], length, limit, maxTilt);
 		}
 		
 		// fiets updaten
@@ -106,5 +106,7 @@ public class Landscape {
 		
 		bike.draw(g2D);
 	}
+	
+	
 	
 }

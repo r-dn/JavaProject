@@ -7,7 +7,8 @@ import java.awt.Color;
 public class DefaultBike extends Bike {
 	
 	public DefaultBike(double x, double y, double size, double tilt) {
-		super(new Wheel(x + size*Math.cos(tilt), y - size*Math.sin(tilt), size/3, 16, 0, new Color(80, 80, 80)), 
+		super(
+				new Wheel(x + size*Math.cos(tilt), y - size*Math.sin(tilt), size/3, 16, 0, new Color(80, 80, 80)), 
 				new Wheel(x, y, size/3, 16, 0, new Color(80, 80, 80)), 
 				new Color(60,60,80));
 		
