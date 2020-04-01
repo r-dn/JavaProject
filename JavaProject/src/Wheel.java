@@ -87,7 +87,6 @@ public class Wheel {
 	 * 
 	 * period is het aantal milliseconden dat verstreken is
 	 */
-	
 	public void update(int period) {
 		double deltaphi = angularVelocity*period/1000; // de hoek waarmee we de spaken draaien
 		phase += deltaphi;

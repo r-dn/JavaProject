@@ -16,6 +16,10 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	public Landscape main;
 	public Timer updateTimer = new Timer(refresh, this);
 	
+	private int counter = 0;
+	private int total = 0;
+	private int fps = 0;
+	
 	public static final int refresh = 20;
 	public static final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public static final int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -40,6 +44,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
         JPanel hoofdpaneel = wp;
         f.add(hoofdpaneel);
         f.setVisible(true);
+       
 	}
 	
 	@Override
@@ -49,8 +54,24 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
         Graphics2D g2D = (Graphics2D) g;
         
         g2D.setRenderingHint( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
+
+        int begintijd = (int) System.currentTimeMillis();
         main.draw(g2D);
+        
+        g2D.drawString("Speed: "+main.speed, 10, 20);
+        int eindtijd = (int) System.currentTimeMillis();
+        
+        counter++;
+        total += eindtijd-begintijd;
+        if (counter == 9) {
+        	double invfps = (double) total/10;
+            fps = (int) Math.round(1000/invfps);
+            
+            counter = 0;
+            total =0;
+        }
+        
+        g2D.drawString("Theoretical fps: "+fps, 10, 40);
     }
 	
 	@Override

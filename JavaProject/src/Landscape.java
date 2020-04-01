@@ -9,10 +9,10 @@ import java.awt.event.KeyListener;
  */
 public class Landscape {
 	private static final int load = 25;						// hoeveel lijnsegmenten er geladen moeten worden
-	private static final double limit = 0.05;					// hoeveel elk lijnsegment max mag stijgen of dalen
+	private static final double limit = 0.1;					// hoeveel elk lijnsegment max mag stijgen of dalen
 	private static final double maxTilt = Math.PI/4;
 	private static final int increment = 200;
-	private static final int maxSpeed = 1600;
+	private static final int maxSpeed = 2000;
 	
 	public LineSegment[] lines = new LineSegment[load];		// de lijnsegmenten
 	public Bike bike;										// de fiets
@@ -20,6 +20,11 @@ public class Landscape {
 	public int length; 										// de lengte van elk segment
 	public double speed;									// de (horizontale) snelheid van de fiets, in pixels/s
 	
+	/**
+	 * Construct a Landscape instance
+	 * @param bike the bike that will ride through the screen
+	 * @param frameWidth the number of pixels that corresponds with the width of the screen
+	 */
 	public Landscape(Bike bike, int frameWidth) {
 		this.bike = bike;
 		
@@ -48,11 +53,13 @@ public class Landscape {
 	}
 	
 	public void update(int period) {
-	//	speed = bike.back.angularVelocity*bike.back.radius*Math.PI;
+		//	speed = bike.back.angularVelocity*bike.back.radius*Math.PI;
 		
 		// deltax en deltay geven aan met welke hoeveelheid we de lijnsegmenten moeten verplaatsen
 		// deltax is afhankelijk van de snelheid (speed)
-		double deltax = period*speed/1000;
+		double horizontalSpeed = speed*Math.cos(bike.tilt());
+		
+		double deltax = period*horizontalSpeed/1000;
 		// Met deltay corrigeren we de hoogte van de lijnsegmenten zodat het achterwiel steeds de weg raakt
 		double deltay = lines[current].heightAt(bike.back.x) - (bike.back.y + bike.back.radius);
 		

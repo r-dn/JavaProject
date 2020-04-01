@@ -73,7 +73,7 @@ public class LineSegment {
 		// De kleur en breedte van het lijnsegment kan natuurlijk aangepast worden	
 		// Achtergrond blauw kleuren + grond bruin kleuren
 		// TODO: De hoeken van de lucht & grond (wanneer je stilstaat) die zichtbaar zijn op de baan wegkrijgen
-		int SegmentWidth = (int) (x2 - x1);
+		int SegmentWidth = (int) (x2 - x1+1);
 		g2D.setColor(new Color(51,153,255));
 		g2D.fillRect((int) x1,(int) 0,(int) SegmentWidth,(int) y1);
 		
