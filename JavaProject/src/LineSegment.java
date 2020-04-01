@@ -36,9 +36,10 @@ public class LineSegment {
 
 	}
 
+	
 	public static LineSegment randomTilt(LineSegment previous, double length, double maxDeltaTilt, double maxTilt) {
 		Random rng = new Random();
-		double deltaTilt = rng.nextDouble() * maxDeltaTilt * 2 - maxDeltaTilt;
+		double deltaTilt = rng.nextGaussian() * maxDeltaTilt / 3;
 		double totalTilt = previous.tilt() + deltaTilt;
 
 		if (totalTilt >= maxTilt) {

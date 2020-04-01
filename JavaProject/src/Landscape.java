@@ -11,7 +11,7 @@ public class Landscape {
 	private static final int load = 25;						// hoeveel lijnsegmenten er geladen moeten worden
 	private static final double limit = 0.1;					// hoeveel elk lijnsegment max mag stijgen of dalen
 	private static final double maxTilt = Math.PI/4;
-	private static final int increment = 200;
+	private static final int increment = 100;
 	private static final int maxSpeed = 2000;
 	
 	public LineSegment[] lines = new LineSegment[load];		// de lijnsegmenten
@@ -52,6 +52,11 @@ public class Landscape {
 		this.speed = speed;
 	}
 	
+	// De hellingsgraad, in %
+	public double slope() {
+		return -Math.tan(bike.tilt())*100;
+	}
+	
 	public void update(int period) {
 		//	speed = bike.back.angularVelocity*bike.back.radius*Math.PI;
 		
@@ -90,7 +95,10 @@ public class Landscape {
 		// We roteren de fiets rond het voorwiel zodat het voorwiel de weg (lines[current2]) raakt
 		double newbikefronty = lines[current2].heightAt(bike.front.x);
 		double angle = Math.asin(((newbikefronty - bike.front.y-bike.front.radius)/bike.size()));
-		bike.rotateAroundBack(-angle);
+		
+		
+		// we delen de hoek door 4 zodat het miner schokkerig lijkt
+		bike.rotateAroundBack(-angle/4);
 		bike.update(period);
 	}
 	
@@ -114,6 +122,14 @@ public class Landscape {
 		bike.draw(g2D);
 	}
 	
+	public void drawText(Graphics2D g2D) {
+		String text = "Speed: " + speed + "\n" +
+				"Slope: " + Math.round(slope()) + " %\n" + 
+				""
+				;
+		
+        g2D.drawString(text, 10, 20);
+	}
 	
 	
 }

@@ -57,8 +57,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 
         int begintijd = (int) System.currentTimeMillis();
         main.draw(g2D);
-        
-        g2D.drawString("Speed: "+main.speed, 10, 20);
+        main.drawText(g2D);
         int eindtijd = (int) System.currentTimeMillis();
         
         counter++;
@@ -66,6 +65,8 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
         if (counter == 9) {
         	double invfps = (double) total/10;
             fps = (int) Math.round(1000/invfps);
+            
+           
             
             counter = 0;
             total =0;
