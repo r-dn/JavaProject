@@ -4,15 +4,13 @@ import java.awt.event.KeyListener;
 
 // 15/3/20
 
-/* Het landschap
- * Op dit moment bestaat het landschap uit niet maar dan en fiets en de weg (enkele random lijnsegmenten aan elkaar)
- */
+
 public class Landscape {
 	private static final int load = 25;						// hoeveel lijnsegmenten er geladen moeten worden
-	private static final double limit = 0.1;					// hoeveel elk lijnsegment max mag stijgen of dalen
-	private static final double maxTilt = Math.PI/4;
-	private static final int increment = 100;
-	private static final int maxSpeed = 2000;
+	private static final double limit = 0.1;				// hoeveel elk lijnsegment max mag stijgen of dalen
+	private static final double maxTilt = Math.PI/4;		// de maximale helling
+	private static final int increment = 100;				// hoeveel dat je versnelt
+	private static final int maxSpeed = 2000;				// de maximumsnelheid
 	
 	public LineSegment[] lines = new LineSegment[load];		// de lijnsegmenten
 	public Bike bike;										// de fiets
@@ -20,11 +18,7 @@ public class Landscape {
 	public int length; 										// de lengte van elk segment
 	public double speed;									// de (horizontale) snelheid van de fiets, in pixels/s
 	
-	/**
-	 * Construct a Landscape instance
-	 * @param bike the bike that will ride through the screen
-	 * @param frameWidth the number of pixels that corresponds with the width of the screen
-	 */
+
 	public Landscape(Bike bike, int frameWidth) {
 		this.bike = bike;
 		
@@ -38,7 +32,7 @@ public class Landscape {
 			lines[i] = LineSegment.randomTilt(lines[i-1], length, limit, maxTilt);
 		}
 		
-		// In het begin is sowieso het eerste segment onder de fiets <--- niet waar
+		// current is het segment onder het achterwiel
 		current = (int) Math.round(bike.back.x/length);
 		current2 = current;
 		
@@ -63,8 +57,8 @@ public class Landscape {
 		// deltax en deltay geven aan met welke hoeveelheid we de lijnsegmenten moeten verplaatsen
 		// deltax is afhankelijk van de snelheid (speed)
 		double horizontalSpeed = speed*Math.cos(bike.tilt());
-		
 		double deltax = period*horizontalSpeed/1000;
+		
 		// Met deltay corrigeren we de hoogte van de lijnsegmenten zodat het achterwiel steeds de weg raakt
 		double deltay = lines[current].heightAt(bike.back.x) - (bike.back.y + bike.back.radius);
 		
@@ -96,8 +90,7 @@ public class Landscape {
 		double newbikefronty = lines[current2].heightAt(bike.front.x);
 		double angle = Math.asin(((newbikefronty - bike.front.y-bike.front.radius)/bike.size()));
 		
-		
-		// we delen de hoek door 4 zodat het miner schokkerig lijkt
+		// We delen de hoek door 4 zodat het minder schokkerig lijkt
 		bike.rotateAroundBack(-angle/4);
 		bike.update(period);
 	}
@@ -116,7 +109,7 @@ public class Landscape {
 	
 	public void draw(Graphics2D g2D) {
 		for (LineSegment line : lines) {
-			line.draw(g2D);
+			line.drawWithBackground(g2D);
 		}
 		
 		bike.draw(g2D);

@@ -53,6 +53,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
         
         Graphics2D g2D = (Graphics2D) g;
         
+        // anti-aliasing
         g2D.setRenderingHint( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         int begintijd = (int) System.currentTimeMillis();
@@ -60,16 +61,15 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
         main.drawText(g2D);
         int eindtijd = (int) System.currentTimeMillis();
         
+        // de fps om de 10 frames tekenen
         counter++;
         total += eindtijd-begintijd;
         if (counter == 9) {
         	double invfps = (double) total/10;
             fps = (int) Math.round(1000/invfps);
             
-           
-            
             counter = 0;
-            total =0;
+            total = 0;
         }
         
         g2D.drawString("Theoretical fps: "+fps, 10, 40);

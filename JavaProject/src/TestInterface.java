@@ -51,7 +51,6 @@ public class TestInterface extends JPanel implements ActionListener {
         
         g2D.setRenderingHint( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         System.out.println(landsc.speed);
-        
         landsc.draw(g2D);
         //LineSegment.random(0, 400, 300, 200).draw(g2D);
         //defbike.draw(g2D);

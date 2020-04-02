@@ -6,11 +6,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-/* De fiets
- * 
- * Dit object bestaat gewoon uit twee wielen en een framekleur
- * De vorm en grootte van het frame wordt bepaald door de grootte van en de afstand tussen de wielen
- */
 public class Bike {
 	public Wheel front, back; // het voor- en achterwiel
 	public Color frameColor; 
@@ -20,11 +15,7 @@ public class Bike {
 		return Math.sqrt((front.x - back.x)*(front.x - back.x) + (front.y - back.y)*(front.y - back.y));
 	}
 	
-	/* tilt() geeft aan hoe schuin de fiets staat
-	 * Het is de hoek tussen de horizontale en de as van het voor- naar het achterwiel
-	 * in rad, tilt > 0 als het voorwiel hoger staat dan het achterwiel
-	 * (er wordt van uitgegaan dat het voorwiel rechts van het achterwiel staat)
-	 */
+	// tilt() geeft aan hoe schuin de fiets staat
 	public double tilt() {
 		// We gebruiken de functie atan2 omdat atan (boogtangens) niet deftig werkt
 		return Math.atan2((front.y-back.y),(front.x-back.x));
@@ -41,9 +32,8 @@ public class Bike {
 		double rho = size();
 		double tilt = tilt();
 		
-		/* Het voorwiel blijft staan, dus het achterwiel moet draaien
-		 * zie formules van simpson
-		 */
+		// Het voorwiel blijft staan, dus het achterwiel moet draaien
+		// zie formules van simpson
 		back.x -= -rho*2*Math.sin(tilt-angle/2)*Math.sin(angle/2);
 		back.y -= rho*2*Math.cos(tilt-angle/2)*Math.sin(angle/2);
 		
@@ -93,7 +83,6 @@ public class Bike {
 		g2D.drawLine((int) front.x, (int) front.y, (int) steeringx, (int) steeringy);
 	}
 	
-	// Om de fiets te updaten, moeten we gewoon beide wielen updaten
 	public void update(int period) {
 		front.update(period);
 		back.update(period);

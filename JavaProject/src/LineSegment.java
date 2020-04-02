@@ -24,10 +24,7 @@ public class LineSegment {
 
 	// Dit is een andere constructor, die een willekeurig lijnsegment aanmaakt met
 	// vast beginpunt en vaste lengte
-	// Jammer genoeg kan je in Java geen constructors met hetzelfde type parameters
-	// hebben
-	// Dit is dus een static functie, maar eigenlijk moet het gezien worden als een
-	// constructor
+
 	public static LineSegment random(double x1, double y1, double length, double limit) {
 		Random rng = new Random();
 		// limit geeft aan hoever het lijnstuk mag varieren in hoogte
@@ -36,7 +33,7 @@ public class LineSegment {
 
 	}
 
-	
+	// Lijnsegment met een willk hoek met het vorige segment
 	public static LineSegment randomTilt(LineSegment previous, double length, double maxDeltaTilt, double maxTilt) {
 		Random rng = new Random();
 		double deltaTilt = rng.nextGaussian() * maxDeltaTilt / 3;
@@ -64,13 +61,17 @@ public class LineSegment {
 	}
 
 	// Om de hoogte op een zeker x-coordinaat te bepalen
-	// Er wordt van uitgegaan dat x tussen x1 en x2 ligt, maar de methode werkt ook
-	// als x erbuiten ligt
 	public double heightAt(double x) {
 		return slope() * (x - x1) + y1;
 	}
 
 	public void draw(Graphics2D g2D) {
+		g2D.setColor(Color.darkGray);    				// vroeger: new Color(100, 100, 100)
+		g2D.setStroke(new BasicStroke(100.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g2D.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2));
+	}
+	
+	public void drawWithBackground(Graphics2D g2D) {
 		// De kleur en breedte van het lijnsegment kan natuurlijk aangepast worden	
 		// Achtergrond blauw kleuren + grond bruin kleuren
 		// TODO: De hoeken van de lucht & grond (wanneer je stilstaat) die zichtbaar zijn op de baan wegkrijgen
@@ -87,5 +88,6 @@ public class LineSegment {
 		g2D.setStroke(new BasicStroke(100.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		g2D.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2));
 	}
+	
 
 }
