@@ -39,7 +39,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
         f.setSize(screenWidth,screenHeight);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setTitle("Game");
-        f.setLocation(100, 100); //standaard in de hoek van het scherm
+        f.setLocation(0, 0); //standaard in de hoek van het scherm
         GameInterface wp = new GameInterface(new DefaultBike(screenWidth/8, screenHeight/2, screenWidth/8, 0));
         JPanel hoofdpaneel = wp;
         f.add(hoofdpaneel);
@@ -54,18 +54,18 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
         Graphics2D g2D = (Graphics2D) g;
         
         // anti-aliasing
-        g2D.setRenderingHint( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+       // g2D.setRenderingHint( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         int begintijd = (int) System.currentTimeMillis();
         main.draw(g2D);
         main.drawText(g2D);
         int eindtijd = (int) System.currentTimeMillis();
         
-        // de fps om de 10 frames tekenen
+        // de fps om de 50 frames tekenen
         counter++;
         total += eindtijd-begintijd;
-        if (counter == 9) {
-        	double invfps = (double) total/10;
+        if (counter == 50) {
+        	double invfps = (double) total/50;
             fps = (int) Math.round(1000/invfps);
             
             counter = 0;

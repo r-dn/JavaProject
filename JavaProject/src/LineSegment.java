@@ -13,6 +13,10 @@ import java.util.Random;
 public class LineSegment {
 	public double x1, y1, x2, y2;
 	
+	private BasicStroke stroke = new BasicStroke(100.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+	private Color groundColor = new Color(102,51,0);
+	private Color skyColor = new Color(51,153,255);
+	
 	private int GroundLayer = Toolkit.getDefaultToolkit().getScreenSize().height;
 
 	public LineSegment(double x1, double y1, double x2, double y2) {
@@ -76,16 +80,16 @@ public class LineSegment {
 		// Achtergrond blauw kleuren + grond bruin kleuren
 		// TODO: De hoeken van de lucht & grond (wanneer je stilstaat) die zichtbaar zijn op de baan wegkrijgen
 		int SegmentWidth = (int) (x2 - x1+1);
-		g2D.setColor(new Color(51,153,255));
+		g2D.setColor(skyColor);
 		g2D.fillRect((int) x1,(int) 0,(int) SegmentWidth,(int) y1);
 		
 		// TODO: Andere manier vinden voor de grond in te kleuren + laten fluctueren (nu is er soms teveel ingekleurd = onnodig gebruik van geheugen)
-		g2D.setColor(new Color(102,51,0));
-		g2D.fillRect((int) x1,(int) y1,(int) SegmentWidth,(int) GroundLayer);
+		g2D.setColor(groundColor);
+		g2D.fillRect((int) x1,(int) y1,(int) SegmentWidth,(int) GroundLayer-(int) y1);
 		
 		
 		g2D.setColor(Color.GREEN);    				// vroeger: new Color(100, 100, 100)
-		g2D.setStroke(new BasicStroke(100.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g2D.setStroke(stroke);
 		g2D.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2));
 	}
 	
