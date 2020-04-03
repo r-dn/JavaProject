@@ -1,0 +1,29 @@
+
+
+Algemene doel van het project:
+Fietsspel programmeren: Hill Climb Racing-like inspiratie
+
+Korte termijn doelen: --> prioriteiten
+(-Misschien de fiets omzetten in een sprite, de "java-fiets" is moeilijk te gebruiken voor nieuwe features. Hangt af van feedback 03/04) -> dat gaat sws moeten, we hebben nu bijna niks van interface en het is al supertraag
+-Fiets doen springen
+-Wereld mooier maken (Misschien door sprites te gebruiken, denk aan Dries.)
+- Interface beter maken: snelheid, helling,...
+
+Lange termijnen doelen:
+-Een uitgebreide fysica, bv. zwaartekracht, kleine bounce na een val (afhangend van de type suspensie van de fiets: meer geld=> betere suspensies=> betere fiets => meer geld productie => meer dopamine productie in de speler)
+-Verschillende fietsmodellen, misschien beter sprites hiervoor gebruiken.
+-Een mannetje op de fiets, of een alternative scenario (bv. spookfiets ofzoiets zoals Rider)
+-Een simpel maar addictief economie-systeem:
+	*Geld krijgen door x*360° te doen, competities te winnen, etc
+	*Met geld betere fiets/voedsel/gym-pass om je fietser te trainen, etc
+-Dit impliceert dat we stats moeten maken voor elke fiets: Maximale snelheid, suspensie, remmen, efficientie, stevigheid, gewicht voor 360's, etc
+-Heuvels moeten steiler en hoger gaan, zodat we snelheid kunnen winnen en 360 doen. Dit is wel niet handig voor eventuele competities
+ => verschillende gamemodes? free ride voor 360° geld (steile heuvels) en dan met je betere fiets/fietser moeilijkere en moeilijkere competities winnen (actuele heuvelgeneratie systeem) tegen AI
+-Animaties voor de fietser
+-Background decoratie: bomen, vogels, gras, etc
+-Een uitgebreide energie-bar systeem: je moet blijven drukken op rightarrow, dit verbrand energie, afhangend van de steilheid van de heuvel. Energie consumptie lager als maximale snelheid bereikt is.
+-Geluid 
+- Wattage en vermoeidheid
+
+
+Dit zijn maar ideëen, iets op papier hebben is altijd overzichtelijker. Het is beter voor het welzijn van ons project om naar welgekende doelen te streven. Voel je vrij om doelen toe te voegen als je er hebt
