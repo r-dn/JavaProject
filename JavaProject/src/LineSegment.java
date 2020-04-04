@@ -12,12 +12,13 @@ import java.util.Random;
  */
 public class LineSegment {
 	public double x1, y1, x2, y2;
-	
+
 	private BasicStroke stroke = new BasicStroke(100.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-	private Color groundColor = new Color(102,51,0);
-	private Color skyColor = new Color(51,153,255);
-	
-	private int GroundLayer = Toolkit.getDefaultToolkit().getScreenSize().height;
+	private Color groundColor = new Color(102, 51, 0);
+	private Color skyColor = new Color(51, 153, 255);
+
+	private int ScreenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+	private int ScreenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 
 	public LineSegment(double x1, double y1, double x2, double y2) {
 		this.x1 = x1;
@@ -70,28 +71,51 @@ public class LineSegment {
 	}
 
 	public void draw(Graphics2D g2D) {
-		g2D.setColor(Color.darkGray);    				// vroeger: new Color(100, 100, 100)
+		g2D.setColor(Color.darkGray); // vroeger: new Color(100, 100, 100)
 		g2D.setStroke(new BasicStroke(100.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		g2D.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2));
 	}
-	
-	public void drawWithBackground(Graphics2D g2D) {
-		// De kleur en breedte van het lijnsegment kan natuurlijk aangepast worden	
-		// Achtergrond blauw kleuren + grond bruin kleuren
-		// TODO: De hoeken van de lucht & grond (wanneer je stilstaat) die zichtbaar zijn op de baan wegkrijgen
-		int SegmentWidth = (int) (x2 - x1+1);
-		g2D.setColor(skyColor);
-		g2D.fillRect((int) x1,(int) 0,(int) SegmentWidth,(int) y1);
-		
-		// TODO: Andere manier vinden voor de grond in te kleuren + laten fluctueren (nu is er soms teveel ingekleurd = onnodig gebruik van geheugen)
-		g2D.setColor(groundColor);
-		g2D.fillRect((int) x1,(int) y1,(int) SegmentWidth,(int) GroundLayer-(int) y1);
-		
-		
-		g2D.setColor(Color.GREEN);    				// vroeger: new Color(100, 100, 100)
-		g2D.setStroke(stroke);
-		g2D.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2));
-	}
-	
 
-}
+	public void drawWithBackground(Graphics2D g2D) {
+		// De kleur en breedte van het lijnsegment kan natuurlijk aangepast worden
+		// Achtergrond blauw kleuren + grond bruin kleuren
+		// TODO: De hoeken van de lucht & grond (wanneer je stilstaat) die zichtbaar
+		// zijn op de baan wegkrijgen
+		int SegmentWidth = (int) (x2 - x1 + 1);
+		g2D.setColor(skyColor);
+		g2D.fillRect((int) x1, (int) 0, (int) SegmentWidth, (int) y1);
+
+		// TODO: Andere manier vinden voor de grond in te kleuren + laten fluctueren (nu
+		// is er soms teveel ingekleurd = onnodig gebruik van geheugen)
+		g2D.setColor(groundColor);
+		g2D.fillRect((int) x1, (int) y1, (int) SegmentWidth, (int) ScreenHeight - (int) y1);
+
+		g2D.setColor(new Color(255, 255, 255)); // Linkerwolk
+		g2D.fillOval((int) 50, (int) 50, (int) ScreenWidth / 9, (int) ScreenHeight / 9); // Left oval
+		g2D.fillOval((int) 100, (int) 10, (int) ScreenWidth / 9, (int) ScreenHeight / 9); // Upper oval
+		g2D.fillOval((int) 100, (int) 100, (int) ScreenWidth / 9, (int) ScreenHeight / 9); // Down oval
+		g2D.fillOval((int) 200, (int) 50, (int) ScreenWidth / 9, (int) ScreenHeight / 9); // Right oval
+
+		g2D.setColor(Color.YELLOW); // Zon
+		g2D.fillOval((int) 800, (int) 20, (int) ScreenWidth / 8, (int) ScreenWidth / 8);
+
+		g2D.setColor(new Color(255, 255, 255)); // Middenste wolk
+		g2D.fillOval((int) 600, (int) 100, (int) ScreenWidth / 12, (int) ScreenHeight / 12);
+		g2D.fillOval((int) 650, (int) 60, (int) ScreenWidth / 12, (int) ScreenHeight / 12);
+		g2D.fillOval((int) 650, (int) 125, (int) ScreenWidth / 12, (int) ScreenHeight / 12);
+		g2D.fillOval((int) 750, (int) 100, (int) ScreenWidth / 12, (int) ScreenHeight / 12);
+
+		g2D.setColor(new Color(255, 255, 255));
+		g2D.fillOval((int) 1250, (int) 50, ScreenWidth / 10, ScreenHeight / 10);
+		g2D.fillOval((int) 1300, (int) 10, (int) ScreenWidth / 10, ScreenHeight / 10);
+		g2D.fillOval((int) 1300, (int) 75, ScreenWidth / 10, ScreenHeight / 10);
+		g2D.fillOval((int) 1350, (int) 50, (int) ScreenWidth / 10, ScreenHeight / 10);
+
+		g2D.setColor(new Color(51, 51, 51));
+
+		g2D.setColor(Color.GREEN); // vroeger: new Color(100, 100, 100)
+		g2D.setStroke(stroke);
+		g2D.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
+		}
+	}
+
