@@ -10,6 +10,11 @@ public class Bike {
 	public Wheel front, back; // het voor- en achterwiel
 	public Color frameColor; 
 	
+	
+	private int strokeWidth;
+	private BasicStroke frameStroke;
+	
+	
 	// De grootte van de fiets (eig het frame) is de afstand tussen de wielen
 	public double size() {
 		return Math.sqrt((front.x - back.x)*(front.x - back.x) + (front.y - back.y)*(front.y - back.y));
@@ -25,6 +30,9 @@ public class Bike {
 		this.front = front;
 		this.back = back;
 		this.frameColor = color;
+		
+		strokeWidth = (int) front.radius/30;
+		frameStroke = new BasicStroke(4*strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 	}
 	
 	
@@ -73,8 +81,7 @@ public class Bike {
 		double steeringy = saddley + d3*Math.sin(tilt);
 		
 		g2D.setColor(frameColor);
-		int strokeWidth = (int) front.radius/30;
-		g2D.setStroke(new BasicStroke(4*strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g2D.setStroke(frameStroke);
 		g2D.drawLine((int) back.x, (int) back.y, (int) pedalx, (int) pedaly);
 		g2D.drawLine((int) pedalx, (int) pedaly, (int) saddlex, (int) saddley);
 		g2D.drawLine((int) saddlex, (int) saddley, (int) back.x, (int) back.y);

@@ -14,6 +14,7 @@ import javax.swing.Timer;
 @SuppressWarnings("serial")
 public class GameInterface extends JPanel implements ActionListener, KeyListener {
 	public Landscape main;
+	public SpeedSlider speed;
 	public Timer updateTimer = new Timer(refresh, this);
 	
 	private int counter = 0;
@@ -26,6 +27,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	
 	public GameInterface(Bike bike) {
 		main = new Landscape(bike, screenWidth);
+		speed = new SpeedSlider(20, 20, screenWidth/6, screenHeight/15, main.maxSpeed, main.speed);
 		
 		updateTimer.start();
 		addKeyListener(this);
@@ -58,7 +60,9 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 
         int begintijd = (int) System.currentTimeMillis();
         main.draw(g2D);
-        main.drawText(g2D);
+        
+        speed.draw(g2D);
+        //main.drawText(g2D);
         int eindtijd = (int) System.currentTimeMillis();
         
         // de fps om de 50 frames tekenen
@@ -72,7 +76,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
             total = 0;
         }
         
-        g2D.drawString("Theoretical fps: "+fps, 10, 40);
+        g2D.drawString("Theoretical fps: "+fps, 10, 120);
     }
 	
 	@Override
@@ -102,7 +106,11 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == updateTimer) {
 			main.update(20);
+			
+			speed.setCurrentSpeed(main.speed);
+			
 			repaint();
+			
 		}
 	}
 

@@ -9,11 +9,11 @@ public class Landscape {
 	private static final int load = 25;						// hoeveel lijnsegmenten er geladen moeten worden
 	private static final double limit = 0.1;				// hoeveel elk lijnsegment max mag stijgen of dalen
 	private static final double maxTilt = Math.PI/4;		// de maximale helling
-	private static final int increment = 100;				// hoeveel dat je versnelt
-	private static final int maxSpeed = 2000;				// de maximumsnelheid
+	private static final int increment = 100;
+	public static final int maxSpeed = 2000;
 	
-	public LineSegment[] lines = new LineSegment[load];		// de lijnsegmenten
-	public Bike bike;										// de fiets
+	public LineSegment[] lines = new LineSegment[load];	
+	public Bike bike;
 	public int current, current2; 							// pointers, geven aan welk(e) lijnsegment(en) van 'lines' momenteel onder de fiets zijn
 	public int length; 										// de lengte van elk segment
 	public double speed;									// de (horizontale) snelheid van de fiets, in pixels/s

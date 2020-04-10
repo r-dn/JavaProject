@@ -22,7 +22,9 @@ public class Wheel {
 	private double theta;				// de hoek tussen twee spaken
 	private double phase;				// de hoek waarmee het wiel gedraaid is
 
-	
+	private int strokeWidth;
+	private BasicStroke spokeStroke;
+	private BasicStroke tyreStroke;
 	
 	
 	
@@ -38,6 +40,10 @@ public class Wheel {
 		
 		theta = 2*Math.PI/spokes;
 		phase = 0;
+		
+		strokeWidth = (int) radius/30;
+		spokeStroke = new BasicStroke(strokeWidth);
+		tyreStroke = new BasicStroke(5*strokeWidth);
 	}
 	
 	
@@ -53,13 +59,12 @@ public class Wheel {
 	
 	public void draw(Graphics g) {
 		Graphics2D g2D = (Graphics2D) g;
-		int strokeWidth = (int) radius/30;
 		
 		// We tekenen eerst de spaken, dan pas de de band zodat de band over de spaken getekend is (dat is veel mooier)
 		
 		// spokes
 		double[][] spokePositions = spokePositions();
-		g2D.setStroke(new BasicStroke(strokeWidth));
+		g2D.setStroke(spokeStroke);
 		g2D.setColor(spokeColor);
 		for (double[] coordinate : spokePositions) {
 			g.drawLine((int) Math.round(x), (int) Math.round(y), (int) Math.round(coordinate[0]), (int) Math.round(coordinate[1]));
@@ -67,7 +72,7 @@ public class Wheel {
 		
 		// tyre
 		g2D.setColor(tyreColor);
-		g2D.setStroke(new BasicStroke(5*strokeWidth));
+		g2D.setStroke(tyreStroke);
 		g2D.drawOval((int) Math.round(x-radius), (int) Math.round(y-radius), (int) Math.round(2*radius), (int) Math.round(2*radius));
 	}
 	
