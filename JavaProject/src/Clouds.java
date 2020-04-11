@@ -10,6 +10,9 @@ public class Clouds {
 
 	public static void draw(Graphics2D g2D) {
 
+		g2D.setColor(Color.YELLOW); // Sun
+		g2D.fillOval((int) 800, (int) 20, (int) ScreenWidth / 8, (int) ScreenWidth / 8);
+
 		g2D.setColor(cloudColor); // Left cloud
 		g2D.fillOval((int) 50, (int) 50, (int) ScreenWidth / 9, (int) ScreenHeight / 9); // Left oval
 		g2D.fillOval((int) 100, (int) 10, (int) ScreenWidth / 9, (int) ScreenHeight / 9); // Upper oval
@@ -27,9 +30,6 @@ public class Clouds {
 		g2D.fillOval((int) 1300, (int) 10, (int) ScreenWidth / 10, ScreenHeight / 10);
 		g2D.fillOval((int) 1300, (int) 75, ScreenWidth / 10, ScreenHeight / 10);
 		g2D.fillOval((int) 1350, (int) 50, (int) ScreenWidth / 10, ScreenHeight / 10);
-
-		g2D.setColor(Color.YELLOW); // Sun
-		g2D.fillOval((int) 800, (int) 20, (int) ScreenWidth / 8, (int) ScreenWidth / 8);
 
 	}
 
