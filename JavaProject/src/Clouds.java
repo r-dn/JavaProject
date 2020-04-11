@@ -4,11 +4,11 @@ import java.awt.Toolkit;
 
 public class Clouds {
 
-	private int ScreenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
-	private int ScreenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-	private Color cloudColor = new Color(255, 255, 255);
+	private static int ScreenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+	private static int ScreenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+	private static Color cloudColor = new Color(255, 255, 255);
 
-	public void draw(Graphics2D g2D) {
+	public static void draw(Graphics2D g2D) {
 
 		g2D.setColor(cloudColor); // Left cloud
 		g2D.fillOval((int) 50, (int) 50, (int) ScreenWidth / 9, (int) ScreenHeight / 9); // Left oval

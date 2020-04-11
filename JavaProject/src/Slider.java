@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 public class Slider {
 	public double x,y;
 	public double width, height;
-	public double current;
+	public double current;				// tussen 0 en 1
 	
 	private final BasicStroke stroke = new BasicStroke(5.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 	
