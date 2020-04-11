@@ -4,7 +4,7 @@ Algemene doel van het project:
 Fietsspel programmeren: Hill Climb Racing-like inspiratie
 
 Korte termijn doelen: --> prioriteiten
-(-Misschien de fiets omzetten in een sprite, de "java-fiets" is moeilijk te gebruiken voor nieuwe features. Hangt af van feedback 03/04) -> dat gaat sws moeten, we hebben nu bijna niks van interface en het is al supertraag
+(-Misschien de fiets omzetten in een sprite, de "java-fiets" is moeilijk te gebruiken voor nieuwe features. Hangt af van feedback 03/04)
 -Fiets doen springen
 -Wereld mooier maken (Misschien door sprites te gebruiken, denk aan Dries.)
 - Interface beter maken: snelheid, helling,...

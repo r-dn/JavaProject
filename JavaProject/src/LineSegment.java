@@ -13,9 +13,9 @@ import java.util.Random;
 public class LineSegment {
 	public double x1, y1, x2, y2;
 
-	private BasicStroke stroke = new BasicStroke(100.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-	private Color groundColor = new Color(102, 51, 0);
-	private Color skyColor = new Color(51, 153, 255);
+	private final BasicStroke stroke = new BasicStroke(100.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+	private final Color groundColor = new Color(102, 51, 0);
+	private final Color skyColor = new Color(51, 153, 255);
 
 	private int ScreenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 	private int ScreenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -90,7 +90,7 @@ public class LineSegment {
 		g2D.setColor(groundColor);
 		g2D.fillRect((int) x1, (int) y1, (int) SegmentWidth, (int) ScreenHeight - (int) y1);
 
-		g2D.setColor(new Color(255, 255, 255)); // Linkerwolk
+	/*	g2D.setColor(new Color(255, 255, 255)); // Linkerwolk
 		g2D.fillOval((int) 50, (int) 50, (int) ScreenWidth / 9, (int) ScreenHeight / 9); // Left oval
 		g2D.fillOval((int) 100, (int) 10, (int) ScreenWidth / 9, (int) ScreenHeight / 9); // Upper oval
 		g2D.fillOval((int) 100, (int) 100, (int) ScreenWidth / 9, (int) ScreenHeight / 9); // Down oval
@@ -110,12 +110,14 @@ public class LineSegment {
 		g2D.fillOval((int) 1300, (int) 10, (int) ScreenWidth / 10, ScreenHeight / 10);
 		g2D.fillOval((int) 1300, (int) 75, ScreenWidth / 10, ScreenHeight / 10);
 		g2D.fillOval((int) 1350, (int) 50, (int) ScreenWidth / 10, ScreenHeight / 10);
-
+*/
 		g2D.setColor(new Color(51, 51, 51));
 
 		g2D.setColor(Color.GREEN); // vroeger: new Color(100, 100, 100)
 		g2D.setStroke(stroke);
 		g2D.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
+
+		
 		}
 	}
 
