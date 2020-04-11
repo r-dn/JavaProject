@@ -1,6 +1,4 @@
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.event.KeyListener;
 
 // 15/3/20
 
