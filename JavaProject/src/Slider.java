@@ -19,8 +19,8 @@ public class Slider {
 		this.current = current;
 	}
 	
-	public void draw(Graphics2D g2D) {
-		g2D.setColor(Color.orange);
+	public void draw(Graphics2D g2D, Color color) {
+		g2D.setColor(color);
 		g2D.fillRect((int) Math.round(x), (int) Math.round(y), (int) Math.round(current*width), (int) Math.round(height));
 		
 		g2D.setColor(Color.BLACK);

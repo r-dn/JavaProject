@@ -27,7 +27,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	
 	public GameInterface(Bike bike) {
 		main = new Landscape(bike, screenWidth);
-		speed = new SpeedSlider(20, 20, screenWidth/6, screenHeight/15, main.maxSpeed, main.speed);
+		speed = new SpeedSlider(20, 20, screenWidth/6, screenHeight/20, main.maxSpeed);
 		
 		updateTimer.start();
 		addKeyListener(this);
