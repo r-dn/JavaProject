@@ -1,6 +1,5 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +26,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	
 	public GameInterface(Bike bike) {
 		main = new Landscape(bike, screenWidth);
-		speed = new SpeedSlider(20, 20, screenWidth/6, screenHeight/20, main.maxSpeed);
+		speed = new SpeedSlider(20, 750, screenWidth/6, screenHeight/20, Landscape.maxSpeed);
 		
 		updateTimer.start();
 		addKeyListener(this);
@@ -76,7 +75,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
             total = 0;
         }
         
-        g2D.drawString("Theoretical fps: "+fps, 10, 120);
+        g2D.drawString("FPS"+fps, 10, 1400);
     }
 	
 	@Override
