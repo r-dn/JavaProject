@@ -9,6 +9,7 @@ public class Landscape {
 	private static final double maxTilt = Math.PI/4;		// de maximale helling
 	private static final int increment = 100;
 	public static final int maxSpeed = 2000;
+	private static final int g = 1000; 						// valversnelling
 	
 	public LineSegment[] lines = new LineSegment[load];	
 	public Bike bike;
@@ -50,8 +51,14 @@ public class Landscape {
 	}
 	
 	public void update(int period) {
-		//	speed = bike.back.angularVelocity*bike.back.radius*Math.PI;
 		
+		// versnellen bergaf, vertragen bergop
+		setSpeed(speed + g*period/1000*Math.sin(bike.tilt()));
+		
+		// voorlopig is de max snelheid 2000
+		if (speed > maxSpeed) {
+			setSpeed(maxSpeed);
+		}
 		// deltax en deltay geven aan met welke hoeveelheid we de lijnsegmenten moeten verplaatsen
 		// deltax is afhankelijk van de snelheid (speed)
 		double horizontalSpeed = speed*Math.cos(bike.tilt());

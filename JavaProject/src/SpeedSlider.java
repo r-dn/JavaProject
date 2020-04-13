@@ -22,9 +22,9 @@ public class SpeedSlider extends Slider {
 		this.current = currentSpeed/maxSpeed;
 		
 		// color gradient
-		if (current <= 0.5) {
+		if (current <= 0.5 && current >= 0) {
 			color = new Color(2*(float) current, 1.0f, 0.0f);
-		} else {
+		} else if (current >= 0.5 && current <= 1) {
 			color = new Color(1.0f, (float) (1 - current)*2, 0.0f);
 		}
 		

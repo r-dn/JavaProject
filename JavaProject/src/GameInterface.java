@@ -62,7 +62,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
         main.draw(g2D);
         
         speed.draw(g2D);
-        //main.drawText(g2D);
+        main.drawText(g2D);
         int eindtijd = (int) System.currentTimeMillis();
         
         // de fps om de 50 frames tekenen
