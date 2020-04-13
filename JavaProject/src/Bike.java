@@ -68,7 +68,7 @@ public class Bike {
 		double d0 = size();
 		double tilt = tilt();
 		
-		double d1 = (1.25* back.radius);
+		double d1 = (1.25*back.radius);
 		double pedalx = back.x + d1*Math.cos(tilt);
 		double pedaly = back.y + d1*Math.sin(tilt);
 		

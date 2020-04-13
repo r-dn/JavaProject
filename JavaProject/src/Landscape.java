@@ -36,12 +36,12 @@ public class Landscape {
 		current2 = current;
 		
 		// De snelheid van het landschap kan gehaald worden uit rotatiesnelheid van de wielen
-		speed = bike.back.angularVelocity*bike.back.radius*Math.PI;
+		speed = bike.back.angularVelocity*bike.back.radius;
 	}
 	
 	public void setSpeed(double speed) {
-		bike.back.angularVelocity = speed/bike.back.radius/Math.PI;
-		bike.front.angularVelocity = speed/bike.front.radius/Math.PI;
+		bike.back.angularVelocity = speed/bike.back.radius;
+		bike.front.angularVelocity = speed/bike.front.radius;
 		this.speed = speed;
 	}
 	
