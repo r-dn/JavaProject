@@ -15,7 +15,11 @@ public class Landscape {
 	public Bike bike;
 	public int current, current2; 							// pointers, geven aan welk(e) lijnsegment(en) van 'lines' momenteel onder de fiets zijn
 	public int length; 										// de lengte van elk segment
-	public double speed;									// de (horizontale) snelheid van de fiets, in pixels/s
+	public double speed;									// de snelheid van de fiets, in pixels/s
+	
+	private double jumpHeight;								// hoe hoog de fiets momenteel boven de weg is
+	private double jumpSpeed;								// de verticale snelheid tijdens een jump
+	private boolean jumping;								// is de fiets momenteel in een jump?
 	
 
 	public Landscape(Bike bike, int frameWidth) {
@@ -37,6 +41,11 @@ public class Landscape {
 		
 		// De snelheid van het landschap kan gehaald worden uit rotatiesnelheid van de wielen
 		speed = bike.back.angularVelocity*bike.back.radius;
+		
+		// de jumphoogte is 0
+		jumpHeight = 0;
+		jumpSpeed = 0;
+		jumping = false;
 	}
 	
 	public void setSpeed(double speed) {
@@ -54,18 +63,27 @@ public class Landscape {
 		
 		// versnellen bergaf, vertragen bergop
 		setSpeed(speed + g*period/1000*Math.sin(bike.tilt()));
-		
 		// voorlopig is de max snelheid 2000
 		if (speed > maxSpeed) {
 			setSpeed(maxSpeed);
 		}
+		
 		// deltax en deltay geven aan met welke hoeveelheid we de lijnsegmenten moeten verplaatsen
 		// deltax is afhankelijk van de snelheid (speed)
 		double horizontalSpeed = speed*Math.cos(bike.tilt());
 		double deltax = period*horizontalSpeed/1000;
 		
 		// Met deltay corrigeren we de hoogte van de lijnsegmenten zodat het achterwiel steeds de weg raakt
-		double deltay = lines[current].heightAt(bike.back.x) - (bike.back.y + bike.back.radius);
+		double deltay = lines[current].heightAt(bike.back.x) - (bike.back.y + bike.back.radius) - jumpHeight;
+		
+		if (jumpHeight >= 0) {
+			jumpSpeed -= g*period/1000;
+			jumpHeight += jumpSpeed*period/1000;
+		}
+		if (jumpHeight <= 0) {
+			jumping = false;
+			jumpHeight = 0;
+		}
 		
 		for (LineSegment line : lines) {
 			line.x1 -= (deltax);
@@ -92,7 +110,7 @@ public class Landscape {
 		
 		// fiets updaten
 		// We roteren de fiets rond het voorwiel zodat het voorwiel de weg (lines[current2]) raakt
-		double newbikefronty = lines[current2].heightAt(bike.front.x);
+		double newbikefronty = lines[current2].heightAt(bike.front.x) - jumpHeight;
 		double angle = Math.asin(((newbikefronty - bike.front.y-bike.front.radius)/bike.size()));
 		
 		// We delen de hoek door 4 zodat het minder schokkerig lijkt
@@ -109,6 +127,13 @@ public class Landscape {
 	public void decreaseSpeed() {
 		if (speed >= increment) {
 			setSpeed(speed - increment);
+		}
+	}
+	
+	public void jump() {
+		if (!jumping ) {
+			jumping = true;
+			jumpSpeed = 700;
 		}
 	}
 	

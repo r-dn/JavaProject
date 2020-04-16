@@ -61,7 +61,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
         main.draw(g2D);
         
         speed.draw(g2D);
-        main.drawText(g2D);
+        //main.drawText(g2D);
         int eindtijd = (int) System.currentTimeMillis();
         
         // de fps om de 50 frames tekenen
@@ -75,7 +75,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
             total = 0;
         }
         
-        g2D.drawString("FPS"+fps, 10, 1400);
+        g2D.drawString("FPS: "+fps, screenWidth - 100, 50);
     }
 	
 	@Override
@@ -92,6 +92,8 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 			main.decreaseSpeed();
 		} else if (key == KeyEvent.VK_RIGHT) {
 			main.increaseSpeed();
+		} else if (key == KeyEvent.VK_SPACE) {
+			main.jump();
 		}
 	}
 
