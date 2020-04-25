@@ -72,7 +72,7 @@ public class LineSegment {
 
 	public void draw(Graphics2D g2D) {
 		g2D.setColor(Color.darkGray); // vroeger: new Color(100, 100, 100)
-		g2D.setStroke(new BasicStroke(100.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g2D.setStroke(stroke);
 		g2D.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2));
 	}
 

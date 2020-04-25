@@ -9,7 +9,7 @@ public class Landscape {
 	private static final double maxTilt = Math.PI/4;		// de maximale helling
 	private static final int increment = 100;
 	public static final int maxSpeed = 2000;
-	private static final int g = 1000; 						// valversnelling
+	private static final int g = 2000; 						// valversnelling
 	
 	public LineSegment[] lines = new LineSegment[load];	
 	public Bike bike;
@@ -62,12 +62,15 @@ public class Landscape {
 	public void update(int period) {
 		
 		// versnellen bergaf, vertragen bergop
-		setSpeed(speed + g*period/1000*Math.sin(bike.tilt()));
+		// niet als we aan het springen zijn
+		if (!jumping) {
+			setSpeed(speed + g*period/1000*Math.sin(bike.tilt()));
+		}
 		// voorlopig is de max snelheid 2000
 		if (speed > maxSpeed) {
 			setSpeed(maxSpeed);
 		}
-		
+	
 		// deltax en deltay geven aan met welke hoeveelheid we de lijnsegmenten moeten verplaatsen
 		// deltax is afhankelijk van de snelheid (speed)
 		double horizontalSpeed = speed*Math.cos(bike.tilt());
@@ -76,6 +79,7 @@ public class Landscape {
 		// Met deltay corrigeren we de hoogte van de lijnsegmenten zodat het achterwiel steeds de weg raakt
 		double deltay = lines[current].heightAt(bike.back.x) - (bike.back.y + bike.back.radius) - jumpHeight;
 		
+		// de hoogte in de lucht veranderen tijdens een sprong
 		if (jumpHeight >= 0) {
 			jumpSpeed -= g*period/1000;
 			jumpHeight += jumpSpeed*period/1000;
@@ -103,7 +107,6 @@ public class Landscape {
 		}
 		
 		// Als een lijnsegment zich niet meer op het scherm bevindt, kunnen we het verwijderen en een nieuw segment voorbereiden
-		
 		if (lines[Math.floorMod(current-5,load)].x2 < 0) {
 			lines[Math.floorMod(current-5,load)] = LineSegment.randomTilt(lines[Math.floorMod(current-6,load)], length, limit, maxTilt);
 		}
@@ -111,7 +114,7 @@ public class Landscape {
 		// fiets updaten
 		// We roteren de fiets rond het voorwiel zodat het voorwiel de weg (lines[current2]) raakt
 		double newbikefronty = lines[current2].heightAt(bike.front.x) - jumpHeight;
-		double angle = Math.asin(((newbikefronty - bike.front.y-bike.front.radius)/bike.size()));
+		double angle = Math.asin(((newbikefronty - bike.front.y-bike.front.radius)/bike.size())%1); // die %1 fixt een bug
 		
 		// We delen de hoek door 4 zodat het minder schokkerig lijkt
 		bike.rotateAroundBack(-angle/4);
@@ -131,7 +134,7 @@ public class Landscape {
 	}
 	
 	public void jump() {
-		if (!jumping ) {
+		if (!jumping) {
 			jumping = true;
 			jumpSpeed = 700;
 		}
