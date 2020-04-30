@@ -1,8 +1,4 @@
 import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.Action;
 
 // 15/3/20
 
@@ -70,9 +66,7 @@ public class Landscape {
 	
 	public void update(int period) {
 		
-		if (speed <= 0 ) {
-			gameOver();
-		}
+		
 		
 		// versnellen bergaf, vertragen bergop
 		// niet als we aan het springen zijn <- wel, want anders kun je cheaten
@@ -179,8 +173,6 @@ public class Landscape {
         g2D.drawString(text, 10, 20);
 	}
 	
-	public void gameOver() {
-		
-	}
+	
 	
 }

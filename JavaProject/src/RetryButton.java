@@ -2,10 +2,11 @@ import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class RetryButton extends JButton {
 
 	public RetryButton() {
-		// TODO Auto-generated constructor stub
+		setActionCommand("retry");
 	}
 
 	public RetryButton(Icon icon) {

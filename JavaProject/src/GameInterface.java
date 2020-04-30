@@ -16,6 +16,8 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	public EnergySlider energy;
 	public Timer updateTimer = new Timer(refresh, this);
 	
+	public Main frame;
+	
 	private int counter = 0;
 	private int total = 0;
 	private int fps = 0;
@@ -24,9 +26,11 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	public static final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public static final int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 	
-	public GameInterface(Bike bike) {
+	public GameInterface(Bike bike, Main frame) {
 		main = new Landscape(bike, screenWidth);
 		energy = new EnergySlider(20, 750, screenWidth/3, screenHeight/20, Landscape.startEnergy);
+		
+		this.frame = frame;
 		
 		updateTimer.start();
 		addKeyListener(this);
@@ -43,7 +47,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
         Graphics2D g2D = (Graphics2D) g;
         
         // anti-aliasing
-       // g2D.setRenderingHint( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+       //g2D.setRenderingHint( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         int begintijd = (int) System.currentTimeMillis();
         main.draw(g2D);
@@ -94,6 +98,10 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == updateTimer) {
+			if (main.speed < 0 ) {
+				gameOver();
+			}
+			
 			main.update(20);
 			
 			energy.setCurrentEnergy(main.energy);
@@ -101,6 +109,17 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 			repaint();
 			
 		}
+	}
+	
+	public void gameOver() {
+		
+		frame.endGame();
+	}
+	
+	public GameInterface restart() {
+		
+		GameInterface newGame = new GameInterface(new DefaultBike(screenWidth / 8, screenHeight / 2, screenWidth / 8, 0, 1000), frame);
+		return newGame;
 	}
 
 }
