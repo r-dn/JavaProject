@@ -1,4 +1,8 @@
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
+
+import javax.swing.Action;
 
 // 15/3/20
 
@@ -10,6 +14,7 @@ public class Landscape {
 	private static final int increment = 100;
 	public static final int maxSpeed = 2000;
 	private static final int g = 2000; 						// valversnelling
+	public static final int startEnergy = 5000;
 	
 	public LineSegment[] lines = new LineSegment[load];	
 	public Bike bike;
@@ -20,6 +25,8 @@ public class Landscape {
 	private double jumpHeight;								// hoe hoog de fiets momenteel boven de weg is
 	private double jumpSpeed;								// de verticale snelheid tijdens een jump
 	private boolean jumping;								// is de fiets momenteel in een jump?
+	
+	public double energy;
 	
 
 	public Landscape(Bike bike, int frameWidth) {
@@ -46,6 +53,8 @@ public class Landscape {
 		jumpHeight = 0;
 		jumpSpeed = 0;
 		jumping = false;
+		
+		energy = startEnergy;
 	}
 	
 	public void setSpeed(double speed) {
@@ -54,18 +63,22 @@ public class Landscape {
 		this.speed = speed;
 	}
 	
-	// De hellingsgraad, in %
+	// De hellingsgraad
 	public double slope() {
-		return -Math.tan(bike.tilt())*100;
+		return -Math.tan(bike.tilt());
 	}
 	
 	public void update(int period) {
 		
-		// versnellen bergaf, vertragen bergop
-		// niet als we aan het springen zijn
-		if (!jumping) {
-			setSpeed(speed + g*period/1000*Math.sin(bike.tilt()));
+		if (speed <= 0 ) {
+			gameOver();
 		}
+		
+		// versnellen bergaf, vertragen bergop
+		// niet als we aan het springen zijn <- wel, want anders kun je cheaten
+		//if (!jumping) {
+			setSpeed(0.999*speed + g*period/1000*Math.sin(bike.tilt()));
+		//}
 		// voorlopig is de max snelheid 2000
 		if (speed > maxSpeed) {
 			setSpeed(maxSpeed);
@@ -119,16 +132,24 @@ public class Landscape {
 		// We delen de hoek door 4 zodat het minder schokkerig lijkt
 		bike.rotateAroundBack(-angle/4);
 		bike.update(period);
+		
+		
+		// energie updaten
+		// hoeveel energie je verliest hangt af van de snelheid en hellingsgraad
+		energy -= speed*(1 + slope())/1000;
+		if (energy < 0) {
+			energy =0;
+		}
 	}
 	
 	public void increaseSpeed() {
-		if (speed <= maxSpeed-increment) {
+		if (speed <= maxSpeed-increment && energy > 0) {
 			setSpeed(speed + increment);
 		}
 	}
 	
 	public void decreaseSpeed() {
-		if (speed >= increment) {
+		if (speed >= increment && energy > 0) {
 			setSpeed(speed - increment);
 		}
 	}
@@ -158,5 +179,8 @@ public class Landscape {
         g2D.drawString(text, 10, 20);
 	}
 	
+	public void gameOver() {
+		
+	}
 	
 }

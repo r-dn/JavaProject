@@ -13,7 +13,7 @@ import javax.swing.Timer;
 @SuppressWarnings("serial")
 public class GameInterface extends JPanel implements ActionListener, KeyListener {
 	public Landscape main;
-	public SpeedSlider speed;
+	public EnergySlider energy;
 	public Timer updateTimer = new Timer(refresh, this);
 	
 	private int counter = 0;
@@ -26,7 +26,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	
 	public GameInterface(Bike bike) {
 		main = new Landscape(bike, screenWidth);
-		speed = new SpeedSlider(20, 750, screenWidth/6, screenHeight/20, Landscape.maxSpeed);
+		energy = new EnergySlider(20, 750, screenWidth/3, screenHeight/20, Landscape.startEnergy);
 		
 		updateTimer.start();
 		addKeyListener(this);
@@ -34,19 +34,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 		setFocusTraversalKeysEnabled(false);
 	}
 	
-	public static void main(String[] args) {
-		
-		JFrame f = new JFrame();
-        f.setSize(screenWidth,screenHeight);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setTitle("Game");
-        f.setLocation(0, 0); //standaard in de hoek van het scherm
-        GameInterface wp = new GameInterface(new DefaultBike(screenWidth/8, screenHeight/2, screenWidth/8, 0));
-        JPanel hoofdpaneel = wp;
-        f.add(hoofdpaneel);
-        f.setVisible(true);
-       
-	}
+	// nu is de main() in de klasse Main
 	
 	@Override
     public void paintComponent(Graphics g) {
@@ -60,7 +48,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
         int begintijd = (int) System.currentTimeMillis();
         main.draw(g2D);
         
-        speed.draw(g2D);
+        energy.draw(g2D);
         //main.drawText(g2D);
         int eindtijd = (int) System.currentTimeMillis();
         
@@ -108,7 +96,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 		if (e.getSource() == updateTimer) {
 			main.update(20);
 			
-			speed.setCurrentSpeed(main.speed);
+			energy.setCurrentEnergy(main.energy);
 			
 			repaint();
 			

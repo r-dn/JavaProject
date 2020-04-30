@@ -14,8 +14,9 @@ public class LineSegment {
 	public double x1, y1, x2, y2;
 
 	private final BasicStroke stroke = new BasicStroke(100.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-	private final Color groundColor = new Color(102, 51, 0);
+	private final Color groundColor = new Color(130, 70, 0);
 	private final Color skyColor = new Color(51, 153, 255);
+	private final Color roadColor = new Color(0, 255, 0);
 
 	private int ScreenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 	private int ScreenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -29,7 +30,6 @@ public class LineSegment {
 
 	// Dit is een andere constructor, die een willekeurig lijnsegment aanmaakt met
 	// vast beginpunt en vaste lengte
-
 	public static LineSegment random(double x1, double y1, double length, double limit) {
 		Random rng = new Random();
 		// limit geeft aan hoever het lijnstuk mag varieren in hoogte
@@ -111,9 +111,9 @@ public class LineSegment {
 		g2D.fillOval((int) 1300, (int) 75, ScreenWidth / 10, ScreenHeight / 10);
 		g2D.fillOval((int) 1350, (int) 50, (int) ScreenWidth / 10, ScreenHeight / 10);
 */
-		g2D.setColor(new Color(51, 51, 51));
+		//g2D.setColor(new Color(51, 51, 51));
 
-		g2D.setColor(Color.GREEN); // vroeger: new Color(100, 100, 100)
+		g2D.setColor(roadColor); // vroeger: new Color(100, 100, 100)
 		g2D.setStroke(stroke);
 		g2D.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 
