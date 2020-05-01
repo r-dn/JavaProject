@@ -4,42 +4,43 @@ import java.awt.LayoutManager;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class GameOverPanel extends JPanel implements ActionListener {
-	JButton retryButton;
-	JButton menuButton;
+public class MenuPanel extends JPanel implements ActionListener {
+	JButton playButton;
+	JButton buyButton;
 	
 	Main frame;
 	
-
 	public static final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public static final int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 	
-	public GameOverPanel(Main frame) {
+	public MenuPanel(Main frame) {
 		this.frame = frame;
 		
-		this.retryButton = new JButton("Retry");
-		retryButton.addActionListener(this);
+		this.playButton = new JButton("Play!");
+		playButton.addActionListener(this);
 		
-		this.menuButton = new JButton("Menu");
-		menuButton.addActionListener(this);
+		this.buyButton = new JButton("Buy...");
+		buyButton.addActionListener(this);
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setFont(new Font(Font.MONOSPACED,  Font.BOLD, 72));
-		g.drawString("Game Over!", screenWidth/2-200, screenHeight/4);
-	    retryButton.setBounds(screenWidth/2-80, screenHeight/2, 72, 32);  
-	    this.add(retryButton);  
-	    menuButton.setBounds(screenWidth/2+8, screenHeight/2, 72, 32);
-	    this.add(menuButton);
+		g.drawString("INSERT NAME HERE", 20, screenHeight/4);
+
+		g.setFont(new Font(Font.MONOSPACED,  Font.BOLD, 32));
+		g.drawString("You stop, you die...", 20, screenHeight/4+150);
+		
+	    playButton.setBounds(20, screenHeight/2, 72, 32);  
+	    this.add(playButton);  
+	    buyButton.setBounds(20, screenHeight/2+50, 72, 32);
+	    this.add(buyButton);
 	    
 	    this.setLayout(null);  
 	    this.setVisible(true);
@@ -48,15 +49,9 @@ public class GameOverPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getSource() == retryButton) {
+		if (e.getSource() == playButton) {
 			frame.startGame();
 		}
-		if (e.getSource() == menuButton) {
-			frame.menu();
-		}
 	}
-	
-	
-
 
 }

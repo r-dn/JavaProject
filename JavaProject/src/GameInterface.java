@@ -28,14 +28,11 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	
 	public GameInterface(Bike bike, Main frame) {
 		main = new Landscape(bike, screenWidth);
-		energy = new EnergySlider(20, 750, screenWidth/3, screenHeight/20, Landscape.startEnergy);
+		energy = new EnergySlider(20, 20, screenWidth/3, 40, Landscape.startEnergy);
 		
 		this.frame = frame;
 		
-		updateTimer.start();
-		addKeyListener(this);
-		super.setFocusable(true);
-		setFocusTraversalKeysEnabled(false);
+		
 	}
 	
 	// nu is de main() in de klasse Main
@@ -114,6 +111,14 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	public void gameOver() {
 		updateTimer.stop();
 		frame.endGame();
+	}
+	
+	public void start() {
+		updateTimer.start();
+		addKeyListener(this);
+		super.setFocusable(true);
+		setFocusTraversalKeysEnabled(false);
+		requestFocusInWindow();
 	}
 	
 	public GameInterface restart() {

@@ -35,7 +35,7 @@ public class Landscape {
 		// Het eerste segment is horizontaal
 		lines[0] = new LineSegment(0, bike.back.y+bike.back.radius, length, bike.back.y+bike.back.radius);
 		for (int i = 1; i < load; i++) {
-			lines[i] = LineSegment.randomTilt(lines[i-1], length, limit, maxTilt);
+			lines[i] = LineSegment.randomTilt(lines[i-1], length, 0, maxTilt);
 		}
 		
 		// current is het segment onder het achterwiel
@@ -71,7 +71,7 @@ public class Landscape {
 		// versnellen bergaf, vertragen bergop
 		// niet als we aan het springen zijn <- wel, want anders kun je cheaten
 		//if (!jumping) {
-			setSpeed(0.999*speed + g*period/1000*Math.sin(bike.tilt()));
+			setSpeed(speed + g*period/1000*Math.sin(bike.tilt()));
 		//}
 		// voorlopig is de max snelheid 2000
 		if (speed > maxSpeed) {
