@@ -35,10 +35,10 @@ public class GameOverPanel extends JPanel implements ActionListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setFont(new Font(Font.MONOSPACED,  Font.BOLD, 72));
-		g.drawString("Game Over!", screenWidth/2-200, screenHeight/4);
-	    retryButton.setBounds(screenWidth/2-80, screenHeight/2, 72, 32);  
+		g.drawString("Game Over!", 40, screenHeight/4);
+	    retryButton.setBounds(40, screenHeight/2, 72, 32);  
 	    this.add(retryButton);  
-	    menuButton.setBounds(screenWidth/2+8, screenHeight/2, 72, 32);
+	    menuButton.setBounds(40, screenHeight/2+50, 72, 32);
 	    this.add(menuButton);
 	    
 	    this.setLayout(null);  

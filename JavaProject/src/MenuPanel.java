@@ -32,17 +32,16 @@ public class MenuPanel extends JPanel implements ActionListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setFont(new Font(Font.MONOSPACED,  Font.BOLD, 72));
-		g.drawString("INSERT NAME HERE", 20, screenHeight/4);
+		g.drawString("INSERT NAME HERE", 40, screenHeight/4);
 
 		g.setFont(new Font(Font.MONOSPACED,  Font.BOLD, 32));
-		g.drawString("You stop, you die...", 20, screenHeight/4+150);
+		g.drawString("You stop, you die...", 40, screenHeight/4+150);
 		
-	    playButton.setBounds(20, screenHeight/2, 72, 32);  
+	    playButton.setBounds(40, screenHeight/2, 72, 32);  
 	    this.add(playButton);  
-	    buyButton.setBounds(20, screenHeight/2+50, 72, 32);
+	    buyButton.setBounds(40, screenHeight/2+50, 72, 32);
 	    this.add(buyButton);
-	    
-	    this.setLayout(null);  
+	      
 	    this.setVisible(true);
 	}
 

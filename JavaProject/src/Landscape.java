@@ -74,8 +74,8 @@ public class Landscape {
 			setSpeed(speed + g*period/1000*Math.sin(bike.tilt()));
 		//}
 		// voorlopig is de max snelheid 2000
-		if (speed > maxSpeed) {
-			setSpeed(maxSpeed);
+		if (speed > bike.maxSpeed) {
+			setSpeed(bike.maxSpeed);
 		}
 	
 		// deltax en deltay geven aan met welke hoeveelheid we de lijnsegmenten moeten verplaatsen
@@ -130,14 +130,14 @@ public class Landscape {
 		
 		// energie updaten
 		// hoeveel energie je verliest hangt af van de snelheid en hellingsgraad
-		energy -= speed*(1 + slope())/1000;
+		energy -= speed*(1 + slope())/bike.efficiency;
 		if (energy < 0) {
 			energy =0;
 		}
 	}
 	
 	public void increaseSpeed() {
-		if (speed <= maxSpeed-increment && energy > 0) {
+		if (speed <= bike.maxSpeed-increment && energy > 0) {
 			setSpeed(speed + increment);
 		}
 	}
@@ -151,7 +151,7 @@ public class Landscape {
 	public void jump() {
 		if (!jumping) {
 			jumping = true;
-			jumpSpeed = 700;
+			jumpSpeed = bike.jumpPower;
 		}
 	}
 	

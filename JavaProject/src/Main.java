@@ -28,7 +28,7 @@ public class Main extends JFrame implements ActionListener {
 	public static void main(String[] args) {
 
 		// beginsnelheid is 1000
-		Main m = new Main(new GameInterface(new DefaultBike(screenWidth / 8, screenHeight / 2, screenWidth / 8, 0, 1000), null));
+		Main m = new Main(new GameInterface(new MonsterBike(screenWidth / 8, screenHeight / 2, screenWidth / 8, 0, 1000), null));
 		m.game.frame = m;
 		m.frameWidth = m.getWidth();
 		m.frameHeight = m.getHeight();
@@ -52,7 +52,7 @@ public class Main extends JFrame implements ActionListener {
 
 	public void endGame() {
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(300);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

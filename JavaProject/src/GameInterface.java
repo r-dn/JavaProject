@@ -123,7 +123,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	
 	public GameInterface restart() {
 		
-		GameInterface newGame = new GameInterface(new DefaultBike(screenWidth / 8, screenHeight / 2, screenWidth / 8, 0, 1000), frame);
+		GameInterface newGame = new GameInterface(new MonsterBike(screenWidth / 8, screenHeight / 2, screenWidth / 8, 0, 1000), frame);
 		return newGame;
 	}
 

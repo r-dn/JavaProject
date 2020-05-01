@@ -10,6 +10,9 @@ public class Bike {
 	public Wheel front, back; // het voor- en achterwiel
 	public Color frameColor; 
 	
+	public double maxSpeed;
+	public double efficiency;
+	public double jumpPower;
 	
 	private int strokeWidth;
 	private BasicStroke frameStroke;
@@ -33,6 +36,17 @@ public class Bike {
 		
 		strokeWidth = (int) front.radius/30;
 		frameStroke = new BasicStroke(4*strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+	}
+	
+	public Bike(double x, double y, double size, double tilt, double beginSpeed, double maxSpeed, double efficiency, double jumpPower, Color color) {
+		this(
+				new Wheel(x + size*Math.cos(tilt), y - size*Math.sin(tilt), size/3, 16, beginSpeed/(size/3), new Color(80, 80, 80)), 
+				new Wheel(x, y, size/3, 16, beginSpeed/(size/3), new Color(80, 80, 80)), 
+				color
+				);
+		this.maxSpeed = maxSpeed;
+		this.efficiency = efficiency;
+		this.jumpPower = jumpPower;
 	}
 	
 	
