@@ -63,7 +63,8 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
             counter = 0;
             total = 0;
         }
-        
+        g2D.drawString("Distance: "+(int) main.distance+" m", 20, 80);
+        g2D.drawString("Time: "+Math.floor(main.time * 10) / 10+" s", 20, 100);
         g2D.drawString("FPS: "+fps, screenWidth - 100, 50);
     }
 	

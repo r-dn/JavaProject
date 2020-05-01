@@ -57,8 +57,11 @@ public class Main extends JFrame implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		double totalDistance = game.main.distance;
+		double totalTime = game.main.time;
 		getContentPane().removeAll();
-		add(new GameOverPanel(this));
+		add(new GameOverPanel(this, totalDistance, totalTime));
 		setVisible(true);
 		revalidate();
 		repaint();

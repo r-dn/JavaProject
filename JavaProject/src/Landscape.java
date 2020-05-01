@@ -23,7 +23,8 @@ public class Landscape {
 	private boolean jumping;								// is de fiets momenteel in een jump?
 	
 	public double energy;
-	
+	public double distance;
+	public double time;
 
 	public Landscape(Bike bike, int frameWidth) {
 		this.bike = bike;
@@ -51,6 +52,8 @@ public class Landscape {
 		jumping = false;
 		
 		energy = startEnergy;
+		distance = 0;
+		time = 0;
 	}
 	
 	public void setSpeed(double speed) {
@@ -116,6 +119,8 @@ public class Landscape {
 		// Als een lijnsegment zich niet meer op het scherm bevindt, kunnen we het verwijderen en een nieuw segment voorbereiden
 		if (lines[Math.floorMod(current-5,load)].x2 < 0) {
 			lines[Math.floorMod(current-5,load)] = LineSegment.randomTilt(lines[Math.floorMod(current-6,load)], length, limit, maxTilt);
+			
+			distance += (double) length/100;
 		}
 		
 		// fiets updaten
@@ -134,6 +139,9 @@ public class Landscape {
 		if (energy < 0) {
 			energy =0;
 		}
+		
+		
+		time += 0.02;
 	}
 	
 	public void increaseSpeed() {
