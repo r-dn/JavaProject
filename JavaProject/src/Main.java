@@ -47,7 +47,9 @@ public class Main extends JFrame implements ActionListener {
 	
 	public void restartGame() {
 		remove(gameOver);
-		add(game.restart());
+		game = game.restart();
+		gameOver = new GameOverPanel(this);
+		add(game);
 		setVisible(true);
 		revalidate();
 	}
