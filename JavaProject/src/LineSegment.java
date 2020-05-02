@@ -18,19 +18,20 @@ public class LineSegment {
 	private final Color skyColor = new Color(51, 153, 255);
 	private final Color roadColor = new Color(0, 255, 0);
 
-	private int ScreenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
-	private int ScreenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+	private int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+	private int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 
-	public LineSegment(double x1, double y1, double x2, double y2, Coin coin) {
+	public LineSegment(double x1, double y1, double x2, double y2) {
 		this.x1 = x1;
 		this.y1 = y1;
 		this.x2 = x2;
 		this.y2 = y2;
 		Random rng = new Random();
 		if (rng.nextDouble()<0.1) {
-		this.coin=coin;}
-		else {
-			coin=null;}
+			this.coin = new Coin(x1, y1 - screenHeight/6);
+			} else {
+			coin = null;
+			}
 		}
 	
 
@@ -39,7 +40,7 @@ public class LineSegment {
 	public static LineSegment random(double x1, double y1, double length, double limit) {
 		Random rng = new Random();
 		// limit geeft aan hoever het lijnstuk mag varieren in hoogte
-		LineSegment ret = new LineSegment(x1, y1, x1 + length, y1 + rng.nextDouble() * 2 * limit - limit, Coin.defaultCoin);
+		LineSegment ret = new LineSegment(x1, y1, x1 + length, y1 + rng.nextDouble() * 2 * limit - limit);
 		return ret;
 
 	}
@@ -57,7 +58,7 @@ public class LineSegment {
 		}
 
 		LineSegment ret = new LineSegment(previous.x2, previous.y2, previous.x2 + length,
-				previous.y2 + length * Math.sin(totalTilt), Coin.defaultCoin);
+				previous.y2 + length * Math.sin(totalTilt));
 		return ret;
 
 	}
@@ -82,20 +83,31 @@ public class LineSegment {
 		g2D.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2));
 	}
 
+	public void shift(double deltax, double deltay) {
+		x1 += (deltax);
+		x2 += (deltax);
+		y1 += (deltay);
+		y2 += (deltay);
+		
+		if (coin != null) {
+			coin = new Coin(x1, y1 - screenHeight/6);
+		}
+	}
+	
 	public void drawWithBackground(Graphics2D g2D) {
 		// De kleur en breedte van het lijnsegment kan natuurlijk aangepast worden
 		// Achtergrond blauw kleuren + grond bruin kleuren
 		// TODO: De hoeken van de lucht & grond (wanneer je stilstaat) die zichtbaar
 		// zijn op de baan wegkrijgen
-		int SegmentWidth = (int) (x2 - x1 + 1);
+		int segmentWidth = (int) (x2 - x1 + 1);
 		g2D.setColor(skyColor);
-		g2D.fillRect((int) x1, (int) 0, (int) SegmentWidth, (int) y1);
+		g2D.fillRect((int) x1, (int) 0, (int) segmentWidth, (int) y1);
 		
 
 		// TODO: Andere manier vinden voor de grond in te kleuren + laten fluctueren (nu
 		// is er soms teveel ingekleurd = onnodig gebruik van geheugen)
 		g2D.setColor(groundColor);
-		g2D.fillRect((int) x1, (int) y1, (int) SegmentWidth, (int) ScreenHeight - (int) y1);
+		g2D.fillRect((int) x1, (int) y1, (int) segmentWidth, (int) screenHeight - (int) y1);
 
 	/*	g2D.setColor(new Color(255, 255, 255)); // Linkerwolk
 		g2D.fillOval((int) 50, (int) 50, (int) ScreenWidth / 9, (int) ScreenHeight / 9); // Left oval
@@ -123,7 +135,10 @@ public class LineSegment {
 		g2D.setColor(roadColor); // vroeger: new Color(100, 100, 100)
 		g2D.setStroke(stroke);
 		g2D.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
-
+		
+		if (coin != null) {
+			coin.draw(g2D);
+		}
 		
 		}
 	}

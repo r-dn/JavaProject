@@ -36,7 +36,7 @@ public class Landscape {
 		
 		// De lijnsegmenten genereren
 		// Het eerste segment is horizontaal
-		lines[0] = new LineSegment(0, bike.back.y+bike.back.radius, length, bike.back.y+bike.back.radius, Coin.defaultCoin);
+		lines[0] = new LineSegment(0, bike.back.y+bike.back.radius, length, bike.back.y+bike.back.radius);
 		for (int i = 1; i < load; i++) {
 			lines[i] = LineSegment.randomTilt(lines[i-1], length, 0, maxTilt);
 		}
@@ -102,10 +102,7 @@ public class Landscape {
 		}
 		
 		for (LineSegment line : lines) {
-			line.x1 -= (deltax);
-			line.x2 -= (deltax);
-			line.y1 -= (deltay);
-			line.y2 -= (deltay);
+			line.shift(-deltax, -deltay);
 		}
 		
 		// Als lines[current] zich niet meer onder het achterwiel bevindt, moeten we de pointer verplaatsen
@@ -168,8 +165,7 @@ public class Landscape {
 	public void draw(Graphics2D g2D) {
 		for (LineSegment line : lines) {
 			line.drawWithBackground(g2D);
-			g2D.setColor(line.coin.coincolor);
-			g2D.drawOval((int) line.x1,(int) line.y1-200, line.coin.coinsize, line.coin.coinsize);
+			
 		}
 		
 		bike.draw(g2D);
