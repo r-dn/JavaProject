@@ -159,10 +159,14 @@ public class Landscape {
 		if (!jumping) {
 			jumping = true;
 			jumpSpeed = bike.jumpPower;
+			energy -= 100000/bike.efficiency;
 		}
 	}
 	
 	public void draw(Graphics2D g2D) {
+		g2D.setColor(LineSegment.skyColor);
+		g2D.fillRect(0, 0, Main.screenWidth, Main.screenHeight);
+		
 		for (LineSegment line : lines) {
 			line.drawWithBackground(g2D);
 			

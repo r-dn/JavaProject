@@ -13,10 +13,10 @@ import java.util.Random;
 public class LineSegment {
 	public double x1, y1, x2, y2;
 	public Coin coin;
-	private final BasicStroke stroke = new BasicStroke(100.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-	private final Color groundColor = new Color(130, 70, 0);
-	private final Color skyColor = new Color(51, 153, 255);
-	private final Color roadColor = new Color(0, 255, 0);
+	private static final BasicStroke stroke = new BasicStroke(100.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+	private static final Color groundColor = new Color(130, 70, 0);
+	public static final Color skyColor = new Color(51, 153, 255);
+	private static final Color roadColor = new Color(0, 255, 0);
 
 	private int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 	private int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -28,7 +28,7 @@ public class LineSegment {
 		this.y2 = y2;
 		Random rng = new Random();
 		if (rng.nextDouble()<0.1) {
-			this.coin = new Coin(x1, y1 - screenHeight/6);
+			this.coin = new Coin(x1, y1 - Main.screenHeight/8);
 			} else {
 			coin = null;
 			}
@@ -90,7 +90,7 @@ public class LineSegment {
 		y2 += (deltay);
 		
 		if (coin != null) {
-			coin = new Coin(x1, y1 - screenHeight/6);
+			coin = new Coin(x1, y1 - screenHeight/8);
 		}
 	}
 	
@@ -100,8 +100,8 @@ public class LineSegment {
 		// TODO: De hoeken van de lucht & grond (wanneer je stilstaat) die zichtbaar
 		// zijn op de baan wegkrijgen
 		int segmentWidth = (int) (x2 - x1 + 1);
-		g2D.setColor(skyColor);
-		g2D.fillRect((int) x1, (int) 0, (int) segmentWidth, (int) y1);
+		//g2D.setColor(skyColor);
+		//g2D.fillRect((int) x1, (int) 0, (int) segmentWidth, (int) y1);
 		
 
 		// TODO: Andere manier vinden voor de grond in te kleuren + laten fluctueren (nu
