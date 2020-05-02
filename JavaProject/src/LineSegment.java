@@ -12,7 +12,7 @@ import java.util.Random;
  */
 public class LineSegment {
 	public double x1, y1, x2, y2;
-
+	public Coin coin;
 	private final BasicStroke stroke = new BasicStroke(100.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 	private final Color groundColor = new Color(130, 70, 0);
 	private final Color skyColor = new Color(51, 153, 255);
@@ -21,19 +21,25 @@ public class LineSegment {
 	private int ScreenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 	private int ScreenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 
-	public LineSegment(double x1, double y1, double x2, double y2) {
+	public LineSegment(double x1, double y1, double x2, double y2, Coin coin) {
 		this.x1 = x1;
 		this.y1 = y1;
 		this.x2 = x2;
 		this.y2 = y2;
-	}
+		Random rng = new Random();
+		if (rng.nextDouble()<0.1) {
+		this.coin=coin;}
+		else {
+			coin=null;}
+		}
+	
 
 	// Dit is een andere constructor, die een willekeurig lijnsegment aanmaakt met
 	// vast beginpunt en vaste lengte
 	public static LineSegment random(double x1, double y1, double length, double limit) {
 		Random rng = new Random();
 		// limit geeft aan hoever het lijnstuk mag varieren in hoogte
-		LineSegment ret = new LineSegment(x1, y1, x1 + length, y1 + rng.nextDouble() * 2 * limit - limit);
+		LineSegment ret = new LineSegment(x1, y1, x1 + length, y1 + rng.nextDouble() * 2 * limit - limit, Coin.defaultCoin);
 		return ret;
 
 	}
@@ -51,7 +57,7 @@ public class LineSegment {
 		}
 
 		LineSegment ret = new LineSegment(previous.x2, previous.y2, previous.x2 + length,
-				previous.y2 + length * Math.sin(totalTilt));
+				previous.y2 + length * Math.sin(totalTilt), Coin.defaultCoin);
 		return ret;
 
 	}
@@ -84,6 +90,7 @@ public class LineSegment {
 		int SegmentWidth = (int) (x2 - x1 + 1);
 		g2D.setColor(skyColor);
 		g2D.fillRect((int) x1, (int) 0, (int) SegmentWidth, (int) y1);
+		
 
 		// TODO: Andere manier vinden voor de grond in te kleuren + laten fluctueren (nu
 		// is er soms teveel ingekleurd = onnodig gebruik van geheugen)

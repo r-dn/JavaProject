@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 // 15/3/20
@@ -12,6 +13,7 @@ public class Landscape {
 	private static final int g = 2000; 						// valversnelling
 	public static final int startEnergy = 5000;
 	
+
 	public LineSegment[] lines = new LineSegment[load];	
 	public Bike bike;
 	public int current, current2; 							// pointers, geven aan welk(e) lijnsegment(en) van 'lines' momenteel onder de fiets zijn
@@ -34,7 +36,7 @@ public class Landscape {
 		
 		// De lijnsegmenten genereren
 		// Het eerste segment is horizontaal
-		lines[0] = new LineSegment(0, bike.back.y+bike.back.radius, length, bike.back.y+bike.back.radius);
+		lines[0] = new LineSegment(0, bike.back.y+bike.back.radius, length, bike.back.y+bike.back.radius, Coin.defaultCoin);
 		for (int i = 1; i < load; i++) {
 			lines[i] = LineSegment.randomTilt(lines[i-1], length, 0, maxTilt);
 		}
@@ -166,6 +168,8 @@ public class Landscape {
 	public void draw(Graphics2D g2D) {
 		for (LineSegment line : lines) {
 			line.drawWithBackground(g2D);
+			g2D.setColor(line.coin.coincolor);
+			g2D.drawOval((int) line.x1,(int) line.y1-200, line.coin.coinsize, line.coin.coinsize);
 		}
 		
 		bike.draw(g2D);
