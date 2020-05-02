@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,10 +50,19 @@ public class Main extends JFrame implements ActionListener {
 		repaint();
 	}
 
-
+	public void changeMenu() {
+		getContentPane().removeAll();
+		ChangePanel ch = new ChangePanel(this, 0, new boolean[] {true, false, false, false}, new Color[] {});
+		add(ch);
+		ch.requestFocusInWindow();
+		setVisible(true);
+		revalidate();
+		repaint();
+	}
+	
 	public void endGame() {
 		try {
-			Thread.sleep(300);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,6 +70,7 @@ public class Main extends JFrame implements ActionListener {
 		
 		double totalDistance = game.main.distance;
 		double totalTime = game.main.time;
+		game.transferFocus();
 		getContentPane().removeAll();
 		add(new GameOverPanel(this, totalDistance, totalTime));
 		setVisible(true);

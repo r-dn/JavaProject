@@ -96,7 +96,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == updateTimer) {
-			if (main.speed <= 0 ) {
+			if (main.speed <= 2 ) {
 				gameOver();
 			}
 			

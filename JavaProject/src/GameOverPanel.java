@@ -48,9 +48,9 @@ public class GameOverPanel extends JPanel implements ActionListener {
 		g.drawString("Average speed: "+(double) Math.round(totalDistance*36/totalTime)/10+" km/h", 40, screenHeight/4+200);
 		
 		
-	    retryButton.setBounds(40, screenHeight/2, 72, 32);  
+	    retryButton.setBounds(40, screenHeight/4+300, 72, 32);  
 	    this.add(retryButton);  
-	    menuButton.setBounds(40, screenHeight/2+50, 72, 32);
+	    menuButton.setBounds(40, screenHeight/4+350, 72, 32);
 	    this.add(menuButton);
 	    
 	    this.setLayout(null);  

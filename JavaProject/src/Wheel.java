@@ -47,6 +47,13 @@ public class Wheel {
 	}
 	
 	
+	public void setSize(double radius) {
+		this.radius = radius;
+		strokeWidth = (int) radius/30;
+		spokeStroke = new BasicStroke(strokeWidth);
+		tyreStroke = new BasicStroke(5*strokeWidth);
+	}
+	
 	// spokePositions zijn de punten waar elke spaak aan de velg komt
 	public double[][] spokePositions() {
 		double [][] spokePositions = new double[spokes][2];

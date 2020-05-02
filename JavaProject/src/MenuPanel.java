@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class MenuPanel extends JPanel implements ActionListener {
 	JButton playButton;
-	JButton buyButton;
+	JButton changeButton;
 	
 	Main frame;
 	
@@ -24,8 +24,8 @@ public class MenuPanel extends JPanel implements ActionListener {
 		this.playButton = new JButton("Play!");
 		playButton.addActionListener(this);
 		
-		this.buyButton = new JButton("Buy...");
-		buyButton.addActionListener(this);
+		this.changeButton = new JButton("Change...");
+		changeButton.addActionListener(this);
 	}
 
 	@Override
@@ -37,10 +37,10 @@ public class MenuPanel extends JPanel implements ActionListener {
 		g.setFont(new Font(Font.MONOSPACED,  Font.BOLD, 32));
 		g.drawString("You stop, you die...", 40, screenHeight/4+150);
 		
-	    playButton.setBounds(40, screenHeight/2, 72, 32);  
+	    playButton.setBounds(40, screenHeight/4+300, 108, 32);  
 	    this.add(playButton);  
-	    buyButton.setBounds(40, screenHeight/2+50, 72, 32);
-	    this.add(buyButton);
+	    changeButton.setBounds(40, screenHeight/4+350, 108, 32);
+	    this.add(changeButton);
 	      
 	    this.setVisible(true);
 	}
@@ -50,6 +50,9 @@ public class MenuPanel extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		if (e.getSource() == playButton) {
 			frame.startGame();
+		}
+		if (e.getSource() == changeButton) {
+			frame.changeMenu();
 		}
 	}
 
