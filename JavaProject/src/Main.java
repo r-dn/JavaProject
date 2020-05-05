@@ -94,5 +94,9 @@ public class Main extends JFrame {
 		revalidate();
 		repaint();
 	}
+	
+	public void pause() {
+		
+	}
 
 }

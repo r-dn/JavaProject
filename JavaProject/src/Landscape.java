@@ -27,6 +27,7 @@ public class Landscape {
 	public double energy;
 	public double distance;
 	public double time;
+	public int coins;
 
 	public Landscape(Bike bike, int frameWidth) {
 		this.bike = bike;
@@ -56,6 +57,7 @@ public class Landscape {
 		energy = startEnergy;
 		distance = 0;
 		time = 0;
+		coins = 0;
 	}
 	
 	public void setSpeed(double speed) {
@@ -139,8 +141,7 @@ public class Landscape {
 			energy =0;
 		}
 		
-		
-		time += 0.02;
+		time += (double) period/1000;
 	}
 	
 	public void increaseSpeed() {
@@ -162,6 +163,7 @@ public class Landscape {
 			energy -= 100000/bike.efficiency;
 		}
 	}
+
 	
 	public void draw(Graphics2D g2D) {
 		g2D.setColor(LineSegment.skyColor);
@@ -179,8 +181,7 @@ public class Landscape {
 	public void drawText(Graphics2D g2D) {
 		String text = "Speed: " + speed + "\n" +
 				"Slope: " + Math.round(slope()) + " %\n" + 
-				""
-				;
+				"";
 		
         g2D.drawString(text, 10, 20);
 	}

@@ -94,10 +94,7 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void keyTyped(KeyEvent e) {}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -114,10 +111,7 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void keyReleased(KeyEvent e) {}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -129,7 +123,7 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 	
 	
 	// stackoverflow
-	private void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
+	public static void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
 	    FontMetrics metrics = g.getFontMetrics(font);
 	    
 	    int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
