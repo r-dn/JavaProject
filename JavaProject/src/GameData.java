@@ -111,6 +111,9 @@ public class GameData {
 	}
 	
 	
+	
+	
+	
 	public static boolean[] strToBoolArray(String str, int length) {
 		boolean[] ret = new boolean[length];
 		String[] strArray = str.split(",");
