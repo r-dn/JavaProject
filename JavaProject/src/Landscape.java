@@ -156,7 +156,7 @@ public class Landscape {
 	}
 	
 	public void jump() {
-		if (!jumping) {
+		if (!jumping && energy > 0) {
 			jumping = true;
 			jumpSpeed = bike.jumpPower;
 			energy -= 100000/bike.efficiency;

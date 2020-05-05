@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 @SuppressWarnings("serial")
-public class Main extends JFrame implements ActionListener {
+public class Main extends JFrame {
 
 	public static final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public static final int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -18,19 +18,25 @@ public class Main extends JFrame implements ActionListener {
 	public int frameHeight;	
 	
 	GameInterface game;
+	GameData gamedata;
 
-	public Main(GameInterface game) {
-		this.game = game;
+	public Main() {
+		gamedata = new GameData();
+		
+		game = new GameInterface(gamedata.current, null);
+		game.frame = this;
 		this.setSize(screenWidth, screenHeight);
+		
+		
 		
 		frameWidth = this.getWidth();
 		frameHeight = this.getHeight();
 	}
 	public static void main(String[] args) {
-
-		// beginsnelheid is 1000
-		Main m = new Main(new GameInterface(new MonsterBike(screenWidth / 8, screenHeight / 2, screenWidth / 8, 0, 1000), null));
-		m.game.frame = m;
+		
+		
+		
+		Main m = new Main();
 		m.frameWidth = m.getWidth();
 		m.frameHeight = m.getHeight();
 		m.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,6 +49,7 @@ public class Main extends JFrame implements ActionListener {
 	}
 	
 	public void menu() {
+		
 		getContentPane().removeAll();
 		add(new MenuPanel(this));
 		setVisible(true);
@@ -52,7 +59,7 @@ public class Main extends JFrame implements ActionListener {
 
 	public void changeMenu() {
 		getContentPane().removeAll();
-		ChangePanel ch = new ChangePanel(this, 0, new boolean[] {true, false, false, false}, new Color[] {});
+		ChangePanel ch = new ChangePanel(this, gamedata, new Color[] {});
 		add(ch);
 		ch.requestFocusInWindow();
 		setVisible(true);
@@ -87,12 +94,5 @@ public class Main extends JFrame implements ActionListener {
 		revalidate();
 		repaint();
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-	}
-
-	
 
 }

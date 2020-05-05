@@ -15,6 +15,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	public Landscape main;
 	public EnergySlider energy;
 	public Timer updateTimer = new Timer(refresh, this);
+	public int current;
 	
 	public Main frame;
 	
@@ -26,11 +27,14 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	public static final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public static final int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 	
-	public GameInterface(Bike bike, Main frame) {
+	public GameInterface(int current, Main frame) {
+		this.current = current;
+		Bike bike = GameData.bike(current);
 		main = new Landscape(bike, screenWidth);
 		energy = new EnergySlider(20, 20, screenWidth/3, 40, Landscape.startEnergy);
 		
 		this.frame = frame;
+		
 		
 		
 	}
@@ -51,6 +55,8 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
         
         energy.draw(g2D);
         //main.drawText(g2D);
+        g2D.drawString("Distance: "+(int) main.distance+" m", 20, 80);
+        g2D.drawString("Time: "+Math.floor(main.time * 10) / 10+" s", 20, 100);
         int eindtijd = (int) System.currentTimeMillis();
         
         // de fps om de 50 frames tekenen
@@ -63,8 +69,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
             counter = 0;
             total = 0;
         }
-        g2D.drawString("Distance: "+(int) main.distance+" m", 20, 80);
-        g2D.drawString("Time: "+Math.floor(main.time * 10) / 10+" s", 20, 100);
+        
         g2D.drawString("FPS: "+fps, screenWidth - 100, 50);
     }
 	
@@ -124,7 +129,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	
 	public GameInterface restart() {
 		
-		GameInterface newGame = new GameInterface(new MonsterBike(screenWidth / 8, screenHeight / 2, screenWidth / 8, 0, 1000), frame);
+		GameInterface newGame = new GameInterface(current, frame);
 		return newGame;
 	}
 

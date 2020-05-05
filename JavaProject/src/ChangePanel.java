@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 	JButton returnButton;
-	
+	JButton selectButton;
 	
 	/*
 	 * Er zijn n soorten fietsen in totaal (standard, monster,...)
@@ -31,23 +31,22 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 
 	Main frame;
 	
-	public static final Bike[] bikes = {
-			new StandardBike(Main.screenWidth/2, Main.screenHeight/3, Main.screenHeight/5, 0, 0), 
-			new MonsterBike(Main.screenWidth/2, Main.screenHeight/3, Main.screenHeight/5, 0, 0),
-			new StandardBike(Main.screenWidth/2, Main.screenHeight/3, Main.screenHeight/5, 0, 0), 
-			new MonsterBike(Main.screenWidth/2, Main.screenHeight/3, Main.screenHeight/5, 0, 0),
-			};
+	public static final Bike[] bikes = GameData.bikes;
 	
-	public ChangePanel(Main frame, int current, boolean[] unlocked, Color[] colors) {
+	public ChangePanel(Main frame, GameData gamedata, Color[] colors) {
 		this.frame = frame;
 		
 		
 		this.returnButton = new JButton("Return");
 		returnButton.addActionListener(this);
 		
-		this.selected = current;
-		this.unlocked = unlocked;
+		
+		this.selected = gamedata.current;
+		this.unlocked = gamedata.unlocked;
 		this.colors = colors;
+		
+		this.selectButton = new JButton();
+		selectButton.addActionListener(this);
 		
 		addKeyListener(this);
 		setFocusable(true);
@@ -68,7 +67,7 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 				drawCenteredString(g, bikes[i].name, new Rectangle(Main.screenWidth/2-100, Main.screenHeight/3+120, 200, 40), new Font(Font.MONOSPACED,  Font.BOLD, 32));
 				
 				g.setFont(new Font(Font.MONOSPACED,  Font.BOLD, 20));
-				g.drawString("Max speed: "+(int) bikes[i].maxSpeed, Main.screenWidth/2-100, Main.screenHeight/3+200);
+				g.drawString("Speed: "+(int) bikes[i].maxSpeed, Main.screenWidth/2-100, Main.screenHeight/3+200);
 				g.drawString("Efficiency: "+(int) bikes[i].efficiency, Main.screenWidth/2-100, Main.screenHeight/3+230);
 				g.drawString("Jump: "+(int) bikes[i].jumpPower, Main.screenWidth/2-100, Main.screenHeight/3+260);
 				if (!unlocked[i]) {
@@ -107,7 +106,7 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 	if (key == KeyEvent.VK_LEFT && selected > 0) {
 		selected--;
 		repaint();
-	} else if (key == KeyEvent.VK_RIGHT && selected < bikes.length - 1) {
+	} else if (key == KeyEvent.VK_RIGHT && selected < GameData.bikes.length - 1) {
 		selected++;
 		repaint();
 	}
