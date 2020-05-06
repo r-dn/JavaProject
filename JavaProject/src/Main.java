@@ -40,7 +40,7 @@ public class Main extends JFrame {
 		m.frameWidth = m.getWidth();
 		m.frameHeight = m.getHeight();
 		m.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		m.setTitle("Game");
+		m.setTitle("Ghostbike");
 		m.setLocation(0, 0); // standaard in de hoek van het scherm
 
 		m.menu();
@@ -71,15 +71,25 @@ public class Main extends JFrame {
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		
+		
 		double totalDistance = game.main.distance;
 		double totalTime = game.main.time;
+		int coins = game.main.coins;
+		int totalCoins = gamedata.coins + coins;
+		boolean highscore = (totalDistance > gamedata.highscore);
+		
+		gamedata.coins = totalCoins;
+		if (highscore) {
+			gamedata.highscore = totalDistance;
+		}
+		gamedata.saveGameData();
 		game.transferFocus();
 		getContentPane().removeAll();
-		add(new GameOverPanel(this, totalDistance, totalTime));
+		add(new GameOverPanel(this, totalDistance, totalTime, coins, totalCoins, highscore));
 		setVisible(true);
 		revalidate();
 		repaint();

@@ -15,6 +15,7 @@ public class GameData {
 	int coins;
 	boolean[] unlocked;
 	int current;
+	double highscore;
 	
 	public static final Bike[] bikes = {
 			new StandardBike(Main.screenWidth/2, Main.screenHeight/3, Main.screenHeight/5, 0, 0), 
@@ -49,6 +50,7 @@ public class GameData {
 				System.out.println("In gamedata.txt: current must be < "+ bikes.length);
 				current = 0;
 			}
+			highscore = Double.parseDouble(myReader.nextLine());
 			
 			
 			myReader.close();
@@ -81,7 +83,8 @@ public class GameData {
 		      
 		      myWriter.write("0\n"
 		      		+ "true,false,false,false\n"
-		      		+ "0");
+		      		+ "0\n"
+		      		+ "0.0");
 		      
 		      myWriter.close();
 		      System.out.println("Successfully initialised");
@@ -99,7 +102,8 @@ public class GameData {
 		      
 		      myWriter.write(coins+"\n"
 		      		+ boolArrayToStr(unlocked)+"\n"
-		      		+ current);
+		      		+ current+"\n"
+		      		+ highscore);
 		      
 		      myWriter.close();
 		      System.out.println("Successfully saved");

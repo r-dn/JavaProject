@@ -25,8 +25,6 @@ public class Coin {
 	}
 
 	public void draw(Graphics2D g2D) {
-		// ik wil sterven
-		// iedereen wil sterven
 		
 		g2D.setColor(coincolor);
 		g2D.setStroke(stroke);
