@@ -27,6 +27,7 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 	public boolean[] unlocked;
 
 	public Main frame;
+	public boolean displayMessage;
 
 	public static final Bike[] bikes = GameData.bikes;
 
@@ -41,6 +42,8 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 
 		selectButton = new JButton();
 		selectButton.addActionListener(this);
+		
+		displayMessage = false;
 
 		addKeyListener(this);
 		setFocusable(true);
@@ -94,6 +97,7 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 			bikes[i].front.x = Main.screenWidth / 2 + (i - selected) * defaultSize * 2.1 + size / 2;
 
 			bikes[i].draw(g);
+			
 		}
 
 		returnButton.setBounds(40, 40, 96, 32);
@@ -101,6 +105,12 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 
 		selectButton.setBounds(Main.screenWidth / 2 - 48, Main.screenHeight / 3 + 360, 96, 32);
 		add(selectButton);
+		
+		if (displayMessage) {
+			g.setColor(Color.black);
+			drawCenteredString(g, "You don't have enough coins", new Rectangle(Main.screenWidth / 2 - 100, Main.screenHeight / 3 + 400, 200, 20),
+					new Font(Font.MONOSPACED, Font.BOLD, 18));
+		}
 
 		frame.gamedata.drawCoins(g);
 	}
@@ -115,9 +125,11 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (key == KeyEvent.VK_LEFT && selected > 0) {
 			selected--;
+			displayMessage = false;
 			repaint();
 		} else if (key == KeyEvent.VK_RIGHT && selected < GameData.bikes.length - 1) {
 			selected++;
+			displayMessage = false;
 			repaint();
 		} else if (key == KeyEvent.VK_ESCAPE) {
 			frame.menu();
@@ -141,6 +153,9 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 				unlocked[selected] = true;
 				frame.gamedata.unlocked = unlocked;
 				frame.gamedata.current = selected;
+				repaint();
+			} else {
+				displayMessage =true;
 				repaint();
 			}
 		}
