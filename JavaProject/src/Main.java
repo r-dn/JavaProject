@@ -1,12 +1,6 @@
-import java.awt.Color;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.TimerTask;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.Timer;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame {
@@ -15,41 +9,37 @@ public class Main extends JFrame {
 	public static final int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 
 	public int frameWidth;
-	public int frameHeight;	
-	
-	GameInterface game;
-	GameData gamedata;
+	public int frameHeight;
+
+	public GameInterface game;
+	public GameData gamedata;
 
 	public Main() {
 		gamedata = new GameData();
-		
+
 		game = new GameInterface(gamedata.current, null);
 		game.frame = this;
-		this.setSize(screenWidth, screenHeight);
-		
-		
-		
-		frameWidth = this.getWidth();
-		frameHeight = this.getHeight();
+		setSize(screenWidth, screenHeight);
+
+		frameWidth = getWidth();
+		frameHeight = getHeight();
 	}
+
 	public static void main(String[] args) {
-		
-		
-		
+
 		Main m = new Main();
 		m.frameWidth = m.getWidth();
 		m.frameHeight = m.getHeight();
 		m.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		m.setTitle("Game");
+		m.setTitle("Ghostbike");
 		m.setLocation(0, 0); // standaard in de hoek van het scherm
 
 		m.menu();
 
-		
 	}
-	
+
 	public void menu() {
-		
+		gamedata.save();
 		getContentPane().removeAll();
 		add(new MenuPanel(this));
 		setVisible(true);
@@ -59,44 +49,52 @@ public class Main extends JFrame {
 
 	public void changeMenu() {
 		getContentPane().removeAll();
-		ChangePanel ch = new ChangePanel(this, gamedata, new Color[] {});
+		ChangePanel ch = new ChangePanel(this);
 		add(ch);
 		ch.requestFocusInWindow();
 		setVisible(true);
 		revalidate();
 		repaint();
 	}
-	
+
 	public void endGame() {
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		double totalDistance = game.main.distance;
 		double totalTime = game.main.time;
+		int coins = game.main.coins;
+		int totalCoins = gamedata.coins + coins;
+		boolean highscore = (totalDistance > gamedata.highscore);
+
+		gamedata.coins = totalCoins;
+		if (highscore) {
+			gamedata.highscore = totalDistance;
+		}
+		gamedata.save();
 		game.transferFocus();
 		getContentPane().removeAll();
-		add(new GameOverPanel(this, totalDistance, totalTime));
+		add(new GameOverPanel(this, totalDistance, totalTime, coins, totalCoins, highscore));
 		setVisible(true);
 		revalidate();
 		repaint();
 	}
-	
+
 	public void startGame() {
 		getContentPane().removeAll();
-		game = game.restart();
+		game = new GameInterface(gamedata.current, this);
 		add(game);
 		game.start();
 		setVisible(true);
 		revalidate();
 		repaint();
 	}
-	
+
 	public void pause() {
-		
+
 	}
 
 }
