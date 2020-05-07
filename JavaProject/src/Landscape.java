@@ -143,6 +143,12 @@ public class Landscape {
 		if (energy < 0) {
 			energy = 0;
 		}
+		
+		if(lines[current2].coin!=null) {
+	        if (lines[current2].coin.x < bike.front.x+bike.front.radius) {
+	            coins++;
+	            lines[current2].coin=null;
+	        }}
 
 		time += (double) period / 1000;
 	}
