@@ -71,6 +71,11 @@ public class Landscape {
 	}
 
 	public void update(int period) {
+		
+		if(lines[Math.floorMod(current2+3, load)].coin != null) {
+	            coins++;
+	            lines[Math.floorMod(current2+3, load)].coin = null;
+		}
 
 		// versnellen bergaf, vertragen bergop
 		// niet als we aan het springen zijn <- wel, want anders kun je cheaten
@@ -144,11 +149,6 @@ public class Landscape {
 			energy = 0;
 		}
 		
-		if(lines[current2].coin!=null) {
-	        if (lines[current2].coin.x < bike.front.x+bike.front.radius) {
-	            coins++;
-	            lines[current2].coin=null;
-	        }}
 
 		time += (double) period / 1000;
 	}
