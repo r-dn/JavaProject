@@ -1,6 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
-//Push
+
 public class Bush {
 	public double x, y;
 	public double deltax, deltay;
@@ -10,7 +10,6 @@ public class Bush {
 	private double width = Main.screenWidth / size;
 	private double height = Main.screenHeight / size;
 
-	
 	public Bush(double x, double y, double deltax, double deltay, double size, Color bushColor) {
 		this.x = x;
 		this.y = y;
@@ -19,16 +18,16 @@ public class Bush {
 		this.size = size;
 		this.bushColor = bushColor;
 	}
-	
+
 	public void draw(Graphics2D g2D) {
-			g2D.setColor(bushColor);
-			g2D.fillOval((int) x, (int) y, (int) width, (int) height); //upper oval
-			g2D.fillOval((int) (x + deltax), (int) (y + deltay),(int) width, (int) height); //bottom right
-			g2D.fillOval((int) (x - deltax), (int) (y + deltay), (int) width, (int) height); //bottom left
-			
-			if (size != 10) {
-			g2D.fillOval((int) x, (int) (y + deltay), (int) width, (int) height);	//bottom middle
+		g2D.setColor(bushColor);
+		g2D.fillOval((int) x, (int) y, (int) width, (int) height); // upper oval
+		g2D.fillOval((int) (x + deltax), (int) (y + deltay), (int) width, (int) height); // bottom right
+		g2D.fillOval((int) (x - deltax), (int) (y + deltay), (int) width, (int) height); // bottom left
+
+		if (size != 10) {
+			g2D.fillOval((int) x, (int) (y + deltay), (int) width, (int) height); // bottom middle
 		}
-		
+
 	}
 }

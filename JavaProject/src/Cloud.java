@@ -5,6 +5,8 @@ public class Cloud {
 	public double x, y;
 	public double size;
 	
+	private static final Color CLOUDCOLOR = new Color(215,215,215);
+	
 	public Cloud(double x, double y, double size) {
 		this.x = x;
 		this.y = y;
@@ -16,10 +18,10 @@ public class Cloud {
 		double width = Main.screenWidth / size;
 		double height = Main.screenHeight / size;
 
-		g2D.setColor(new Color(255, 255, 255));
+		g2D.setColor(CLOUDCOLOR);
 		g2D.fillOval((int) x, (int) y, (int) width, (int) height); // Left oval
-		g2D.fillOval((int) x + 50, (int) y - 40, (int) width, (int) height); // Upper oval
-		g2D.fillOval((int) x + 50, (int) y + 40, (int) width, (int) height); // Down oval
+		g2D.fillOval((int) x + 45, (int) y - 40, (int) width, (int) height); // Upper oval
+		g2D.fillOval((int) x + 45, (int) y + 40, (int) width, (int) height); // Down oval
 		g2D.fillOval((int) x + 100, (int) y, (int) width, (int) height); // Right oval
 	}
 	
