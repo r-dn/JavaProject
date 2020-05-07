@@ -20,8 +20,8 @@ public class GameData {
 	public static final Bike[] bikes = {
 			new StandardBike(Main.screenWidth/2, Main.screenHeight/3, Main.screenHeight/5, 0, 0), 
 			new MonsterBike(Main.screenWidth/2, Main.screenHeight/3, Main.screenHeight/5, 0, 0),
-			new StandardBike(Main.screenWidth/2, Main.screenHeight/3, Main.screenHeight/5, 0, 0), 
-			new MonsterBike(Main.screenWidth/2, Main.screenHeight/3, Main.screenHeight/5, 0, 0),
+			new SpecialBike(Main.screenWidth/2, Main.screenHeight/3, Main.screenHeight/5, 0, 0), 
+			new EnduranceBike(Main.screenWidth/2, Main.screenHeight/3, Main.screenHeight/5, 0, 0),
 			};
 	
 	public static Bike bike(int number) {
@@ -31,9 +31,9 @@ public class GameData {
 		} else if (number == 1) {
 			return new MonsterBike(Main.screenWidth/8, Main.screenHeight/2, Main.screenWidth/8, 0, 1000);
 		} else if (number == 2) {
-			return new StandardBike(Main.screenWidth/8, Main.screenHeight/2, Main.screenWidth/8, 0, 1000);
+			return new SpecialBike(Main.screenWidth/8, Main.screenHeight/2, Main.screenWidth/8, 0, 1000);
 		} else {
-			return new StandardBike(Main.screenWidth/8, Main.screenHeight/2, Main.screenWidth/8, 0, 1000);
+			return new EnduranceBike(Main.screenWidth/8, Main.screenHeight/2, Main.screenWidth/8, 0, 1000);
 		} 
 	}
 
