@@ -26,6 +26,10 @@ public class Landscape {
 	public double distance;
 	public double time;
 	public int coins;
+	
+	public Cloud leftCloud = new Cloud(50,50,9);
+	public Cloud middleCloud = new Cloud(650,60,10);
+	public Cloud rightCloud = new Cloud(1300,50,15);
 
 	public Landscape(Bike bike, int frameWidth) {
 		this.bike = bike;
@@ -183,7 +187,10 @@ public class Landscape {
 		}
 
 		bike.draw(g2D);
-
+		leftCloud.draw(g2D);
+		middleCloud.draw(g2D);
+		rightCloud.draw(g2D);
+		
 	}
 
 	public void drawText(Graphics2D g2D) {
