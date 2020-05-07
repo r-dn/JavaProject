@@ -16,6 +16,7 @@ import javax.swing.Timer;
 public class GameInterface extends JPanel implements ActionListener, KeyListener {
 	public Landscape main;
 	public EnergySlider energy;
+	public SpeedSlider speed;
 	public Timer updateTimer = new Timer(refresh, this);
 	public int current;
 	public boolean paused;
@@ -36,7 +37,8 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 		this.current = current;
 		Bike bike = GameData.bike(current);
 		main = new Landscape(bike, Main.screenWidth);
-		energy = new EnergySlider(20, 20, Main.screenWidth / 3, 40, Landscape.startEnergy);
+		energy = new EnergySlider(Main.screenWidth*2/3-20, 20, Main.screenWidth / 3, 40, Landscape.startEnergy);
+		speed = new SpeedSlider(20, 20, Main.screenWidth/6, 40, main.bike.maxSpeed);
 
 		this.frame = frame;
 
@@ -65,6 +67,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 		main.draw(g2D);
 
 		energy.draw(g2D);
+		speed.draw(g2D);
 		// main.drawText(g2D);
 		g2D.drawString("Distance: " + (int) main.distance + " m", 20, 80);
 		g2D.drawString("Time: " + Math.floor(main.time * 10) / 10 + " s", 20, 100);
@@ -129,6 +132,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 				main.update(20);
 
 				energy.setCurrentEnergy(main.energy);
+				speed.setCurrentSpeed(main.speed);
 
 				repaint();
 			} else {
