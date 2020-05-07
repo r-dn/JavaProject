@@ -57,6 +57,10 @@ public class GameData {
 		} catch (FileNotFoundException e) {
 			System.out.println("gamedata.txt does not exist yet; creating and initialising file");
 			createGameDataFile();
+			coins =0;
+			unlocked = new boolean[] {true, false, false, false};
+			current =0;
+			highscore = 0.0;
 			// e.printStackTrace();
 		}
 	}
