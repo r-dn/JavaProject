@@ -21,7 +21,7 @@ public class Coin {
 	}
 
 	public Coin(double x, double y) {
-		this(x, y, 1, Main.screenHeight/20, Color.yellow);
+		this(x, y, 1, Main.screenHeight/20, new Color(200, 200, 0));
 	}
 
 	public void draw(Graphics2D g2D) {
