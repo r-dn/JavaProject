@@ -177,7 +177,7 @@ public class Landscape {
 		}
 	}
 
-	public void draw(Graphics2D g2D) {
+	public void draw(Graphics2D g2D, boolean drawBike) {
 		g2D.setColor(LineSegment.skyColor);
 		g2D.fillRect(0, 0, Main.screenWidth, Main.screenHeight);
 
@@ -186,11 +186,14 @@ public class Landscape {
 
 		}
 
-		bike.draw(g2D);
 		leftCloud.draw(g2D);
 		middleCloud.draw(g2D);
 		rightCloud.draw(g2D);
 		
+
+		if (drawBike) {
+			bike.draw(g2D);
+		}
 	}
 
 	public void drawText(Graphics2D g2D) {

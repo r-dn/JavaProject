@@ -1,5 +1,7 @@
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,7 +28,11 @@ public class MenuPanel extends JPanel implements ActionListener {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		g.setColor(LineSegment.skyColor);
+		g.fillRect(0, 0, Main.screenWidth, Main.screenHeight);
 
+		frame.game.main.draw((Graphics2D) g, false);
+		g.setColor(Color.black);
 		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 72));
 		g.drawString("GHOSTBIKE", 40, Main.screenHeight / 4);
 

@@ -51,6 +51,10 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		g.setColor(LineSegment.skyColor);
+		g.fillRect(0, 0, Main.screenWidth, Main.screenHeight);
+
+		g.setColor(Color.black);
 
 		double defaultSize = Main.screenHeight / 5;
 
