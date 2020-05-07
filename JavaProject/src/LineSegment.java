@@ -16,7 +16,7 @@ public class LineSegment {
 	public Coin coin;
 
 	private static final BasicStroke stroke = new BasicStroke(100.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-	private static final Color groundColor = new Color(185, 122, 87);
+	private static final Color groundColor = new Color(120, 100, 60);
 	public static final Color skyColor = new Color(44, 52, 210);
 	private static final Color roadColor = new Color(34, 177, 76);
 	private static final Color veryDarkGreen = new Color(0, 102, 0);
