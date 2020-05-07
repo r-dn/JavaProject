@@ -177,7 +177,7 @@ public class Landscape {
 		}
 
 		bike.draw(g2D);
-		Clouds.draw(g2D);
+
 	}
 
 	public void drawText(Graphics2D g2D) {

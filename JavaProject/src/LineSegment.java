@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class LineSegment {
 	public double x1, y1, x2, y2;
-	private Coin coin;
+	public Coin coin;
 
 	private static final BasicStroke stroke = new BasicStroke(100.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 	private static final Color groundColor = new Color(130, 70, 0);

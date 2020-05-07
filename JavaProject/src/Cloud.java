@@ -2,8 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-
-//TODO Herschrijven naar een echte klasse
+//Push
 
 public class Cloud {
 	public double x, y;
