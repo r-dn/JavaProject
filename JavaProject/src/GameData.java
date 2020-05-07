@@ -96,7 +96,7 @@ public class GameData {
 		    }
 	}
 	
-	public void saveGameData() {
+	public void save() {
 		try {
 		      FileWriter myWriter = new FileWriter("gamedata.txt");
 		      
@@ -108,7 +108,7 @@ public class GameData {
 		      myWriter.close();
 		      System.out.println("Successfully saved");
 		    } catch (IOException e) {
-		      System.out.println("An error occurred.");
+		      System.out.println("An error occurred during saving");
 		      e.printStackTrace();
 		      
 		    }

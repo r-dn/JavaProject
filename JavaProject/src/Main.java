@@ -49,7 +49,7 @@ public class Main extends JFrame {
 	}
 	
 	public void menu() {
-		
+		gamedata.save();
 		getContentPane().removeAll();
 		add(new MenuPanel(this));
 		setVisible(true);
@@ -86,7 +86,7 @@ public class Main extends JFrame {
 		if (highscore) {
 			gamedata.highscore = totalDistance;
 		}
-		gamedata.saveGameData();
+		gamedata.save();
 		game.transferFocus();
 		getContentPane().removeAll();
 		add(new GameOverPanel(this, totalDistance, totalTime, coins, totalCoins, highscore));
@@ -97,7 +97,7 @@ public class Main extends JFrame {
 	
 	public void startGame() {
 		getContentPane().removeAll();
-		game = game.restart();
+		game = new GameInterface(gamedata.current, this);
 		add(game);
 		game.start();
 		setVisible(true);

@@ -48,7 +48,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		
 		// align right
 		String s =  frame.gamedata.coins+" coins";
-		g.setFont(new Font(Font.MONOSPACED,  Font.BOLD, 32));
+		g.setFont(new Font(Font.MONOSPACED,  Font.BOLD, 24));
 		g.setColor(Color.black);
 		FontMetrics fontMetrics = g.getFontMetrics();
 		g.drawString(s, Main.screenWidth-40-fontMetrics.stringWidth(s), 72);

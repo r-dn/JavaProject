@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class ChangePanel extends JPanel implements ActionListener, KeyListener {
-	JButton returnButton;
-	JButton selectButton;
+	private JButton returnButton;
+	private JButton selectButton;
 	
 	
 
@@ -38,14 +38,14 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 	public ChangePanel(Main frame, GameData gamedata, Color[] colors) {
 		this.frame = frame;
 
-		this.returnButton = new JButton("Return");
+		returnButton = new JButton("Return");
 		returnButton.addActionListener(this);
 
 		this.selected = gamedata.current;
 		this.unlocked = gamedata.unlocked;
 		this.colors = colors;
 
-		this.selectButton = new JButton();
+		selectButton = new JButton();
 		selectButton.addActionListener(this);
 
 		addKeyListener(this);
@@ -62,7 +62,6 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 
 		for (int i = 0; i < bikes.length; i++) {
 			if (selected == i) {
-				bikes[i].setSize(defaultSize * 1.3);
 
 				g.setColor(unlocked[i] ? Color.black : Color.GRAY);
 				drawCenteredString(g, bikes[i].name,
@@ -76,12 +75,17 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 						Main.screenHeight / 3 + 230);
 				g.drawString("Jump: " + (int) bikes[i].jumpPower, Main.screenWidth / 2 - 100,
 						Main.screenHeight / 3 + 260);
+				
+				selectButton.setText("Select");
+				
 				if (!unlocked[i]) {
 					drawLockIcon(g, Main.screenWidth / 2 - 84, Main.screenHeight / 3 + 325, 32);
 
 					drawCenteredString(g, " " + bikes[i].price + " coins",
 							new Rectangle(Main.screenWidth / 2 - 100, Main.screenHeight / 3 + 300, 200, 40),
 							new Font(Font.MONOSPACED, Font.BOLD, 24));
+					
+					selectButton.setText("Buy");
 				}
 			} else {
 				bikes[i].setSize(defaultSize);
@@ -95,11 +99,14 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 		returnButton.setBounds(40, 40, 96, 32);
-		this.add(returnButton);
+		add(returnButton);
+		
+		selectButton.setBounds(Main.screenWidth/2-48, Main.screenHeight / 3 + 360, 96, 32);
+		add(selectButton);
 
 		// align right
 		String s = frame.gamedata.coins + " coins";
-		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 32));
+		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
 		g.setColor(Color.black);
 		FontMetrics fontMetrics = g.getFontMetrics();
 		g.drawString(s, Main.screenWidth - 40 - fontMetrics.stringWidth(s), 72);
@@ -131,6 +138,16 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == returnButton) {
 			frame.menu();
+		} else if (e.getSource() == selectButton) {
+			if (unlocked[selected]) {
+				frame.gamedata.current = selected;
+			} else if (frame.gamedata.coins >= bikes[selected].price) {
+				frame.gamedata.coins -= bikes[selected].price;
+				unlocked[selected]  = true;
+				frame.gamedata.unlocked = unlocked;
+				frame.gamedata.current = selected;
+				repaint();
+			}
 		}
 
 	}
