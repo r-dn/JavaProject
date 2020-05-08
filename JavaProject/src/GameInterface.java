@@ -105,9 +105,11 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 		if (!paused) {
 			if (key == KeyEvent.VK_LEFT) {
 				main.decreaseSpeed();
-			} else if (key == KeyEvent.VK_RIGHT) {
+			}
+			if (key == KeyEvent.VK_RIGHT) {
 				main.increaseSpeed();
-			} else if (key == KeyEvent.VK_SPACE) {
+			}
+			if (key == KeyEvent.VK_SPACE) {
 				main.jump();
 			}
 		}

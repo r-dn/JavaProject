@@ -44,9 +44,9 @@ public class Landscape {
 
 		// De lijnsegmenten genereren
 		// Het eerste segment is horizontaal
-		lines[0] = new LineSegment(0, bike.back.y + bike.back.radius, length, bike.back.y + bike.back.radius);
+		lines[0] = new LineSegment(0, bike.back.y + bike.back.radius, length, bike.back.y + bike.back.radius, false);
 		for (int i = 1; i < load; i++) {
-			lines[i] = LineSegment.randomTilt(lines[i - 1], length, 0, maxTilt);
+			lines[i] = LineSegment.randomTilt(lines[i - 1], length, 0, maxTilt, false);
 		}
 
 		// current is het segment onder het achterwiel
@@ -87,7 +87,11 @@ public class Landscape {
 	            lines[Math.floorMod(current2+2, load)].coin = null;
 
 		}
-
+		
+		
+		
+		
+		
 		// versnellen bergaf, vertragen bergop
 		setSpeed(speed + g * period / 1000 * Math.sin(bike.tilt()));
 
@@ -135,7 +139,7 @@ public class Landscape {
 		// verwijderen en een nieuw segment voorbereiden
 		if (lines[Math.floorMod(current - 5, load)].x2 < 0) {
 			lines[Math.floorMod(current - 5, load)] = LineSegment.randomTilt(lines[Math.floorMod(current - 6, load)],
-					length, limit, maxTilt);
+					length, limit, maxTilt, true);
 
 			distance += (double) length / 200;
 		}
@@ -158,6 +162,13 @@ public class Landscape {
 		}
 
 		time += (double) period / 1000;
+		
+		for (int i = 0; i <= Math.floorMod(current2-current, load); i++) {
+			if(lines[Math.floorMod(current+i, load)].spike != null && jumpHeight < LineSegment.spikeHeight) {
+	            setSpeed(0);
+	            lines[Math.floorMod(current2+i, load)].spike = null;
+			}
+		}
 	}
 
 	public void increaseSpeed() {
