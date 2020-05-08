@@ -53,7 +53,7 @@ public class Landscape {
 		speed = bike.back.angularVelocity * bike.back.radius;
 
 		// de jumphoogte is 0
-		jumpHeight = 0;
+		jumpHeight = 500;
 		jumpSpeed = 0;
 		jumping = false;
 
@@ -133,7 +133,7 @@ public class Landscape {
 			lines[Math.floorMod(current - 5, load)] = LineSegment.randomTilt(lines[Math.floorMod(current - 6, load)],
 					length, limit, maxTilt);
 
-			distance += (double) length / 100;
+			distance += (double) length / 200;
 		}
 
 		// fiets updaten
