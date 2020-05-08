@@ -15,6 +15,7 @@ public class Landscape {
 	public Bike bike;
 	public int current, current2; // pointers, geven aan welk(e) lijnsegment(en) van 'lines' momenteel onder de
 									// fiets zijn
+	public int lastAdded;
 	public int length; // de lengte van elk segment
 	public double speed; // de snelheid van de fiets, in pixels/s
 
@@ -49,14 +50,15 @@ public class Landscape {
 
 		// current is het segment onder het achterwiel
 		current = (int) Math.round(bike.back.x / length);
-		current2 = current;
+		current2 = (int) Math.round(bike.front.x / length);
+		lastAdded = load-1;
 
 		// De snelheid van het landschap kan gehaald worden uit rotatiesnelheid van de
 		// wielen
 		speed = bike.back.angularVelocity * bike.back.radius;
 
 		// de jumphoogte is 0
-		jumpHeight = 100;
+		jumpHeight = 0;
 		jumpSpeed = 0;
 		jumping = false;
 
@@ -85,11 +87,10 @@ public class Landscape {
 		}
 
 		// versnellen bergaf, vertragen bergop
-		// niet als we aan het springen zijn <- wel, want anders kun je cheaten
-		// if (!jumping) {
 		setSpeed(speed + g * period / 1000 * Math.sin(bike.tilt()));
-		// }
-		// voorlopig is de max snelheid 2000
+		
+		
+		
 		if (speed > bike.maxSpeed) {
 			setSpeed(bike.maxSpeed);
 		}
@@ -140,7 +141,7 @@ public class Landscape {
 		}
 
 		// fiets updaten
-		// We roteren de fiets rond het voorwiel zodat het voorwiel de weg
+		// We roteren de fiets rond het voorwiel zodat het voorwiel de weg in
 		// (lines[current2]) raakt
 		double newbikefronty = lines[current2].heightAt(bike.front.x) - jumpHeight;
 		double angle = Math.asin(((newbikefronty - bike.front.y - bike.front.radius) / bike.size()) % 1); // die %1 fixt
@@ -167,7 +168,7 @@ public class Landscape {
 	}
 
 	public void decreaseSpeed() {
-		if (speed >= increment && energy > 0) {
+		if (speed >= increment/2 && energy > 0) {
 			setSpeed(speed - increment);
 		}
 	}

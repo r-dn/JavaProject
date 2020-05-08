@@ -58,11 +58,6 @@ public class Main extends JFrame {
 	}
 
 	public void endGame() {
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 
 		double totalDistance = game.main.distance;
 		double totalTime = game.main.time;
