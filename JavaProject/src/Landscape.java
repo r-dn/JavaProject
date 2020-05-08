@@ -81,9 +81,9 @@ public class Landscape {
 
 	public void update(int period) {
 		
-		if(lines[Math.floorMod(current2+3, load)].coin != null) {
+		if(lines[Math.floorMod(current2+2, load)].coin != null) {
 	            coins++;
-	            lines[Math.floorMod(current2+3, load)].coin = null;
+	            lines[Math.floorMod(current2+2, load)].coin = null;
 		}
 
 		// versnellen bergaf, vertragen bergop
@@ -189,6 +189,13 @@ public class Landscape {
 			line.drawWithBackground(g2D);
 
 		}
+		
+		for (LineSegment line : lines) {
+			if (line.spike != null) {
+				line.spike.draw(g2D);
+			}
+		}
+		
 		
 		MOON.draw(g2D);
 		LEFTCLOUD.draw(g2D);

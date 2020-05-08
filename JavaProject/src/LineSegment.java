@@ -23,7 +23,7 @@ public class LineSegment {
 	private static final Color veryDarkGreen = new Color(0, 102, 0);
 	private static final Color darkGreen = new Color(0, 153, 0);
 	private static final Color lightGreen = new Color(0, 255, 51);
-
+	private static final double height = Main.screenHeight/10;
 
 	
 	
@@ -44,12 +44,11 @@ public class LineSegment {
 		}
 
 		if (rng.nextDouble() < 0.1) {
-			this.spike = new Spike(x1, y1, x1+50/2*Math.cos(this.tilt()*Math.PI/3), y1-50/2*Math.cos(this.tilt()*Math.PI/3), this.heightAt(x1+50/2), 50, 50);
-		}
+			this.spike = new Spike(x1, y1, (x1+x2)/2, (y1+y2)/2, height);
+			}
 		if (rng.nextDouble() < 0.1) {
 
 		/*if (rng.nextDouble() < 0.1) {
->>>>>>> branch 'master' of https://github.com/r-dn/JavaProject.git
 			this.bush1 = new Bush(x1, y1 - Main.screenHeight / 6, 40, 40, 15, veryDarkGreen);
 		}*/
 		if (rng.nextDouble() < 0.2) {
@@ -93,6 +92,10 @@ public class LineSegment {
 	public double slope() {
 		return (y2 - y1) / (x2 - x1);
 	}
+	
+	public double length() {
+		return Math.sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
+	}
 
 	public double tilt() {
 		return Math.atan2(y2 - y1, x2 - x1);
@@ -119,7 +122,7 @@ public class LineSegment {
 			coin = new Coin(x1, y1 - Main.screenHeight / 8);
 		}
 		if (spike != null) {
-			this.spike = new Spike(x1, y1, x1+50/2*Math.cos(this.tilt()+Math.PI/3), y1-50/2*Math.cos(this.tilt()+Math.PI/3), this.heightAt(x1+50/2), 50, 50);
+			this.spike = new Spike(x1, y1, (x1+x2)/2, (y1+y2)/2, height);
 		}
 		if (bush1 != null) {
 			bush1 = new Bush(x1, y1 - Main.screenHeight / 6, 40, 40, 15, veryDarkGreen);
@@ -150,9 +153,10 @@ public class LineSegment {
 		if (coin != null) {
 			coin.draw(g2D);
 		}
-		if (spike != null) {
+		// we tekenen de spikes in landscape, omdat ze anders niet allemaal deftig zichtbaar zijn
+/*		if (spike != null) {
 			spike.draw(g2D);
-		}
+		}*/
 		if (bush1 != null) {
 			bush1.draw(g2D);
 
