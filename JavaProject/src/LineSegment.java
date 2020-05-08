@@ -23,7 +23,7 @@ public class LineSegment {
 	private static final Color darkGreen = new Color(0, 153, 0);
 	private static final Color lightGreen = new Color(0, 255, 51);
 
-	private Bush bush1;
+	private Bush bush1 = new Bush(500,500,40,40,15,veryDarkGreen);
 	private Bush bush2;
 	private Bush bush3;
 
@@ -36,9 +36,9 @@ public class LineSegment {
 		if (rng.nextDouble() < 0.1) {
 			this.coin = new Coin(x1, y1 - Main.screenHeight / 8);
 		}
-		if (rng.nextDouble() < 0.1) {
+		/*if (rng.nextDouble() < 0.1) {
 			this.bush1 = new Bush(x1, y1 - Main.screenHeight / 6, 40, 40, 15, veryDarkGreen);
-		}
+		}*/
 		if (rng.nextDouble() < 0.2) {
 			this.bush2 = new Bush(x1, y1 - Main.screenHeight / 6, 40, 20, 20, darkGreen);
 		}
@@ -128,7 +128,9 @@ public class LineSegment {
 		g2D.setColor(roadColor);
 		g2D.setStroke(stroke);
 		g2D.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
-
+		
+		bush1.draw(g2D);
+		
 		if (coin != null) {
 			coin.draw(g2D);
 		}
