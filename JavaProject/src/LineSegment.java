@@ -41,8 +41,8 @@ public class LineSegment {
 					y1 - 50 / 2 * Math.cos(this.tilt() * Math.PI / 3), this.heightAt(x1 + 50 / 2), 50, 50);
 		}
 		
-		if (rng.nextDouble() < 0.05) {
-			this.bush1 = new Bush(x1 - Main.screenWidth / 5, y1 - Main.screenHeight / 10, 40, 40, 15, DARKGREEN);
+		if (rng.nextDouble() < 0.05 && Math.abs(this.slope()) < 0.2) {
+			this.bush1 = new Bush(x1 - 20, y1 - Main.screenHeight / 11, 40, 40, 15, DARKGREEN);
 		}
 	}
 
@@ -107,11 +107,12 @@ public class LineSegment {
 			this.spike = new Spike(x1, y1, x1 + 50 / 2 * Math.cos(this.tilt() + Math.PI / 3),
 					y1 - 50 / 2 * Math.cos(this.tilt() + Math.PI / 3), this.heightAt(x1 + 50 / 2), 50, 50);
 		}
-		if (bush1 != null) {
-			this.bush1 = new Bush(x1 - Main.screenWidth / 5, y1 - Main.screenHeight / 10, 40, 40, 15, DARKGREEN);
+		if (bush1 != null ) {
+			this.bush1 = new Bush(x1 - 20, y1 - Main.screenHeight / 11, 40, 40, 15, DARKGREEN);
 		}
 	
 	}
+
 
 	public void drawWithBackground(Graphics2D g2D) {
 		// De kleur en breedte van het lijnsegment kan natuurlijk aangepast worden
