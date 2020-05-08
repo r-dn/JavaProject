@@ -84,6 +84,9 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 
 					selectButton.setText("Buy");
 				}
+				if (selected == frame.gamedata.current) {
+					selectButton.setText("Selected");
+				}
 			}
 
 			double size = bikes[i].size();
