@@ -14,6 +14,7 @@ import java.util.Random;
 public class LineSegment {
 	public double x1, y1, x2, y2;
 	public Coin coin;
+	public Spike spike;
 
 	private static final BasicStroke stroke = new BasicStroke(100.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 	private static final Color groundColor = new Color(120, 100, 60);
@@ -23,6 +24,7 @@ public class LineSegment {
 	private static final Color darkGreen = new Color(0, 153, 0);
 	private static final Color lightGreen = new Color(0, 255, 51);
 
+	
 	private Bush bush1;
 	private Bush bush2;
 	private Bush bush3;
@@ -35,6 +37,9 @@ public class LineSegment {
 		Random rng = new Random();
 		if (rng.nextDouble() < 0.1) {
 			this.coin = new Coin(x1, y1 - Main.screenHeight / 8);
+		}
+		if (rng.nextDouble() < 0.1) {
+			this.spike = new Spike(x1, y1, x1+50/2*Math.cos(this.tilt()*Math.PI/3), y1-50/2*Math.cos(this.tilt()*Math.PI/3), this.heightAt(x1+50/2), 50, 50);
 		}
 		if (rng.nextDouble() < 0.1) {
 			this.bush1 = new Bush(x1, y1 - Main.screenHeight / 6, 40, 40, 15, veryDarkGreen);
@@ -104,7 +109,9 @@ public class LineSegment {
 		if (coin != null) {
 			coin = new Coin(x1, y1 - Main.screenHeight / 8);
 		}
-
+		if (spike != null) {
+			this.spike = new Spike(x1, y1, x1+50/2*Math.cos(this.tilt()+Math.PI/3), y1-50/2*Math.cos(this.tilt()+Math.PI/3), this.heightAt(x1+50/2), 50, 50);
+		}
 		if (bush1 != null) {
 			bush1 = new Bush(x1, y1 - Main.screenHeight / 6, 40, 40, 15, veryDarkGreen);
 		}
@@ -131,6 +138,9 @@ public class LineSegment {
 
 		if (coin != null) {
 			coin.draw(g2D);
+		}
+		if (spike != null) {
+			spike.draw(g2D);
 		}
 		if (bush1 != null) {
 			bush1.draw(g2D);
