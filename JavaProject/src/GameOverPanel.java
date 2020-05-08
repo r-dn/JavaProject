@@ -56,9 +56,7 @@ public class GameOverPanel extends JPanel implements ActionListener, KeyListener
 		g.drawString("Distance: " + (double) Math.round(totalDistance) / 1000 + " km"
 				+ (highscore ? "\t \t New Highscore!" : ""), 40, Main.screenHeight / 4 + 100);
 		g.drawString("Time: " + Math.round(totalTime) + " s", 40, Main.screenHeight / 4 + 150);
-		g.drawString("Average speed: " + (double) Math.round(totalDistance * 36 / totalTime) / 10 + " km/h", 40,
-				Main.screenHeight / 4 + 200);
-		g.drawString("+" + coins + " coins", 40, Main.screenHeight / 4 + 250);
+		g.drawString("+" + coins + " coins", 40, Main.screenHeight / 4 + 200);
 
 		frame.gamedata.drawCoins(g);
 

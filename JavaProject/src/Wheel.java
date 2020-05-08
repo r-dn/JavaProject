@@ -86,7 +86,7 @@ public class Wheel {
 
 	// Om de x ms moeten we de spaken draaien, afhankelijk van de rotatiesnelheid (angularVelocity)
 	public void update(int period) {
-		double deltaphi = angularVelocity*period/1000; // de hoek waarmee we de spaken draaien
+		double deltaphi = angularVelocity*period/(1000); // de hoek waarmee we de spaken draaien
 		phase += deltaphi;
 	}
 	

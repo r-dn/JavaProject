@@ -15,6 +15,7 @@ public class Landscape {
 	public Bike bike;
 	public int current, current2; // pointers, geven aan welk(e) lijnsegment(en) van 'lines' momenteel onder de
 									// fiets zijn
+	public int lastAdded;
 	public int length; // de lengte van elk segment
 	public double speed; // de snelheid van de fiets, in pixels/s
 
@@ -27,10 +28,13 @@ public class Landscape {
 	public double time;
 	public int coins;
 	
-	public Cloud leftCloud = new Cloud(50,50,9);
-	public Cloud middleCloud = new Cloud(650,60,10);
-	public Cloud rightCloud = new Cloud(1300,50,15);
-
+	//TODO: Kijken naar de attributen van cloud en moon --> zullen ze altijd binnen het scherm vallen?
+	private static final Cloud LEFTCLOUD = new Cloud(Main.screenWidth/30, Main.screenHeight/15, 9);
+	private static final Cloud MIDDLECLOUD = new Cloud(Main.screenWidth/3, Main.screenHeight/20 + 25, 10);
+	private static final Cloud RIGHTCLOUD = new Cloud(Main.screenWidth - 300, Main.screenHeight/20 + 10, 13);
+	
+	private static final Moon MOON = new Moon(Main.screenWidth/3 + 200, Main.screenHeight/27, 10);
+	
 	public Landscape(Bike bike, int frameWidth) {
 		this.bike = bike;
 
@@ -46,7 +50,8 @@ public class Landscape {
 
 		// current is het segment onder het achterwiel
 		current = (int) Math.round(bike.back.x / length);
-		current2 = current;
+		current2 = (int) Math.round(bike.front.x / length);
+		lastAdded = load-1;
 
 		// De snelheid van het landschap kan gehaald worden uit rotatiesnelheid van de
 		// wielen
@@ -82,11 +87,10 @@ public class Landscape {
 		}
 
 		// versnellen bergaf, vertragen bergop
-		// niet als we aan het springen zijn <- wel, want anders kun je cheaten
-		// if (!jumping) {
 		setSpeed(speed + g * period / 1000 * Math.sin(bike.tilt()));
-		// }
-		// voorlopig is de max snelheid 2000
+		
+		
+		
 		if (speed > bike.maxSpeed) {
 			setSpeed(bike.maxSpeed);
 		}
@@ -133,11 +137,11 @@ public class Landscape {
 			lines[Math.floorMod(current - 5, load)] = LineSegment.randomTilt(lines[Math.floorMod(current - 6, load)],
 					length, limit, maxTilt);
 
-			distance += (double) length / 100;
+			distance += (double) length / 200;
 		}
 
 		// fiets updaten
-		// We roteren de fiets rond het voorwiel zodat het voorwiel de weg
+		// We roteren de fiets rond het voorwiel zodat het voorwiel de weg in
 		// (lines[current2]) raakt
 		double newbikefronty = lines[current2].heightAt(bike.front.x) - jumpHeight;
 		double angle = Math.asin(((newbikefronty - bike.front.y - bike.front.radius) / bike.size()) % 1); // die %1 fixt
@@ -164,7 +168,7 @@ public class Landscape {
 	}
 
 	public void decreaseSpeed() {
-		if (speed >= increment && energy > 0) {
+		if (speed >= increment/2 && energy > 0) {
 			setSpeed(speed - increment);
 		}
 	}
@@ -185,10 +189,11 @@ public class Landscape {
 			line.drawWithBackground(g2D);
 
 		}
-
-		leftCloud.draw(g2D);
-		middleCloud.draw(g2D);
-		rightCloud.draw(g2D);
+		
+		MOON.draw(g2D);
+		LEFTCLOUD.draw(g2D);
+		MIDDLECLOUD.draw(g2D);
+		RIGHTCLOUD.draw(g2D);
 		
 
 		if (drawBike) {

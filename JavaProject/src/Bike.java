@@ -46,7 +46,7 @@ public class Bike {
 
 	// tilt() geeft aan hoe schuin de fiets staat
 	public double tilt() {
-		// We gebruiken de functie atan2 omdat atan (boogtangens) niet deftig werkt
+		// We gebruiken de functie atan2 omdat atan niet deftig werkt
 		return Math.atan2((front.y - back.y), (front.x - back.x));
 	}
 

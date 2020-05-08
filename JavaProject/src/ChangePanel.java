@@ -54,17 +54,13 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.setColor(LineSegment.skyColor);
-		g.fillRect(0, 0, Main.screenWidth, Main.screenHeight);
-
+		frame.game.main.draw((Graphics2D) g, false);
+		
 		g.setColor(Color.black);
-
-		double defaultSize = Main.screenHeight / 5;
 
 		for (int i = 0; i < bikes.length; i++) {
 			if (selected == i) {
-
-				g.setColor(unlocked[i] ? Color.black : Color.GRAY);
+				g.setColor(unlocked[i] ? Color.black : Color.darkGray);
 				drawCenteredString(g, bikes[i].name,
 						new Rectangle(Main.screenWidth / 2 - 100, Main.screenHeight / 3 + 120, 200, 40),
 						new Font(Font.MONOSPACED, Font.BOLD, 32));
@@ -88,13 +84,14 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 
 					selectButton.setText("Buy");
 				}
-			} else {
-				bikes[i].setSize(defaultSize);
+				if (selected == frame.gamedata.current) {
+					selectButton.setText("Selected");
+				}
 			}
 
 			double size = bikes[i].size();
-			bikes[i].back.x = Main.screenWidth / 2 + (i - selected) * defaultSize * 2.1 - size / 2;
-			bikes[i].front.x = Main.screenWidth / 2 + (i - selected) * defaultSize * 2.1 + size / 2;
+			bikes[i].back.x = Main.screenWidth / 2 + (i - selected)*Main.screenHeight*0.42 - size / 2;
+			bikes[i].front.x = Main.screenWidth / 2 + (i - selected)*Main.screenHeight*0.42 + size / 2;
 
 			bikes[i].draw(g);
 			

@@ -45,7 +45,6 @@ public class GameData {
 
 			coins = Integer.parseInt(myReader.nextLine());
 			unlocked = strToBoolArray(myReader.nextLine(), bikes.length);
-			System.out.println(boolArrayToStr(unlocked));
 			current = Integer.parseInt(myReader.nextLine());
 			if (current >= bikes.length) {
 				System.out.println("In gamedata.txt: current must be < " + bikes.length);
@@ -70,13 +69,12 @@ public class GameData {
 		try {
 			File myObj = new File("gamedata.txt");
 			if (myObj.createNewFile()) {
-				System.out.println("File created: " + myObj.getName());
 			} else {
 				System.out.println("File already exists.");
 				return false;
 			}
 		} catch (IOException e) {
-			System.out.println("An error occurred.");
+			System.out.println("An error occurred creating the file");
 			e.printStackTrace();
 			return false;
 		}
@@ -88,10 +86,9 @@ public class GameData {
 			myWriter.write("0\n" + "true,false,false,false\n" + "0\n" + "0.0");
 
 			myWriter.close();
-			System.out.println("Successfully initialised");
 			return true;
 		} catch (IOException e) {
-			System.out.println("An error occurred.");
+			System.out.println("An error occurred during initialising");
 			e.printStackTrace();
 			return false;
 		}
@@ -104,7 +101,6 @@ public class GameData {
 			myWriter.write(coins + "\n" + boolArrayToStr(unlocked) + "\n" + current + "\n" + highscore);
 
 			myWriter.close();
-			System.out.println("Successfully saved");
 		} catch (IOException e) {
 			System.out.println("An error occurred during saving");
 			e.printStackTrace();
