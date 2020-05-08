@@ -23,9 +23,8 @@ public class LineSegment {
 	public static final double spikeHeight = 100;
 	private static final Color DARKGREEN = new Color(0, 153, 0);
 
-	public Bush bush1;
-	public Bush bush2;
-	public Bush bush3;
+	public Bush bush;
+	
 
 	public LineSegment(double x1, double y1, double x2, double y2, boolean attributes) {
 		this.x1 = x1;
@@ -43,8 +42,8 @@ public class LineSegment {
 		}
 		
 		
-		if (rng.nextDouble() < 0.05 && Math.abs(this.slope()) < 0.2) {
-			this.bush1 = new Bush(x1 - 20, y1 - Main.screenHeight / 11, 40, 40, 15, DARKGREEN);
+		if (rng.nextDouble() < 0.1 && Math.abs(this.slope()) < 0.1) {
+			this.bush = new Bush(x1, y1 - Main.screenHeight / 11, 40, 40, 15, DARKGREEN);
 		}
 	}
 
@@ -112,8 +111,8 @@ public class LineSegment {
 		if (spike != null) {
 			this.spike = new Spike(x1, y1, (x1+x2)/2, (y1+y2)/2, spikeHeight);
 		}
-		if (bush1 != null ) {
-			this.bush1 = new Bush(x1 - 20, y1 - Main.screenHeight / 11, 40, 40, 15, DARKGREEN);
+		if (bush != null ) {
+			this.bush = new Bush(x1, y1 - Main.screenHeight / 11, 40, 40, 15, DARKGREEN);
 		}
 	
 	}
@@ -131,20 +130,19 @@ public class LineSegment {
 		g2D.setStroke(stroke);
 		g2D.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 		
-		if (bush1 != null) {
-			bush1.draw(g2D);
-		}
+		/*//if (bush != null) {
+		//	bush.draw(g2D);
+		//}
 		
 		if (coin != null) {
 			coin.draw(g2D);
 		}
 		// we tekenen de spikes in landscape, omdat ze anders niet allemaal deftig zichtbaar zijn
-/*		if (spike != null) {
+		if (spike != null) {
 			spike.draw(g2D);
-		}*/
-		if (bush1 != null) {
-			bush1.draw(g2D);
-
 		}
+	
+
+		}*/
 	}
 }

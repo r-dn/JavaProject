@@ -81,17 +81,13 @@ public class Landscape {
 	}
 
 	public void update(int period) {
-		
-		if(lines[Math.floorMod(current2+2, load)].coin != null) {
-	            coins++;
-	            lines[Math.floorMod(current2+2, load)].coin = null;
+
+		if (lines[Math.floorMod(current2 + 2, load)].coin != null) {
+			coins++;
+			lines[Math.floorMod(current2 + 2, load)].coin = null;
 
 		}
-		
-		
-		
-		
-		
+
 		// versnellen bergaf, vertragen bergop
 		setSpeed(speed + g * period / 1000 * Math.sin(bike.tilt()));
 
@@ -162,11 +158,11 @@ public class Landscape {
 		}
 
 		time += (double) period / 1000;
-		
-		for (int i = 0; i <= Math.floorMod(current2-current, load); i++) {
-			if(lines[Math.floorMod(current+i, load)].spike != null && jumpHeight < LineSegment.spikeHeight) {
-	            setSpeed(0);
-	            lines[Math.floorMod(current2+i, load)].spike = null;
+
+		for (int i = 0; i <= Math.floorMod(current2 - current, load); i++) {
+			if (lines[Math.floorMod(current + i, load)].spike != null && jumpHeight < LineSegment.spikeHeight) {
+				setSpeed(0);
+				lines[Math.floorMod(current2 + i, load)].spike = null;
 			}
 		}
 	}
@@ -195,10 +191,6 @@ public class Landscape {
 		g2D.setColor(LineSegment.skyColor);
 		g2D.fillRect(0, 0, Main.screenWidth, Main.screenHeight);
 
-		
-
-		
-
 		MOON.draw(g2D);
 		LEFTCLOUD.draw(g2D);
 		MIDDLECLOUD.draw(g2D);
@@ -208,13 +200,20 @@ public class Landscape {
 			line.drawWithBackground(g2D);
 
 		}
-		
+
 		for (LineSegment line : lines) {
+			if (line.bush != null) {
+				line.bush.draw(g2D);
+			}
+			if (line.coin != null) {
+				line.coin.draw(g2D);
+			}
 			if (line.spike != null) {
 				line.spike.draw(g2D);
+
 			}
 		}
-		
+
 		if (drawBike) {
 			bike.draw(g2D);
 		}
