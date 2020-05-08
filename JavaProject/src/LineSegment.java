@@ -20,18 +20,12 @@ public class LineSegment {
 	private static final Color groundColor = new Color(120, 100, 60);
 	public static final Color skyColor = new Color(44, 52, 210);
 	private static final Color roadColor = new Color(34, 177, 76);
-	private static final Color veryDarkGreen = new Color(0, 102, 0);
-	private static final Color darkGreen = new Color(0, 153, 0);
-	private static final Color lightGreen = new Color(0, 255, 51);
 	private static final double height = Main.screenHeight/10;
+	private static final Color DARKGREEN = new Color(0, 153, 0);
 
-	
-	
-
-	private Bush bush1 = new Bush(500,500,40,40,15,veryDarkGreen);
-
-	private Bush bush2;
-	private Bush bush3;
+	public Bush bush1;
+	public Bush bush2;
+	public Bush bush3;
 
 	public LineSegment(double x1, double y1, double x2, double y2) {
 		this.x1 = x1;
@@ -44,19 +38,13 @@ public class LineSegment {
 		}
 
 		if (rng.nextDouble() < 0.1) {
-			this.spike = new Spike(x1, y1, (x1+x2)/2, (y1+y2)/2, height);
-			}
-		if (rng.nextDouble() < 0.1) {
 
-		/*if (rng.nextDouble() < 0.1) {
-			this.bush1 = new Bush(x1, y1 - Main.screenHeight / 6, 40, 40, 15, veryDarkGreen);
-		}*/
-		if (rng.nextDouble() < 0.2) {
-			this.bush2 = new Bush(x1, y1 - Main.screenHeight / 6, 40, 20, 20, darkGreen);
+			this.spike = new Spike(x1, y1, (x1+x2)/2, (y1+y2)/2, height);
 		}
-		if (rng.nextDouble() < 0.3) {
-			this.bush3 = new Bush(x1, y1 - Main.screenHeight / 6, 50, 50, 10, lightGreen);
-		}
+		
+		
+		if (rng.nextDouble() < 0.05 && Math.abs(this.slope()) < 0.2) {
+			this.bush1 = new Bush(x1 - 20, y1 - Main.screenHeight / 11, 40, 40, 15, DARKGREEN);
 		}
 	}
 
@@ -122,24 +110,21 @@ public class LineSegment {
 			coin = new Coin(x1, y1 - Main.screenHeight / 8);
 		}
 		if (spike != null) {
-			this.spike = new Spike(x1, y1, (x1+x2)/2, (y1+y2)/2, height);
-		}
-		if (bush1 != null) {
-			bush1 = new Bush(x1, y1 - Main.screenHeight / 6, 40, 40, 15, veryDarkGreen);
-		}
-		if (bush2 != null) {
-			bush2 = new Bush(x1, y1 - Main.screenHeight / 6, 40, 20, 20, darkGreen);
-		}
-		if (bush3 != null) {
-			bush3 = new Bush(x1, y1 - Main.screenHeight / 6, 50, 50, 10, lightGreen);
-		}
 
+			this.spike = new Spike(x1, y1, (x1+x2)/2, (y1+y2)/2, height);
+
+		}
+		if (bush1 != null ) {
+			this.bush1 = new Bush(x1 - 20, y1 - Main.screenHeight / 11, 40, 40, 15, DARKGREEN);
+		}
+	
 	}
+
 
 	public void drawWithBackground(Graphics2D g2D) {
 		// De kleur en breedte van het lijnsegment kan natuurlijk aangepast worden
 		int segmentWidth = (int) (x2 - x1 + 1);
-
+	
 		// Grond inkleuren
 		g2D.setColor(groundColor);
 		g2D.fillRect((int) x1, (int) y1, (int) segmentWidth, (int) Main.screenHeight - (int) y1);
@@ -148,7 +133,9 @@ public class LineSegment {
 		g2D.setStroke(stroke);
 		g2D.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 		
-		bush1.draw(g2D);
+		if (bush1 != null) {
+			bush1.draw(g2D);
+		}
 		
 		if (coin != null) {
 			coin.draw(g2D);
@@ -161,13 +148,5 @@ public class LineSegment {
 			bush1.draw(g2D);
 
 		}
-		if (bush2 != null) {
-			bush2.draw(g2D);
-
-		}
-		if (bush3 != null) {
-			bush3.draw(g2D);
-		}
-
 	}
 }
