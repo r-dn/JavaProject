@@ -56,7 +56,7 @@ public class Landscape {
 		speed = bike.back.angularVelocity * bike.back.radius;
 
 		// de jumphoogte is 0
-		jumpHeight = 500;
+		jumpHeight = 100;
 		jumpSpeed = 0;
 		jumping = false;
 

@@ -60,7 +60,7 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 
 		for (int i = 0; i < bikes.length; i++) {
 			if (selected == i) {
-				g.setColor(unlocked[i] ? Color.black : Color.GRAY);
+				g.setColor(unlocked[i] ? Color.black : Color.darkGray);
 				drawCenteredString(g, bikes[i].name,
 						new Rectangle(Main.screenWidth / 2 - 100, Main.screenHeight / 3 + 120, 200, 40),
 						new Font(Font.MONOSPACED, Font.BOLD, 32));
