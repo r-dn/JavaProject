@@ -36,7 +36,7 @@ public class LineSegment {
 			this.coin = new Coin(x1, y1 - Main.screenHeight / 8);
 		}
 
-		if (rng.nextDouble() < 0.05 && attributes) {
+		if (rng.nextDouble() < 0.95 && attributes) {
 
 			this.spike = new Spike(x1, y1, (x1+x2)/2, (y1+y2)/2, spikeHeight);
 		}

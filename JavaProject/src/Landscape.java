@@ -48,6 +48,14 @@ public class Landscape {
 		for (int i = 1; i < load; i++) {
 			lines[i] = LineSegment.randomTilt(lines[i - 1], length, 0, maxTilt, false);
 		}
+		for (int i = 1; i < load; i++) {
+			if (lines[i].spike != null) {
+				for (int j = 1; j < 6; j++) {
+				
+					lines[i+j].spike=null;
+				}
+			}
+		}
 
 		// current is het segment onder het achterwiel
 		current = (int) Math.round(bike.back.x / length);
@@ -79,6 +87,9 @@ public class Landscape {
 	public double slope() {
 		return -Math.tan(bike.tilt());
 	}
+	
+	
+	
 
 	public void update(int period) {
 
@@ -87,6 +98,7 @@ public class Landscape {
 			lines[Math.floorMod(current2 + 2, load)].coin = null;
 
 		}
+		
 
 		// versnellen bergaf, vertragen bergop
 		setSpeed(speed + g * period / 1000 * Math.sin(bike.tilt()));
