@@ -88,10 +88,6 @@ public class Landscape {
 
 		}
 		
-		
-		
-		
-		
 		// versnellen bergaf, vertragen bergop
 		setSpeed(speed + g * period / 1000 * Math.sin(bike.tilt()));
 
@@ -138,8 +134,14 @@ public class Landscape {
 		// Als een lijnsegment zich niet meer op het scherm bevindt, kunnen we het
 		// verwijderen en een nieuw segment voorbereiden
 		if (lines[Math.floorMod(current - 5, load)].x2 < 0) {
+			boolean drawSpikes = true;
+			for (int i = -5; i < 0; i++) {
+				if (lines[Math.floorMod(current - 5 - i, load)].spike != null) {
+					drawSpikes = false;
+				}
+			}
 			lines[Math.floorMod(current - 5, load)] = LineSegment.randomTilt(lines[Math.floorMod(current - 6, load)],
-					length, limit, maxTilt, true);
+					length, limit, maxTilt, drawSpikes);
 
 			distance += (double) length / 200;
 		}
