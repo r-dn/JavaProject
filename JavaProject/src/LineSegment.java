@@ -37,7 +37,7 @@ public class LineSegment {
 		}
 
 
-		if (rng.nextDouble() < 0.2 && hasSpike) {
+		if (rng.nextDouble() < 0.1 && hasSpike) {
 
 			this.spike = new Spike(x1, y1, (x1+x2)/2, (y1+y2)/2, spikeHeight);
 		}
