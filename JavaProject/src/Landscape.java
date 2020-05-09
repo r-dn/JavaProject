@@ -15,7 +15,7 @@ public class Landscape {
 	public Bike bike;
 	public int current, current2; // pointers, geven aan welk(e) lijnsegment(en) van 'lines' momenteel onder de
 									// fiets zijn
-	public int lastAdded;
+	public int diff;
 	public int length; // de lengte van elk segment
 	public double speed; // de snelheid van de fiets, in pixels/s
 
@@ -44,15 +44,23 @@ public class Landscape {
 
 		// De lijnsegmenten genereren
 		// Het eerste segment is horizontaal
-		lines[0] = new LineSegment(0, bike.back.y + bike.back.radius, length, bike.back.y + bike.back.radius, false);
+		lines[0] = new LineSegment(0, bike.back.y + bike.back.radius, length, bike.back.y + bike.back.radius, false, false);
 		for (int i = 1; i < load; i++) {
-			lines[i] = LineSegment.randomTilt(lines[i - 1], length, 0, maxTilt, false);
+			lines[i] = LineSegment.randomTilt(lines[i - 1], length, 0, maxTilt, false, false);
+		}
+		for (int i = 1; i < load; i++) {
+			if (lines[i].spike != null) {
+				for (int j = 1; j < 6; j++) {
+				
+					lines[i+j].spike=null;
+				}
+			}
 		}
 
 		// current is het segment onder het achterwiel
 		current = (int) Math.round(bike.back.x / length);
 		current2 = (int) Math.round(bike.front.x / length);
-		lastAdded = load - 1;
+		diff = current;
 
 		// De snelheid van het landschap kan gehaald worden uit rotatiesnelheid van de
 		// wielen
@@ -79,12 +87,15 @@ public class Landscape {
 	public double slope() {
 		return -Math.tan(bike.tilt());
 	}
+	
+	
+	
 
 	public void update(int period) {
-		
-		if(lines[Math.floorMod(current2+2, load)].coin != null) {
-	            coins++;
-	            lines[Math.floorMod(current2+2, load)].coin = null;
+
+		if (lines[Math.floorMod(current2 + 2, load)].coin != null) {
+			coins++;
+			lines[Math.floorMod(current2 + 2, load)].coin = null;
 
 		}
 		
@@ -127,21 +138,21 @@ public class Landscape {
 			current = Math.floorMod(current + 1, load);
 		}
 		// idem, maar met het voorwiel
-		if (lines[current].x2 < bike.front.x) {
-			current2 = Math.floorMod(current + 1, load);
+		if (lines[current2].x2 < bike.front.x) {
+			current2 = Math.floorMod(current2 + 1, load);
 		}
 
 		// Als een lijnsegment zich niet meer op het scherm bevindt, kunnen we het
 		// verwijderen en een nieuw segment voorbereiden
-		if (lines[Math.floorMod(current - 5, load)].x2 < 0) {
+		if (lines[Math.floorMod(current - diff - 2, load)].x2 < 0) {
 			boolean drawSpikes = true;
-			for (int i = -5; i < 0; i++) {
-				if (lines[Math.floorMod(current - 5 - i, load)].spike != null) {
+			for (int i = -10; i < -1; i++) {
+				if (lines[Math.floorMod(current - diff + i, load)].spike != null) {
 					drawSpikes = false;
 				}
 			}
-			lines[Math.floorMod(current - 5, load)] = LineSegment.randomTilt(lines[Math.floorMod(current - 6, load)],
-					length, limit, maxTilt, drawSpikes);
+			lines[Math.floorMod(current - diff- 2, load)] = LineSegment.randomTilt(lines[Math.floorMod(current - diff - 3, load)],
+					length, limit, maxTilt, true, drawSpikes);
 
 			distance += (double) length / 200;
 		}
@@ -164,13 +175,13 @@ public class Landscape {
 		}
 
 		time += (double) period / 1000;
-		
-		for (int i = 0; i <= Math.floorMod(current2-current, load); i++) {
-			if(lines[Math.floorMod(current+i, load)].spike != null && jumpHeight < LineSegment.spikeHeight) {
-	            setSpeed(0);
-	            lines[Math.floorMod(current2+i, load)].spike = null;
+
+			if ((lines[Math.floorMod(current, load)].spike != null || lines[Math.floorMod(current2, load)].spike != null) && jumpHeight < LineSegment.spikeHeight - 20) {
+				setSpeed(0);
+				lines[Math.floorMod(current, load)].spike = null;
+				lines[Math.floorMod(current2, load)].spike = null;
 			}
-		}
+		
 	}
 
 	public void increaseSpeed() {
@@ -197,10 +208,6 @@ public class Landscape {
 		g2D.setColor(LineSegment.skyColor);
 		g2D.fillRect(0, 0, Main.screenWidth, Main.screenHeight);
 
-		
-
-		
-
 		MOON.draw(g2D);
 		LEFTCLOUD.draw(g2D);
 		MIDDLECLOUD.draw(g2D);
@@ -210,13 +217,20 @@ public class Landscape {
 			line.drawWithBackground(g2D);
 
 		}
-		
+
 		for (LineSegment line : lines) {
+			if (line.bush != null) {
+				line.bush.draw(g2D);
+			}
+			if (line.coin != null) {
+				line.coin.draw(g2D);
+			}
 			if (line.spike != null) {
 				line.spike.draw(g2D);
+
 			}
 		}
-		
+
 		if (drawBike) {
 			bike.draw(g2D);
 		}

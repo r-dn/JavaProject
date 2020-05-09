@@ -12,7 +12,7 @@ public class Spike {
 		this.y1 = y1;
 		this.x2 = x2;
 		this.y2 = y2;
-		base = new LineSegment(x1, y1, x2, y2, false);
+		base = new LineSegment(x1, y1, x2, y2, false, false);
 		this.x3 = (x1+x2)/2 + spikeHeight*Math.sin(base.tilt());
 		this.y3 = (y1+y2)/2 - spikeHeight*Math.cos(base.tilt());
 		this.spikeHeight = spikeHeight;
