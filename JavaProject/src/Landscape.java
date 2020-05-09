@@ -44,15 +44,16 @@ public class Landscape {
 
 		// De lijnsegmenten genereren
 		// Het eerste segment is horizontaal
-		lines[0] = new LineSegment(0, bike.back.y + bike.back.radius, length, bike.back.y + bike.back.radius, false, false);
+		lines[0] = new LineSegment(0, bike.back.y + bike.back.radius, length, bike.back.y + bike.back.radius, false,
+				false);
 		for (int i = 1; i < load; i++) {
 			lines[i] = LineSegment.randomTilt(lines[i - 1], length, 0, maxTilt, false, false);
 		}
 		for (int i = 1; i < load; i++) {
 			if (lines[i].spike != null) {
 				for (int j = 1; j < 6; j++) {
-				
-					lines[i+j].spike=null;
+
+					lines[i + j].spike = null;
 				}
 			}
 		}
@@ -87,9 +88,6 @@ public class Landscape {
 	public double slope() {
 		return -Math.tan(bike.tilt());
 	}
-	
-	
-	
 
 	public void update(int period) {
 
@@ -98,7 +96,7 @@ public class Landscape {
 			lines[Math.floorMod(current2 + 2, load)].coin = null;
 
 		}
-		
+
 		// versnellen bergaf, vertragen bergop
 		setSpeed(speed + g * period / 1000 * Math.sin(bike.tilt()));
 
@@ -146,13 +144,13 @@ public class Landscape {
 		// verwijderen en een nieuw segment voorbereiden
 		if (lines[Math.floorMod(current - diff - 2, load)].x2 < 0) {
 			boolean drawSpikes = true;
-			for (int i = -10; i < -1; i++) {
+			for (int i = -20; i < -1; i++) {
 				if (lines[Math.floorMod(current - diff + i, load)].spike != null) {
 					drawSpikes = false;
 				}
 			}
-			lines[Math.floorMod(current - diff- 2, load)] = LineSegment.randomTilt(lines[Math.floorMod(current - diff - 3, load)],
-					length, limit, maxTilt, true, drawSpikes);
+			lines[Math.floorMod(current - diff - 2, load)] = LineSegment.randomTilt(
+					lines[Math.floorMod(current - diff - 3, load)], length, limit, maxTilt, true, drawSpikes);
 
 			distance += (double) length / 200;
 		}
@@ -176,12 +174,13 @@ public class Landscape {
 
 		time += (double) period / 1000;
 
-			if ((lines[Math.floorMod(current, load)].spike != null || lines[Math.floorMod(current2, load)].spike != null) && jumpHeight < LineSegment.spikeHeight - 20) {
-				setSpeed(0);
-				lines[Math.floorMod(current, load)].spike = null;
-				lines[Math.floorMod(current2, load)].spike = null;
-			}
-		
+		if ((lines[Math.floorMod(current, load)].spike != null || lines[Math.floorMod(current2, load)].spike != null)
+				&& jumpHeight < LineSegment.spikeHeight - 20) {
+			setSpeed(speed-1000);
+			lines[Math.floorMod(current, load)].spike = null;
+			lines[Math.floorMod(current2, load)].spike = null;
+		}
+
 	}
 
 	public void increaseSpeed() {
