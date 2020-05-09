@@ -17,13 +17,13 @@ public class Bush {
 	}
 
 	public void draw(Graphics2D g2D) {
-		double width = Main.screenWidth / size;
+		double width = Main.screenWidth / size;		//Breedte en lengte van de ovalen willen we op basis van screenWidth en screenHeight
 		double height = Main.screenHeight / size;
 
 		g2D.setColor(bushcolor);
-		g2D.fillOval((int) x, (int) y, (int) width, (int) height); // bottom left 
+		g2D.fillOval((int) x, (int) y, (int) width, (int) height); // bottom left oval
 		g2D.fillOval((int) (x + deltax), (int) (y - deltay), (int) width, (int) height); // upper oval
-		g2D.fillOval((int) (x + 2*deltax), (int) y, (int) width, (int) height); // bottom right
-		g2D.fillOval((int) (x + deltax), (int) y, (int) width, (int) height); // bottom middle
+		g2D.fillOval((int) (x + 2*deltax), (int) y, (int) width, (int) height); // bottom right oval
+		g2D.fillOval((int) (x + deltax), (int) y, (int) width, (int) height); // bottom middle oval
 	}
 }

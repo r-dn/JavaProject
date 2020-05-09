@@ -15,7 +15,7 @@ public class Moon {
 	
 	//2 cirkels worden over elkaar getekend
 	public void draw(Graphics2D g2D) {	
-		double r = Main.screenWidth / size;
+		double r = Main.screenWidth / size;		//Straal van de cirkels willen we op basis van screenWidth of screenHeight 
 		
 		g2D.setColor(MOONCOLOR);
 		g2D.fillOval((int) x, (int) y, (int) r, (int) r);

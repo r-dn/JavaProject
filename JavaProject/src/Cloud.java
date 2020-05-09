@@ -15,7 +15,7 @@ public class Cloud {
 
 	public void draw(Graphics2D g2D) {
 
-		double width = Main.screenWidth / size;
+		double width = Main.screenWidth / size;		//Breedte en lengte van de ovalen willen we op basis van screenWidth en screenHeight 
 		double height = Main.screenHeight / size;
 
 		g2D.setColor(CLOUDCOLOR);
