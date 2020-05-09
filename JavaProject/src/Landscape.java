@@ -93,7 +93,7 @@ public class Landscape {
 
 	public void update(int period) {
 
-		if (lines[Math.floorMod(current2 + 2, load)].coin != null) {
+		if (lines[Math.floorMod(current2 + 2, load)].coin != null && jumpHeight <= Main.screenHeight / 8) {
 			coins++;
 			lines[Math.floorMod(current2 + 2, load)].coin = null;
 
