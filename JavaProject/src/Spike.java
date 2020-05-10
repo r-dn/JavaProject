@@ -5,7 +5,7 @@ public class Spike {
 
 	public double x1, y1, x2, y2, x3, y3;
 	public LineSegment base; // de basis van de driehoek
-	public double spikeHeight; // hoogte van de spike --> zullen we mee moeten experimenteren
+	public double spikeHeight; // hoogte van de spike
 
 	public Spike(double x1, double y1, double x2, double y2, double spikeHeight) {
 		this.x1 = x1;

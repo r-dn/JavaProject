@@ -14,10 +14,10 @@ import java.util.Scanner;
  * https://www.w3schools.com/java/java_files_read.asp
  */
 public class GameData {
-	int coins;
-	boolean[] unlocked;
-	int current;
-	double highscore;
+	public int coins;
+	public boolean[] unlocked;
+	public int current;
+	public double highscore;
 
 	public static final Bike[] bikes = {
 			new StandardBike(Main.screenWidth / 2, Main.screenHeight / 3, Main.screenHeight / 5, 0, 0),
@@ -25,7 +25,7 @@ public class GameData {
 			new SpecialBike(Main.screenWidth / 2, Main.screenHeight / 3, Main.screenHeight / 5, 0, 0),
 			new EnduranceBike(Main.screenWidth / 2, Main.screenHeight / 3, Main.screenHeight / 5, 0, 0), };
 
-	public static Bike bike(int number) {
+	public static final Bike bike(int number) {
 
 		if (number == 0) {
 			return new StandardBike(Main.screenWidth / 8, Main.screenHeight / 2, Main.screenWidth / 8, 0, 1000);
@@ -56,15 +56,15 @@ public class GameData {
 		} catch (FileNotFoundException e) {
 			System.out.println("gamedata.txt does not exist yet; creating and initialising file");
 			createGameDataFile();
-			coins =0;
-			unlocked = new boolean[] {true, false, false, false};
-			current =0;
+			coins = 0;
+			unlocked = new boolean[] { true, false, false, false };
+			current = 0;
 			highscore = 0.0;
 			// e.printStackTrace();
 		}
 	}
 
-	public boolean createGameDataFile() {
+	private boolean createGameDataFile() {
 		// creating the file
 		try {
 			File myObj = new File("gamedata.txt");
@@ -117,7 +117,7 @@ public class GameData {
 		g.drawString(s, Main.screenWidth - 40 - fontMetrics.stringWidth(s), 72);
 	}
 
-	private static boolean[] strToBoolArray(String str, int length) {
+	private boolean[] strToBoolArray(String str, int length) {
 		boolean[] ret = new boolean[length];
 		String[] strArray = str.split(",");
 		for (int i = 0; i < length; i++) {
@@ -133,7 +133,7 @@ public class GameData {
 		return ret;
 	}
 
-	private static String boolArrayToStr(boolean[] boolArray) {
+	private String boolArrayToStr(boolean[] boolArray) {
 		String ret = "";
 		for (boolean bool : boolArray) {
 			if (bool == true) {

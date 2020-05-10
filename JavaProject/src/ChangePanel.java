@@ -23,13 +23,13 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 	 * Er zijn n soorten fietsen in totaal (standard, monster,...) Elke fiets heeft
 	 * een int (tussen 0 en n-1) als getal
 	 */
-	public int selected;
+	private int selected;
 	public boolean[] unlocked;
 
 	public Main frame;
-	public boolean displayMessage;
+	private boolean displayMessage;
 
-	public static final Bike[] bikes = GameData.bikes;
+	private static final Bike[] bikes = GameData.bikes;
 
 	public ChangePanel(Main frame) {
 		this.frame = frame;
@@ -152,7 +152,7 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 				frame.gamedata.current = selected;
 				repaint();
 			} else {
-				displayMessage =true;
+				displayMessage = true;
 				repaint();
 			}
 		}
@@ -169,7 +169,7 @@ public class ChangePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString(text, x, y);
 	}
 
-	private static void drawLockIcon(Graphics g, double x, double y, double size) {
+	private void drawLockIcon(Graphics g, double x, double y, double size) {
 		g.fillRoundRect((int) Math.round(x - size / 2), (int) Math.round(y - size * 1 / 3), (int) Math.round(size),
 				(int) Math.round(size * 2 / 3), (int) Math.round(size / 6), (int) Math.round(size / 6));
 		Graphics2D g2D = (Graphics2D) g;

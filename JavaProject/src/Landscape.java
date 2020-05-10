@@ -4,18 +4,18 @@ import java.awt.Graphics2D;
 // 15/3/20
 
 public class Landscape {
-	private static final int load = 25; // hoeveel lijnsegmenten er geladen moeten worden
+	private static final int load = 25; // hoeveel lijnsegmenten er geladen worden
 	private static final double limit = 0.1; // hoeveel elk lijnsegment max mag stijgen of dalen
 	private static final double maxTilt = Math.PI / 4; // de maximale helling
 	private static final int increment = 100;
-	private static final int g = 2000; // valversnelling
+	private static final int g = 100*GameInterface.refresh; // valversnelling
 	public static final int startEnergy = 5000;
 
 	public LineSegment[] lines = new LineSegment[load];
 	public Bike bike;
-	public int current, current2; // pointers, geven aan welk(e) lijnsegment(en) van 'lines' momenteel onder de
+	private int current, current2; // pointers, geven aan welk(e) lijnsegment(en) van 'lines' momenteel onder de
 									// fiets zijn
-	public int diff;
+	private final int diff;
 	public int length; // de lengte van elk segment
 	public double speed; // de snelheid van de fiets, in pixels/s
 
@@ -28,8 +28,6 @@ public class Landscape {
 	public double time;
 	public int coins;
 
-	// TODO: Kijken naar de attributen van cloud en moon --> zullen ze altijd binnen
-	// het scherm vallen?
 	private static final Cloud LEFTCLOUD = new Cloud(Main.screenWidth / 30, Main.screenHeight / 15, 9);
 	private static final Cloud MIDDLECLOUD = new Cloud(Main.screenWidth / 3, Main.screenHeight / 20 + 25, 10);
 	private static final Cloud RIGHTCLOUD = new Cloud(Main.screenWidth - 300, Main.screenHeight / 20 + 10, 13);
@@ -47,7 +45,7 @@ public class Landscape {
 		lines[0] = new LineSegment(0, bike.back.y + bike.back.radius, length, bike.back.y + bike.back.radius, false,
 				false);
 		for (int i = 1; i < load; i++) {
-			lines[i] = LineSegment.randomTilt(lines[i - 1], length, 0, maxTilt, false, false);
+			lines[i] = new LineSegment(lines[i - 1], length, 0, maxTilt, false, false);
 		}
 		for (int i = 1; i < load; i++) {
 			if (lines[i].spike != null) {
@@ -60,6 +58,7 @@ public class Landscape {
 
 		// current is het segment onder het achterwiel
 		current = (int) Math.round(bike.back.x / length);
+		// current2 onder het voorwiel
 		current2 = (int) Math.round(bike.front.x / length);
 		diff = current;
 
@@ -94,7 +93,6 @@ public class Landscape {
 		if (lines[Math.floorMod(current2 + 2, load)].coin != null && jumpHeight <= Main.screenHeight / 8) {
 			coins++;
 			lines[Math.floorMod(current2 + 2, load)].coin = null;
-
 		}
 
 		// versnellen bergaf, vertragen bergop
@@ -116,7 +114,7 @@ public class Landscape {
 
 		// deltax en deltay geven aan met welke hoeveelheid we de lijnsegmenten moeten
 		// verplaatsen
-		// deltax is afhankelijk van de snelheid (speed)
+		// deltax is afhankelijk van speed
 		double horizontalSpeed = speed * Math.cos(bike.tilt());
 		double deltax = period * horizontalSpeed / 1000;
 
@@ -143,21 +141,23 @@ public class Landscape {
 		// Als een lijnsegment zich niet meer op het scherm bevindt, kunnen we het
 		// verwijderen en een nieuw segment voorbereiden
 		if (lines[Math.floorMod(current - diff - 2, load)].x2 < 0) {
+			// we willen geen spikes vlak naast elkaar, dus als er een spike geweest is,
+			// wachten we min. 20 lijnsegmenten
 			boolean drawSpikes = true;
-			for (int i = -20; i < -1; i++) {
+			for (int i = -20; i < 0; i++) {
 				if (lines[Math.floorMod(current - diff + i, load)].spike != null) {
 					drawSpikes = false;
 				}
 			}
-			lines[Math.floorMod(current - diff - 2, load)] = LineSegment.randomTilt(
+			lines[Math.floorMod(current - diff - 2, load)] = new LineSegment(
 					lines[Math.floorMod(current - diff - 3, load)], length, limit, maxTilt, true, drawSpikes);
 
 			distance += (double) length / 200;
 		}
 
 		// fiets updaten
-		// We roteren de fiets rond het voorwiel zodat het voorwiel de weg in
-		// (lines[current2]) raakt
+		// We roteren de fiets rond het achterwiel zodat het voorwiel de weg in
+		// lines[current2] raakt
 		double newbikefronty = lines[current2].heightAt(bike.front.x) - jumpHeight;
 		double angle = Math.asin(((newbikefronty - bike.front.y - bike.front.radius) / bike.size()) % 1); // die %1 fixt
 																											// een bug
@@ -173,10 +173,11 @@ public class Landscape {
 		}
 
 		time += (double) period / 1000;
-
+		
+		// als één van de wielen een spike raakt, vertraag je enorm
 		if ((lines[Math.floorMod(current, load)].spike != null || lines[Math.floorMod(current2, load)].spike != null)
 				&& jumpHeight < LineSegment.spikeHeight - 20) {
-			setSpeed(speed-1000);
+			setSpeed(speed - 1400);
 			lines[Math.floorMod(current, load)].spike = null;
 			lines[Math.floorMod(current2, load)].spike = null;
 		}
@@ -234,11 +235,4 @@ public class Landscape {
 			bike.draw(g2D);
 		}
 	}
-
-	public void drawText(Graphics2D g2D) {
-		String text = "Speed: " + speed + "\n" + "Slope: " + Math.round(slope()) + " %\n" + "";
-
-		g2D.drawString(text, 10, 20);
-	}
-
 }

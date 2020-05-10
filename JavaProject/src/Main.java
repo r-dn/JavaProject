@@ -8,28 +8,19 @@ public class Main extends JFrame {
 	public static final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public static final int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 
-	public int frameWidth;
-	public int frameHeight;
-
 	public GameInterface game;
 	public GameData gamedata;
 
 	public Main() {
 		gamedata = new GameData();
 
-		game = new GameInterface(gamedata.current, null);
-		game.frame = this;
+		game = new GameInterface(gamedata.current, this);
 		setSize(screenWidth, screenHeight);
-
-		frameWidth = getWidth();
-		frameHeight = getHeight();
 	}
 
 	public static void main(String[] args) {
 
 		Main m = new Main();
-		m.frameWidth = m.getWidth();
-		m.frameHeight = m.getHeight();
 		m.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		m.setTitle("Ghostbike");
 		m.setLocation(0, 0); // standaard in de hoek van het scherm
@@ -62,17 +53,16 @@ public class Main extends JFrame {
 		double totalDistance = game.main.distance;
 		double totalTime = game.main.time;
 		int coins = game.main.coins;
-		int totalCoins = gamedata.coins + coins;
 		boolean highscore = (totalDistance > gamedata.highscore);
 
-		gamedata.coins = totalCoins;
+		gamedata.coins = gamedata.coins + coins;
 		if (highscore) {
 			gamedata.highscore = totalDistance;
 		}
 		gamedata.save();
 		game.transferFocus();
 		getContentPane().removeAll();
-		add(new GameOverPanel(this, totalDistance, totalTime, coins, totalCoins, highscore));
+		add(new GameOverPanel(this, totalDistance, totalTime, coins, highscore));
 		setVisible(true);
 		revalidate();
 		repaint();
@@ -87,9 +77,4 @@ public class Main extends JFrame {
 		revalidate();
 		repaint();
 	}
-
-	public void pause() {
-
-	}
-
 }
