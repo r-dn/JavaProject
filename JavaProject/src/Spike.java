@@ -21,10 +21,10 @@ public class Spike {
 	
 	
 	public void draw(Graphics2D g2D) {
-		int polygonX[] = {(int) x1, (int) (x2), (int) (x3)};
+		int polygonX[] = {(int) x1, (int) (x2), (int) (x3)};	
 		int polygonY[] = {(int) y1, (int) (y2), (int) (y3)};
 		g2D.setColor(Color.DARK_GRAY);	//Kleur mag je veranderen naar wat je wil
-		g2D.fillPolygon(polygonX, polygonY, 3); //3 staat voor hoeveel hoeken bY tHe WaY 
+		g2D.fillPolygon(polygonX, polygonY, 3); //3 staat voor hoeveel hoeken 
 	}
 }
 

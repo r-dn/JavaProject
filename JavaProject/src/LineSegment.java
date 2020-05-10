@@ -30,6 +30,7 @@ public class LineSegment {
 		this.y1 = y1;
 		this.x2 = x2;
 		this.y2 = y2;
+		
 		Random rng = new Random();
 		if (rng.nextDouble() < 0.1 && hasCoin) {
 			this.coin = new Coin(x1, y1 - Main.screenHeight / 8);
@@ -39,30 +40,28 @@ public class LineSegment {
 
 
 
+
+
 		if (rng.nextDouble() < 0.1 && hasSpike) {
+
+
 
 
 			this.spike = new Spike(x1, y1, (x1+x2)/2, (y1+y2)/2, spikeHeight);
 		}
 		
-		
-		if (rng.nextDouble() < 0.1 && Math.abs(this.slope()) < 0.1) {
+		if (rng.nextDouble() < 0.1 && Math.abs(slope()) <= 0.2) {
 			this.bush = new Bush(x1, y1 - Main.screenHeight / 11, 40, 40, 15, DARKGREEN);
 		}
 	}
 
-	// Dit is een andere constructor, die een willekeurig lijnsegment aanmaakt met
-	// vast beginpunt en vaste lengte
-	public static LineSegment random(double x1, double y1, double length, double limit, boolean hasCoin, boolean hasSpike) {
-		Random rng = new Random();
-		// limit geeft aan hoever het lijnstuk mag varieren in hoogte
-		LineSegment ret = new LineSegment(x1, y1, x1 + length, y1 + rng.nextDouble() * 2 * limit - limit, hasCoin, hasSpike);
-		return ret;
-
-	}
-
 	// Lijnsegment met een willk hoek met het vorige segment
-	public static LineSegment randomTilt(LineSegment previous, double length, double maxDeltaTilt, double maxTilt, boolean hasCoin, boolean hasSpike) {
+	public LineSegment(LineSegment previous, double length, double maxDeltaTilt, double maxTilt, boolean hasCoin, boolean hasSpike) {
+		/*
+		this(previous.x2, previous.y2, previous.x2 + length,
+				0, hasCoin, hasSpike); 
+				^^ dit gaat niet, dat gaf problemen met het aanmaken van spikes en bushes, dus moeten we toch de linesegment apart constructen
+		*/
 		Random rng = new Random();
 		double deltaTilt = rng.nextGaussian() * maxDeltaTilt / 3;
 		double totalTilt = previous.tilt() + deltaTilt;
@@ -73,10 +72,23 @@ public class LineSegment {
 			totalTilt = previous.tilt() - deltaTilt;
 		}
 
-		LineSegment ret = new LineSegment(previous.x2, previous.y2, previous.x2 + length,
-				previous.y2 + length * Math.sin(totalTilt), hasCoin, hasSpike);
-		return ret;
+		x1 = previous.x2;
+		y1 = previous.y2;
+		x2 = x1 + length;
+		y2 = previous.y2 + length * Math.sin(totalTilt);
+		
+		if (rng.nextDouble() < 0.1 && hasCoin) {
+			this.coin = new Coin(x1, y1 - Main.screenHeight / 8);
+		}
 
+		if (rng.nextDouble() < 0.1 && hasSpike) {
+			this.spike = new Spike(x1, y1, (x1+x2)/2, (y1+y2)/2, spikeHeight);
+		}
+		
+		if (rng.nextDouble() < 0.1 && Math.abs(slope()) <= 0.2) {
+			this.bush = new Bush(x1, y1 - Main.screenHeight / 11, 40, 40, 15, DARKGREEN);
+		}
+		 
 	}
 
 	// de helling van het segment
@@ -134,6 +146,9 @@ public class LineSegment {
 		g2D.setStroke(stroke);
 		g2D.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 		
-		
+
+
+		// de coin, spike en bush worden apart getekend
+
 	}
 }

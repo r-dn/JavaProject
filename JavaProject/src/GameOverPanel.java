@@ -17,20 +17,18 @@ public class GameOverPanel extends JPanel implements ActionListener, KeyListener
 
 	public Main frame;
 
-	public double totalDistance;
-	public double totalTime;
-	public int coins;
-	public int totalCoins;
-	public boolean highscore;
+	private double totalDistance;
+	private double totalTime;
+	private int coins;
+	private boolean highscore;
 
-	public GameOverPanel(Main frame, double totalDistance, double totalTime, int coins, int totalCoins,
+	public GameOverPanel(Main frame, double totalDistance, double totalTime, int coins,
 			boolean highscore) {
 		this.frame = frame;
 
 		this.totalDistance = totalDistance;
 		this.totalTime = totalTime;
 		this.coins = coins;
-		this.totalCoins = totalCoins;
 		this.highscore = highscore;
 
 		retryButton = new JButton("Retry");

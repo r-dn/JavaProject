@@ -32,7 +32,6 @@ public class EnergySlider extends Slider {
 		
 	}
 	
-	
 	public void draw(Graphics2D g2D) {
 		super.draw(g2D, color);
 		

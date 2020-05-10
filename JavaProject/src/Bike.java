@@ -6,8 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 public class Bike {
-	public Wheel front, back; // het voor- en achterwiel
-	public Color frameColor;
+	public Wheel front, back;
+	private Color frameColor;
 
 	public double maxSpeed;
 	public double efficiency;
@@ -49,17 +49,6 @@ public class Bike {
 		// We gebruiken de functie atan2 omdat atan niet deftig werkt
 		return Math.atan2((front.y - back.y), (front.x - back.x));
 	}
-
-	public void setSize(double newSize) {
-		double oldSize = size();
-		back.setSize(back.radius*newSize/oldSize);
-		front.setSize(front.radius*newSize/oldSize);
-		back.x -= (newSize-oldSize)/2;
-		front.x += (newSize-oldSize)/2;
-		
-		strokeWidth = (int) front.radius / 30;
-		frameStroke = new BasicStroke(4 * strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-	}
 	
 	public void rotateAroundFront(double angle) {
 		double rho = size();
@@ -85,7 +74,6 @@ public class Bike {
 	public void draw(Graphics g) {
 		Graphics2D g2D = (Graphics2D) g;
 
-		// wielen
 		front.draw(g);
 		back.draw(g);
 

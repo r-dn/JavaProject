@@ -15,11 +15,11 @@ import javax.swing.Timer;
 @SuppressWarnings("serial")
 public class GameInterface extends JPanel implements ActionListener, KeyListener {
 	public Landscape main;
-	public EnergySlider energy;
-	public SpeedSlider speed;
-	public Timer updateTimer = new Timer(refresh, this);
-	public int current;
-	public boolean paused;
+	private EnergySlider energy;
+	private SpeedSlider speed;
+	private Timer updateTimer = new Timer(refresh, this);
+	public int current; // de fiets
+	private boolean paused;
 
 	public Main frame;
 
@@ -54,7 +54,6 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 		retryButton.addActionListener(this);
 
 	}
-
 
 
 	@Override
@@ -127,7 +126,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == updateTimer) {
 			if (!paused) {
-				if (main.speed <= 2) {
+				if (main.speed <= 1) {
 					gameOver();
 				}
 
@@ -137,8 +136,6 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 				speed.setCurrentSpeed(main.speed);
 
 				repaint();
-			} else {
-
 			}
 		}
 		if (e.getSource() == returnButton) {
@@ -164,10 +161,6 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 		requestFocusInWindow();
 	}
 
-	public GameInterface restart() {
-		GameInterface newGame = new GameInterface(current, frame);
-		return newGame;
-	}
 
 	public void drawPausePanel(Graphics g) {
 		g.setColor(new Color(238, 238, 238));
