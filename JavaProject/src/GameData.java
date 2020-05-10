@@ -8,11 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-/*
- * sources:
- * https://www.w3schools.com/java/java_files_create.asp
- * https://www.w3schools.com/java/java_files_read.asp
- */
+
 public class GameData {
 	int coins;
 	boolean[] unlocked;
@@ -60,7 +56,7 @@ public class GameData {
 			unlocked = new boolean[] {true, false, false, false};
 			current =0;
 			highscore = 0.0;
-			// e.printStackTrace();
+			
 		}
 	}
 
