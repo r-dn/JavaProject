@@ -2,6 +2,8 @@
 
 Marwan Aoulad, Wassim Amghizar, Rogier De Nys
 
+github.com/r-dn/JavaProject
+
 ## Description
 
 There's only one rule: just don't stop.
@@ -26,6 +28,6 @@ When you run the program for the first time, a file ``` gamedata.txt ``` is crea
 We did most of the programming ourselves.
 
 Online sources:
- - [drawCenteredString()](stackoverflow.com/questions/27706197/how-can-i-center-graphics-drawstring-in-java)
- - [Creating files](www.w3schools.com/java/java_files_create.asp)
- - [Reading files](www.w3schools.com/java/java_files_read.asp)
+ - stackoverflow.com/questions/27706197/how-can-i-center-graphics-drawstring-in-java
+ - www.w3schools.com/java/java_files_create.asp
+ - www.w3schools.com/java/java_files_read.asp
