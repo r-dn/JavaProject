@@ -8,7 +8,7 @@ public class Landscape {
 	private static final double limit = 0.1; // hoeveel elk lijnsegment max mag stijgen of dalen
 	private static final double maxTilt = Math.PI / 4; // de maximale helling
 	private static final int increment = 100;
-	private static final int g = 100*GameInterface.refresh; // valversnelling
+	private static final int g = 100 * GameInterface.refresh; // valversnelling
 	public static final int startEnergy = 5000;
 
 	public LineSegment[] lines = new LineSegment[load];
@@ -173,7 +173,7 @@ public class Landscape {
 		}
 
 		time += (double) period / 1000;
-		
+
 		// als één van de wielen een spike raakt, vertraag je enorm
 		if ((lines[Math.floorMod(current, load)].spike != null || lines[Math.floorMod(current2, load)].spike != null)
 				&& jumpHeight < LineSegment.spikeHeight - 20) {
@@ -222,16 +222,22 @@ public class Landscape {
 			if (line.bush != null) {
 				line.bush.draw(g2D);
 			}
+		}
+		for (LineSegment line : lines) {
 			if (line.coin != null) {
 				line.coin.draw(g2D);
 			}
+		}
+		for (LineSegment line : lines) {
 			if (line.spike != null) {
 				line.spike.draw(g2D);
 
 			}
 		}
 
-		if (drawBike) {
+		if (drawBike)
+
+		{
 			bike.draw(g2D);
 		}
 	}
