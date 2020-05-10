@@ -55,8 +55,6 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 
 	}
 
-	// nu is de main() in de klasse Main
-
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
