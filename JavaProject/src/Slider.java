@@ -2,7 +2,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-// 10/4/2020
 
 public class Slider {
 	public double x,y;

@@ -55,7 +55,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 
 	}
 
-	// nu is de main() in de klasse Main
+
 
 	@Override
 	public void paintComponent(Graphics g) {
@@ -68,7 +68,7 @@ public class GameInterface extends JPanel implements ActionListener, KeyListener
 
 		energy.draw(g2D);
 		speed.draw(g2D);
-		// main.drawText(g2D);
+		
 		g2D.drawString("Distance: " + (int) main.distance + " m", 20, 80);
 		g2D.drawString("Time: " + Math.floor(main.time * 10) / 10 + " s", 20, 100);
 		int eindtijd = (int) System.currentTimeMillis();

@@ -5,14 +5,14 @@ public class Spike {
 
 	public double x1, y1, x2, y2, x3, y3;
 	public LineSegment base; // de basis van de driehoek
-	public double spikeHeight; // hoogte van de spike --> zullen we mee moeten experimenteren
+	public double spikeHeight; // hoogte van de spike
 
 	public Spike(double x1, double y1, double x2, double y2, double spikeHeight) {
 		this.x1 = x1;
 		this.y1 = y1;
 		this.x2 = x2;
 		this.y2 = y2;
-		base = new LineSegment(x1, y1, x2, y2, false);
+		base = new LineSegment(x1, y1, x2, y2, false, false);
 		this.x3 = (x1+x2)/2 + spikeHeight*Math.sin(base.tilt());
 		this.y3 = (y1+y2)/2 - spikeHeight*Math.cos(base.tilt());
 		this.spikeHeight = spikeHeight;

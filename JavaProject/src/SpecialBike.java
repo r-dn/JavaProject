@@ -1,3 +1,4 @@
+
 import java.awt.Color;
 
 public class SpecialBike extends Bike {

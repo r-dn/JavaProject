@@ -98,7 +98,7 @@ public class LineSegment {
 	}
 
 	public void draw(Graphics2D g2D) {
-		g2D.setColor(Color.darkGray); // vroeger: new Color(100, 100, 100)
+		g2D.setColor(Color.darkGray);
 		g2D.setStroke(stroke);
 		g2D.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2));
 	}
@@ -134,19 +134,6 @@ public class LineSegment {
 		g2D.setStroke(stroke);
 		g2D.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 		
-		/*//if (bush != null) {
-		//	bush.draw(g2D);
-		//}
 		
-		if (coin != null) {
-			coin.draw(g2D);
-		}
-		// we tekenen de spikes in landscape, omdat ze anders niet allemaal deftig zichtbaar zijn
-		if (spike != null) {
-			spike.draw(g2D);
-		}
-	
-
-		}*/
 	}
 }

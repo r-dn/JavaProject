@@ -28,8 +28,6 @@ public class Landscape {
 	public double time;
 	public int coins;
 
-	// TODO: Kijken naar de attributen van cloud en moon --> zullen ze altijd binnen
-	// het scherm vallen?
 	private static final Cloud LEFTCLOUD = new Cloud(Main.screenWidth / 30, Main.screenHeight / 15, 9);
 	private static final Cloud MIDDLECLOUD = new Cloud(Main.screenWidth / 3, Main.screenHeight / 20 + 25, 10);
 	private static final Cloud RIGHTCLOUD = new Cloud(Main.screenWidth - 300, Main.screenHeight / 20 + 10, 13);
@@ -39,7 +37,7 @@ public class Landscape {
 	public Landscape(Bike bike, int frameWidth) {
 		this.bike = bike;
 
-		// Dit lijkt me een goede lengte
+	
 		length = frameWidth / 20;
 
 		// De lijnsegmenten genereren
