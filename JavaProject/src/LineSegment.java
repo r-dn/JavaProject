@@ -4,7 +4,6 @@ import java.awt.BasicStroke;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Toolkit;
 import java.util.Random;
 
 /* Een Lijnsegment
@@ -20,23 +19,28 @@ public class LineSegment {
 	private static final Color groundColor = new Color(120, 100, 60);
 	public static final Color skyColor = new Color(44, 52, 210);
 	private static final Color roadColor = new Color(34, 177, 76);
-	public static final double spikeHeight = 100;
+	public static final double spikeHeight = 50;
 	private static final Color DARKGREEN = new Color(0, 153, 0);
 
 	public Bush bush;
 	
 
-	public LineSegment(double x1, double y1, double x2, double y2, boolean attributes) {
+	public LineSegment(double x1, double y1, double x2, double y2, boolean hasCoin, boolean hasSpike) {
 		this.x1 = x1;
 		this.y1 = y1;
 		this.x2 = x2;
 		this.y2 = y2;
 		Random rng = new Random();
-		if (rng.nextDouble() < 0.1 && attributes) {
+		if (rng.nextDouble() < 0.1 && hasCoin) {
 			this.coin = new Coin(x1, y1 - Main.screenHeight / 8);
 		}
 
-		if (rng.nextDouble() < 0.05 && attributes) {
+
+
+
+
+		if (rng.nextDouble() < 0.1 && hasSpike) {
+
 
 			this.spike = new Spike(x1, y1, (x1+x2)/2, (y1+y2)/2, spikeHeight);
 		}
@@ -49,16 +53,16 @@ public class LineSegment {
 
 	// Dit is een andere constructor, die een willekeurig lijnsegment aanmaakt met
 	// vast beginpunt en vaste lengte
-	public static LineSegment random(double x1, double y1, double length, double limit, boolean decorations) {
+	public static LineSegment random(double x1, double y1, double length, double limit, boolean hasCoin, boolean hasSpike) {
 		Random rng = new Random();
 		// limit geeft aan hoever het lijnstuk mag varieren in hoogte
-		LineSegment ret = new LineSegment(x1, y1, x1 + length, y1 + rng.nextDouble() * 2 * limit - limit, decorations);
+		LineSegment ret = new LineSegment(x1, y1, x1 + length, y1 + rng.nextDouble() * 2 * limit - limit, hasCoin, hasSpike);
 		return ret;
 
 	}
 
 	// Lijnsegment met een willk hoek met het vorige segment
-	public static LineSegment randomTilt(LineSegment previous, double length, double maxDeltaTilt, double maxTilt, boolean decorations) {
+	public static LineSegment randomTilt(LineSegment previous, double length, double maxDeltaTilt, double maxTilt, boolean hasCoin, boolean hasSpike) {
 		Random rng = new Random();
 		double deltaTilt = rng.nextGaussian() * maxDeltaTilt / 3;
 		double totalTilt = previous.tilt() + deltaTilt;
@@ -70,7 +74,7 @@ public class LineSegment {
 		}
 
 		LineSegment ret = new LineSegment(previous.x2, previous.y2, previous.x2 + length,
-				previous.y2 + length * Math.sin(totalTilt), decorations);
+				previous.y2 + length * Math.sin(totalTilt), hasCoin, hasSpike);
 		return ret;
 
 	}
